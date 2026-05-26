@@ -1,0 +1,167 @@
+[
+  {
+    "id": "store-001",
+    "name": "Daily Bread Bakery",
+    "branch": "Sudirman",
+    "image": null,
+    "rating": 4.8,
+    "reviewCount": 120,
+    "distance": "1.2 km",
+    "address": "Jl. Jend. Sudirman Kav 21, Jakarta Selatan",
+    "tags": ["Artisanal", "Bread", "Coffee"],
+    "category": "bakery",
+    "description": "Artisanal sourdough, flaky croissants, and daily fresh bakes. Help us save perfectly good pastries before closing time.",
+    "isOpen": true,
+    "pickupWindow": "19:00 - 20:30",
+    "lat": -6.2088,
+    "lng": 106.8456,
+    "surpriseBags": [
+      {
+        "id": "bag-001",
+        "name": "Surprise Pastry Box",
+        "description": "A mix of sweet and savory pastries from today's batch",
+        "image": null,
+        "originalPrice": 50000,
+        "discountedPrice": 25000,
+        "quantityLeft": 2,
+        "maxPerOrder": 3
+      },
+      {
+        "id": "bag-002",
+        "name": "Sourdough Loaf",
+        "description": "Classic artisanal sourdough, baked fresh this morning.",
+        "image": null,
+        "originalPrice": 25000,
+        "discountedPrice": 10000,
+        "quantityLeft": 1,
+        "maxPerOrder": 2
+      }
+    ]
+  },
+  {
+    "id": "store-002",
+    "name": "SaladStop!",
+    "branch": "Kemang",
+    "image": null,
+    "rating": 4.5,
+    "reviewCount": 89,
+    "distance": "1.7 km",
+    "address": "Jl. Kemang Raya No. 8, Jakarta Selatan",
+    "tags": ["Healthy", "Salad", "Bowls"],
+    "category": "healthy",
+    "description": "Fresh salads and grain bowls made daily. Rescue our end-of-day surplus!",
+    "isOpen": true,
+    "pickupWindow": "20:00 - 21:00",
+    "lat": -6.2600,
+    "lng": 106.8133,
+    "surpriseBags": [
+      {
+        "id": "bag-003",
+        "name": "Mystery Salad Bowl",
+        "description": "A generous portion of our signature salad with premium toppings.",
+        "image": null,
+        "originalPrice": 85000,
+        "discountedPrice": 35000,
+        "quantityLeft": 5,
+        "maxPerOrder": 2
+      }
+    ]
+  },
+  {
+    "id": "store-003",
+    "name": "Warung Nasi Padang Sederhana",
+    "branch": "Menteng",
+    "image": null,
+    "rating": 4.6,
+    "reviewCount": 210,
+    "distance": "0.8 km",
+    "address": "Jl. HOS Cokroaminoto No. 15, Menteng",
+    "tags": ["Indonesian", "Rice", "Meals"],
+    "category": "meals",
+    "description": "Authentic Padang cuisine. Grab our end-of-day meal boxes at unbeatable prices.",
+    "isOpen": true,
+    "pickupWindow": "18:30 - 19:30",
+    "lat": -6.1944,
+    "lng": 106.8529,
+    "surpriseBags": [
+      {
+        "id": "bag-004",
+        "name": "Nasi Padang Surprise Box",
+        "description": "Rice with 3 random lauk pairings — always a feast!",
+        "image": null,
+        "originalPrice": 45000,
+        "discountedPrice": 20000,
+        "quantityLeft": 8,
+        "maxPerOrder": 3
+      },
+      {
+        "id": "bag-005",
+        "name": "Rendang Family Pack",
+        "description": "Generous portion of our famous rendang with steamed rice.",
+        "image": null,
+        "originalPrice": 60000,
+        "discountedPrice": 28000,
+        "quantityLeft": 3,
+        "maxPerOrder": 2
+      }
+    ]
+  },
+  {
+    "id": "store-004",
+    "name": "Tous Les Jours",
+    "branch": "Senayan",
+    "image": null,
+    "rating": 4.3,
+    "reviewCount": 64,
+    "distance": "2.1 km",
+    "address": "Senayan City Mall, Lt. GF, Jakarta",
+    "tags": ["Bakery", "Pastry", "Cakes"],
+    "category": "bakery",
+    "description": "French-Asian bakery with fresh cakes and pastries. Save our daily leftovers!",
+    "isOpen": false,
+    "pickupWindow": "20:00 - 21:00",
+    "lat": -6.2273,
+    "lng": 106.7970,
+    "surpriseBags": [
+      {
+        "id": "bag-006",
+        "name": "Cake & Pastry Box",
+        "description": "Assorted cakes and pastries from today's display.",
+        "image": null,
+        "originalPrice": 120000,
+        "discountedPrice": 50000,
+        "quantityLeft": 3,
+        "maxPerOrder": 1
+      }
+    ]
+  },
+  {
+    "id": "store-005",
+    "name": "Kopi Kenangan",
+    "branch": "Thamrin",
+    "image": null,
+    "rating": 4.4,
+    "reviewCount": 156,
+    "distance": "0.5 km",
+    "address": "Jl. MH Thamrin No. 10, Jakarta Pusat",
+    "tags": ["Coffee", "Snacks", "Drinks"],
+    "category": "coffee",
+    "description": "Indonesia's favorite coffee chain. Grab discounted pastries and snack boxes!",
+    "isOpen": true,
+    "pickupWindow": "19:30 - 21:00",
+    "lat": -6.1950,
+    "lng": 106.8230,
+    "surpriseBags": [
+      {
+        "id": "bag-007",
+        "name": "Coffee & Snack Combo",
+        "description": "A surprise selection of our pastries paired with a bottled coffee.",
+        "image": null,
+        "originalPrice": 55000,
+        "discountedPrice": 25000,
+        "quantityLeft": 6,
+        "maxPerOrder": 2
+      }
+    ]
+  }
+]

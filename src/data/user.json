@@ -1,0 +1,18 @@
+{
+  "id": "user-001",
+  "name": "Gerald Martadinata",
+  "email": "gerald@email.com",
+  "avatar": null,
+  "tier": "Food Rescuer Gold",
+  "impact": {
+    "foodSavedKg": 12,
+    "totalOrders": 24,
+    "moneySaved": 450000
+  },
+  "milestone": {
+    "current": "Gold",
+    "next": "Platinum",
+    "progress": 85
+  },
+  "pointsBalance": 2400
+}

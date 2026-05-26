@@ -1,0 +1,52 @@
+{
+  "activeOrder": {
+    "id": "ORD-8472-A",
+    "orderCode": "#SB-9824A",
+    "storeId": "store-001",
+    "storeName": "Daily Bread Bakery",
+    "storeBranch": "Sudirman",
+    "storeAvatar": null,
+    "pickupWindow": "19:00 - 20:30",
+    "items": [
+      {
+        "bagId": "bag-001",
+        "name": "Surprise Pastry Box",
+        "quantity": 1,
+        "price": 25000
+      }
+    ],
+    "subtotal": 25000,
+    "platformFee": 2000,
+    "total": 27000,
+    "paymentMethod": "GoPay",
+    "status": "preparing",
+    "timeline": [
+      {
+        "step": "confirmed",
+        "label": "Pesanan Dikonfirmasi",
+        "description": "18:30 - Penjual telah menerima pesanan Anda.",
+        "time": "18:30",
+        "completed": true
+      },
+      {
+        "step": "preparing",
+        "label": "Sedang Disiapkan",
+        "description": "Makanan sedang dikemas untuk diselamatkan.",
+        "time": null,
+        "completed": false,
+        "active": true
+      },
+      {
+        "step": "ready",
+        "label": "Siap Diambil",
+        "description": "Tunjukkan QR code saat tiba di toko.",
+        "time": null,
+        "completed": false
+      }
+    ],
+    "storeLat": -6.2088,
+    "storeLng": 106.8456,
+    "foodSavedKg": 1.2
+  },
+  "pastOrders": []
+}

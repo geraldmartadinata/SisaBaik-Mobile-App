@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #E5E7EB;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #root {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer components {
+  /* Mobile wrapper container */
+  .mobile-container {
+    @apply max-w-[430px] w-full mx-auto h-[932px] overflow-hidden shadow-2xl relative bg-gray-50 rounded-[40px] border border-gray-200;
+  }
+
+  /* Page transition wrapper */
+  .page-wrapper {
+    @apply h-full w-full flex flex-col overflow-hidden;
+  }
+
+  /* Scrollable content area */
+  .page-content {
+    @apply flex-1 overflow-y-auto no-scrollbar;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply w-full bg-primary-600 text-white font-semibold py-3.5 rounded-xl 
+           hover:bg-primary-700 active:scale-[0.98] transition-all duration-200
+           flex items-center justify-center gap-2;
+  }
+
+  /* Card component */
+  .card {
+    @apply bg-white rounded-2xl shadow-card border border-gray-100;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold;
+  }
+
+  .badge-green {
+    @apply badge bg-primary-100 text-primary-700;
+  }
+
+  .badge-urgency {
+    @apply badge bg-red-600 text-white;
+  }
+
+  /* Input field */
+  .input-field {
+    @apply w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm
+           placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 
+           focus:border-transparent transition-all duration-200;
+  }
+
+  /* Bottom navigation */
+  .bottom-nav {
+    @apply flex items-center justify-around py-2 pb-4 bg-white border-t border-gray-100;
+  }
+
+  .bottom-nav-item {
+    @apply flex flex-col items-center gap-1 py-1 px-4 text-gray-400 transition-colors duration-200;
+  }
+
+  .bottom-nav-item.active {
+    @apply text-primary-600;
+  }
+
+  /* Map placeholder */
+  .map-container {
+    @apply relative w-full bg-gray-200 overflow-hidden;
+  }
+}
+
+@layer utilities {
+  /* Glass effect for overlays */
+  .glass {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  /* Smooth page transition */
+  .page-transition {
+    @apply animate-fade-in;
+  }
+}
