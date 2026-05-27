@@ -1,14 +1,20 @@
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
 import { useOrder } from '../context/OrderContext';
 import OrderTimeline from '../components/ui/OrderTimeline';
 import ordersData from '../data/orders.json';
 
 export default function OrderTrackingPage() {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const { activeOrder: contextOrder } = useOrder();
+  const { getOrderById } = useApp();
+  const { activeOrder: legacyOrder } = useOrder();
 
-  // Use context order if available, otherwise fallback to dummy data
-  const order = contextOrder || ordersData.activeOrder;
+  const [showQR, setShowQR] = useState(false);
+
+  // Try AppContext first, then legacy OrderContext, then dummy data
+  const order = getOrderById(id) || legacyOrder || ordersData.activeOrder;
 
   if (!order) {
     return (
@@ -29,7 +35,7 @@ export default function OrderTrackingPage() {
         {/* Header */}
         <div className="flex items-center gap-3 px-5 pt-5 pb-4 bg-white">
           <button
-            onClick={() => navigate('/home')}
+            onClick={() => navigate('/orders')}
             className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center active:scale-90 transition-transform"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -103,23 +109,117 @@ export default function OrderTrackingPage() {
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="space-y-3 pb-4">
-            <button className="btn-primary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                <path d="M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01" />
-              </svg>
-              <span>Tampilkan QR Code</span>
-            </button>
-            <button className="w-full text-center text-sm font-medium text-gray-500 hover:text-gray-700 py-2 flex items-center justify-center gap-2 transition-colors">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-              </svg>
-              Chat Toko
-            </button>
+          {/* QR Code Section */}
+          <div className={`card overflow-hidden transition-all duration-300 ${showQR ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0 border-0 shadow-none'}`}>
+            <div className="p-5 flex flex-col items-center">
+              {/* QR Code Dummy */}
+              <div className="w-48 h-48 bg-white border-2 border-gray-200 rounded-2xl p-3 flex items-center justify-center">
+                <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* QR outer frame */}
+                  <rect x="4" y="4" width="152" height="152" rx="4" fill="white" stroke="#111827" strokeWidth="2"/>
+                  {/* Top-left finder pattern */}
+                  <rect x="12" y="12" width="40" height="40" rx="2" fill="#111827"/>
+                  <rect x="18" y="18" width="28" height="28" rx="1" fill="white"/>
+                  <rect x="24" y="24" width="16" height="16" rx="1" fill="#111827"/>
+                  {/* Top-right finder pattern */}
+                  <rect x="108" y="12" width="40" height="40" rx="2" fill="#111827"/>
+                  <rect x="114" y="18" width="28" height="28" rx="1" fill="white"/>
+                  <rect x="120" y="24" width="16" height="16" rx="1" fill="#111827"/>
+                  {/* Bottom-left finder pattern */}
+                  <rect x="12" y="108" width="40" height="40" rx="2" fill="#111827"/>
+                  <rect x="18" y="114" width="28" height="28" rx="1" fill="white"/>
+                  <rect x="24" y="120" width="16" height="16" rx="1" fill="#111827"/>
+                  {/* Data modules - row 1 */}
+                  <rect x="60" y="12" width="8" height="8" fill="#111827"/>
+                  <rect x="76" y="12" width="8" height="8" fill="#111827"/>
+                  <rect x="92" y="12" width="8" height="8" fill="#111827"/>
+                  {/* Data modules - row 2 */}
+                  <rect x="60" y="24" width="8" height="8" fill="#111827"/>
+                  <rect x="84" y="24" width="8" height="8" fill="#111827"/>
+                  {/* Data modules - row 3 */}
+                  <rect x="60" y="36" width="8" height="8" fill="#111827"/>
+                  <rect x="76" y="36" width="8" height="8" fill="#111827"/>
+                  <rect x="92" y="36" width="8" height="8" fill="#111827"/>
+                  {/* Data modules - middle rows */}
+                  <rect x="12" y="60" width="8" height="8" fill="#111827"/>
+                  <rect x="28" y="60" width="8" height="8" fill="#111827"/>
+                  <rect x="44" y="60" width="8" height="8" fill="#111827"/>
+                  <rect x="60" y="60" width="8" height="8" fill="#111827"/>
+                  <rect x="84" y="60" width="8" height="8" fill="#111827"/>
+                  <rect x="108" y="60" width="8" height="8" fill="#111827"/>
+                  <rect x="124" y="60" width="8" height="8" fill="#111827"/>
+                  <rect x="140" y="60" width="8" height="8" fill="#111827"/>
+                  {/* Center dot */}
+                  <rect x="72" y="72" width="16" height="16" rx="2" fill="#16A34A"/>
+                  {/* More data rows */}
+                  <rect x="12" y="76" width="8" height="8" fill="#111827"/>
+                  <rect x="36" y="76" width="8" height="8" fill="#111827"/>
+                  <rect x="60" y="76" width="8" height="8" fill="#111827"/>
+                  <rect x="100" y="76" width="8" height="8" fill="#111827"/>
+                  <rect x="124" y="76" width="8" height="8" fill="#111827"/>
+                  <rect x="140" y="76" width="8" height="8" fill="#111827"/>
+                  {/* Bottom data */}
+                  <rect x="12" y="92" width="8" height="8" fill="#111827"/>
+                  <rect x="28" y="92" width="8" height="8" fill="#111827"/>
+                  <rect x="44" y="92" width="8" height="8" fill="#111827"/>
+                  <rect x="60" y="92" width="8" height="8" fill="#111827"/>
+                  <rect x="76" y="92" width="8" height="8" fill="#111827"/>
+                  <rect x="92" y="92" width="8" height="8" fill="#111827"/>
+                  <rect x="108" y="92" width="8" height="8" fill="#111827"/>
+                  <rect x="124" y="92" width="8" height="8" fill="#111827"/>
+                  <rect x="140" y="92" width="8" height="8" fill="#111827"/>
+                  {/* Bottom right data */}
+                  <rect x="60" y="108" width="8" height="8" fill="#111827"/>
+                  <rect x="84" y="108" width="8" height="8" fill="#111827"/>
+                  <rect x="108" y="108" width="8" height="8" fill="#111827"/>
+                  <rect x="140" y="108" width="8" height="8" fill="#111827"/>
+                  <rect x="60" y="124" width="8" height="8" fill="#111827"/>
+                  <rect x="76" y="124" width="8" height="8" fill="#111827"/>
+                  <rect x="108" y="124" width="8" height="8" fill="#111827"/>
+                  <rect x="124" y="124" width="8" height="8" fill="#111827"/>
+                  <rect x="60" y="140" width="8" height="8" fill="#111827"/>
+                  <rect x="84" y="140" width="8" height="8" fill="#111827"/>
+                  <rect x="108" y="140" width="8" height="8" fill="#111827"/>
+                  <rect x="140" y="140" width="8" height="8" fill="#111827"/>
+                </svg>
+              </div>
+
+              {/* Label */}
+              <div className="mt-4 text-center">
+                <p className="text-sm font-semibold text-gray-900">Tunjukkan QR ini ke Kasir</p>
+                <p className="text-xs text-gray-500 mt-1">Order: {order.orderCode || `#${order.id}`}</p>
+              </div>
+            </div>
           </div>
+
+          {/* Spacer for bottom buttons */}
+          <div className="h-4" />
         </div>
+      </div>
+
+      {/* Bottom Action Buttons */}
+      <div className="flex-none p-4 bg-white shadow-bottom-bar border-t border-gray-100 space-y-3">
+        {/* Primary: Tampilkan QR */}
+        <button
+          onClick={() => setShowQR(prev => !prev)}
+          className="btn-primary"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <path d="M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01" />
+          </svg>
+          <span>{showQR ? 'Sembunyikan QR' : 'Tampilkan QR'}</span>
+        </button>
+
+        {/* Secondary outline: Chat Toko */}
+        <button
+          className="w-full py-3.5 rounded-xl border-2 border-gray-200 text-gray-700 text-sm font-semibold hover:bg-gray-50 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+          Chat Toko
+        </button>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ export default function ImpactDashboard({ impact, milestone }) {
       <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-card">
         <h3 className="text-xs font-semibold text-gray-400 tracking-wider uppercase mb-4">MY IMPACT</h3>
         
-        <div className="grid grid-cols-3 gap-4 text-center">
+        <div className="w-full grid grid-cols-3 gap-2 sm:gap-4 text-center">
           <div>
             <p className="text-2xl font-bold text-gray-900">{impact.foodSavedKg}kg</p>
             <p className="text-[11px] text-gray-500 mt-0.5">Food Saved</p>

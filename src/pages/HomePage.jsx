@@ -21,7 +21,7 @@ export default function HomePage() {
 
   return (
     <div className="page-wrapper bg-gray-50 page-transition">
-      {/* Map Area (takes up most of the screen) */}
+      {/* Map Area (takes up most of the screen inside the phone frame) */}
       <div className="relative flex-1 bg-gradient-to-b from-green-50 to-gray-100 overflow-hidden">
         {/* Header overlay */}
         <div className="absolute top-0 left-0 right-0 z-10 pt-4 px-5">
@@ -152,8 +152,8 @@ export default function HomePage() {
       </div>
 
       {/* Store Cards Carousel - Bottom */}
-      <div className="bg-white border-t border-gray-100 pt-4 pb-2">
-        <div className="flex gap-3 overflow-x-auto no-scrollbar px-5 pb-3">
+      <div className="flex-none w-full bg-white border-t border-gray-100 pt-4 pb-2">
+        <div className="flex w-full gap-3 overflow-x-auto no-scrollbar px-5 pb-3">
           {filteredStores.filter(s => s.isOpen).map(store => (
             <StoreCard key={store.id} store={store} />
           ))}

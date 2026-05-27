@@ -1,16 +1,30 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import SurpriseBagCard from '../components/ui/SurpriseBagCard';
 import Badge from '../components/ui/Badge';
+import PaymentSuccessModal from '../components/modals/PaymentSuccessModal';
 import { formatCurrency } from '../utils/formatCurrency';
 import storesData from '../data/stores.json';
 
 export default function StoreDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { totalItems, subtotal, store: cartStore } = useCart();
 
   const store = storesData.find(s => s.id === id);
+
+  // ── Payment success modal state ──
+  const [completedOrder, setCompletedOrder] = useState(null);
+
+  useEffect(() => {
+    if (location.state?.completedOrder) {
+      setCompletedOrder(location.state.completedOrder);
+      // Clear the router state so a refresh won't re-show the modal
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location.state]);
 
   if (!store) {
     return (
@@ -115,7 +129,7 @@ export default function StoreDetailPage() {
         </div>
 
         {/* Surprise Bags Section */}
-        <div className="px-5 pt-4 pb-28">
+        <div className="px-5 pt-4 pb-6">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-lg font-bold text-gray-900">Available Today</h2>
             <div className="flex items-center gap-1 text-xs text-gray-500">
@@ -137,7 +151,7 @@ export default function StoreDetailPage() {
 
       {/* Sticky Bottom Cart Bar */}
       {showCartBar && (
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-white shadow-bottom-bar border-t border-gray-100 animate-slide-up">
+        <div className="flex-none p-4 bg-white shadow-bottom-bar border-t border-gray-100 animate-slide-up">
           <button
             onClick={() => navigate('/checkout')}
             className="btn-primary"
@@ -151,6 +165,15 @@ export default function StoreDetailPage() {
           </button>
         </div>
       )}
+
+      {/* Payment Success Modal — shown after checkout redirect */}
+      {completedOrder && (
+        <PaymentSuccessModal
+          order={completedOrder}
+          onClose={() => setCompletedOrder(null)}
+        />
+      )}
     </div>
   );
 }
+

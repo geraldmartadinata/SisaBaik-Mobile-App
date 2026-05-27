@@ -1,36 +1,33 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { useOrder } from '../context/OrderContext';
+import { useApp } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
 import PaymentMethodSelector from '../components/ui/PaymentMethodSelector';
-import PaymentSuccessModal from '../components/modals/PaymentSuccessModal';
 import { formatCurrency } from '../utils/formatCurrency';
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
   const { items, store, subtotal, total, platformFee, clearCart } = useCart();
-  const { createOrder } = useOrder();
+  const { createOrder: appCreateOrder, clearCart: appClearCart } = useApp();
   const { user } = useAuth();
   const [paymentMethod, setPaymentMethod] = useState('gopay');
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [createdOrder, setCreatedOrder] = useState(null);
 
   if (!store || items.length === 0) {
     return (
       <div className="page-wrapper bg-white flex items-center justify-center">
-        <div className="text-center">
+        <main className="text-center">
           <p className="text-gray-400 mb-4">Your cart is empty</p>
           <button onClick={() => navigate('/home')} className="text-primary-600 font-semibold">
             Browse stores →
           </button>
-        </div>
+        </main>
       </div>
     );
   }
 
   const handlePayment = () => {
-    const order = createOrder({
+    const order = appCreateOrder({
       storeId: store.id,
       storeName: store.name,
       storeBranch: store.branch,
@@ -51,16 +48,20 @@ export default function CheckoutPage() {
       userName: user?.name,
     });
 
-    setCreatedOrder(order);
-    setShowSuccess(true);
+    // Clear cart in both contexts
     clearCart();
+    appClearCart();
+
+    // Navigate back to the store detail page with the completed order in state
+    navigate(`/store/${store.id}`, { state: { completedOrder: order }, replace: true });
   };
 
   return (
     <div className="page-wrapper bg-gray-50 page-transition">
-      <div className="page-content">
-        {/* Header */}
-        <div className="flex items-center gap-3 px-5 pt-5 pb-4 bg-white">
+      
+      {/* 1. Header Area (Fixed) */}
+      <header className="flex-none z-10 bg-white">
+        <div className="flex items-center gap-3 px-5 pt-5 pb-4">
           <button
             onClick={() => navigate(-1)}
             className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center active:scale-90 transition-transform"
@@ -71,7 +72,10 @@ export default function CheckoutPage() {
           </button>
           <h1 className="text-lg font-bold text-gray-900">Checkout</h1>
         </div>
+      </header>
 
+      {/* 2. Scrollable App Content */}
+      <main className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden w-full relative no-scrollbar">
         <div className="px-5 py-4 space-y-4">
           {/* Pickup Details */}
           <div className="card p-4">
@@ -152,10 +156,10 @@ export default function CheckoutPage() {
             <PaymentMethodSelector selected={paymentMethod} onSelect={setPaymentMethod} />
           </div>
         </div>
-      </div>
+      </main>
 
-      {/* Pay Button */}
-      <div className="p-5 bg-white shadow-bottom-bar border-t border-gray-100">
+      {/* 3. Bottom Navigation (Fixed) */}
+      <nav className="flex-none z-10 bg-white shadow-bottom-bar border-t border-gray-100 p-5">
         <button
           onClick={handlePayment}
           className="btn-primary"
@@ -166,15 +170,8 @@ export default function CheckoutPage() {
             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>
         </button>
-      </div>
+      </nav>
 
-      {/* Payment Success Modal */}
-      {showSuccess && (
-        <PaymentSuccessModal
-          order={createdOrder}
-          onClose={() => setShowSuccess(false)}
-        />
-      )}
     </div>
   );
 }
