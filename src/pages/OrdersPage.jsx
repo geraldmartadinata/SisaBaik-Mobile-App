@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import BottomNavBar from '../components/ui/BottomNavBar';
 import ReviewModal from '../components/modals/ReviewModal';
@@ -7,9 +7,22 @@ import { formatCurrency } from '../utils/formatCurrency';
 
 export default function OrdersPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { activeOrders, completedOrders } = useApp();
   const [activeTab, setActiveTab] = useState('active');
   const [reviewOrder, setReviewOrder] = useState(null);
+
+  useEffect(() => {
+    if (location.state?.orderCompleted && location.state?.completedOrderId) {
+      setActiveTab('completed');
+      const orderToReview = completedOrders.find(o => o.id === location.state.completedOrderId);
+      if (orderToReview) {
+        setReviewOrder(orderToReview);
+      }
+      // Clear state so it doesn't pop up again on refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state, completedOrders]);
 
   const getStatusLabel = (status) => {
     const map = {
@@ -42,8 +55,11 @@ export default function OrdersPage() {
         disabled={isCompleted}
       >
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center flex-shrink-0">
-            <span className="text-xl">🏪</span>
+          <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center flex-shrink-0">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
           </div>
           <div className="flex-1 min-w-0">
             <h3 className="font-semibold text-gray-900 text-[15px] truncate">

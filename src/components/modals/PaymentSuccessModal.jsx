@@ -27,7 +27,10 @@ export default function PaymentSuccessModal({ order, onClose }) {
         {/* Eco Impact Badge */}
         <div className="flex justify-center mt-4">
           <div className="inline-flex items-center gap-2 bg-primary-50 text-primary-700 px-4 py-2 rounded-full border border-primary-100">
-            <span className="text-lg">🌱</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
             <span className="text-sm font-semibold">{order.foodSavedKg}kg food saved!</span>
           </div>
         </div>

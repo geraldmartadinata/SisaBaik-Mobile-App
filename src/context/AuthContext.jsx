@@ -17,6 +17,7 @@ export function AuthProvider({ children }) {
   const logout = () => {
     setUser(null);
     setIsLoggedIn(false);
+    localStorage.removeItem('sisabaik_role');
   };
 
   return (

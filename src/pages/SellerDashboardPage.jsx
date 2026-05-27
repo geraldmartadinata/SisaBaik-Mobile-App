@@ -11,7 +11,7 @@ export default function SellerDashboardPage() {
       <div className="flex flex-col space-y-6 pb-6">
         {/* Header */}
       <header className="px-5 pt-8">
-        <h1 className="text-2xl font-bold text-gray-900">Halo, Toko Roti Makmur 👋</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Halo, Toko Roti Makmur</h1>
         <p className="text-gray-500 text-sm mt-1">Kelola penjualan makanan surplus Anda hari ini.</p>
       </header>
 
@@ -58,7 +58,11 @@ export default function SellerDashboardPage() {
         {listings.length === 0 ? (
           <div className="bg-white border border-gray-100 rounded-2xl p-6 text-center">
             <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-3">
-              <span className="text-xl">🛍️</span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
             </div>
             <p className="text-gray-500 text-sm">Belum ada listing aktif saat ini.</p>
           </div>

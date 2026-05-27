@@ -32,8 +32,11 @@ export default function ReviewModal({ order, onClose }) {
           <>
             {/* Header */}
             <div className="text-center mb-5">
-              <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center">
-                <span className="text-2xl">🏪</span>
+              <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-primary-50 flex items-center justify-center border-4 border-white shadow-sm">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
               </div>
               <h2 className="text-lg font-bold text-gray-900">Beri Ulasan</h2>
               <p className="text-sm text-gray-500 mt-1">{order.storeName}</p>
@@ -68,14 +71,13 @@ export default function ReviewModal({ order, onClose }) {
 
             {/* Rating label */}
             <div className="text-center mb-5">
-              <span className="text-sm font-medium text-gray-500">
-                {rating === 0 && 'Ketuk bintang untuk memberi rating'}
-                {rating === 1 && 'Sangat Buruk 😞'}
-                {rating === 2 && 'Kurang Baik 😕'}
-                {rating === 3 && 'Cukup Baik 😐'}
-                {rating === 4 && 'Baik 😊'}
-                {rating === 5 && 'Sangat Baik! 🤩'}
-              </span>
+              <p className="text-sm font-medium text-gray-700 h-5">
+                {rating === 1 && 'Sangat Buruk'}
+                {rating === 2 && 'Kurang Baik'}
+                {rating === 3 && 'Cukup Baik'}
+                {rating === 4 && 'Baik'}
+                {rating === 5 && 'Sangat Baik!'}
+              </p>
             </div>
 
             {/* Actions */}

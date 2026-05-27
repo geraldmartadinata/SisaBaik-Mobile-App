@@ -1,8 +1,11 @@
 import { CATEGORIES } from '../../utils/constants';
+import useDraggableScroll from '../../hooks/useDraggableScroll';
 
 export default function CategoryFilter({ activeCategory, onCategoryChange }) {
+  const scrollRef = useDraggableScroll();
+  
   return (
-    <div className="flex gap-2 overflow-x-auto no-scrollbar px-5 py-2">
+    <div ref={scrollRef} className="flex gap-2 overflow-x-auto no-scrollbar px-5 py-2 cursor-grab active:cursor-grabbing select-none">
       {CATEGORIES.map((cat) => (
         <button
           key={cat.id}

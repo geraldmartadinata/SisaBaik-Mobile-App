@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
-import ImpactDashboard from '../components/ui/ImpactDashboard';
-import BottomNavBar from '../components/ui/BottomNavBar';
 import MerchantBottomNav from '../components/ui/MerchantBottomNav';
 
 const menuItems = [
@@ -13,7 +11,7 @@ const menuItems = [
         <circle cx="12" cy="7" r="4" />
       </svg>
     ),
-    label: 'Edit Profil',
+    label: 'Edit Profil Toko',
   },
   {
     icon: (
@@ -22,7 +20,7 @@ const menuItems = [
         <line x1="1" y1="10" x2="23" y2="10" />
       </svg>
     ),
-    label: 'Metode Pembayaran',
+    label: 'Rekening Bank',
   },
   {
     icon: (
@@ -31,7 +29,7 @@ const menuItems = [
         <path d="M13.73 21a2 2 0 0 1-3.46 0" />
       </svg>
     ),
-    label: 'Notifikasi',
+    label: 'Notifikasi Toko',
   },
   {
     icon: (
@@ -41,7 +39,7 @@ const menuItems = [
         <line x1="12" y1="17" x2="12.01" y2="17" />
       </svg>
     ),
-    label: 'Bantuan & Laporan',
+    label: 'Pusat Bantuan Mitra',
   },
   {
     icon: (
@@ -54,10 +52,10 @@ const menuItems = [
   },
 ];
 
-export default function ProfilePage() {
+export default function SellerProfilePage() {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
-  const { role } = useApp();
+  const { logout } = useAuth();
+  const { setRole } = useApp();
 
   const handleLogout = () => {
     logout();
@@ -79,49 +77,48 @@ export default function ProfilePage() {
 
           {/* Name & Tier */}
           <h2 className="mt-4 text-lg font-bold text-gray-900">
-            {user?.name || 'Gerald Martadinata'}
+            Toko Roti Makmur
           </h2>
-          <span className="inline-flex items-center gap-1.5 mt-1.5 px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-semibold border border-amber-100">
-            <span>🏆</span>
-            {user?.tier || 'Food Rescuer Gold'}
+          <span className="inline-flex items-center gap-1.5 mt-1.5 px-3 py-1 bg-primary-50 text-primary-700 rounded-full text-xs font-semibold border border-primary-100">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+            Merchant Aktif
           </span>
         </div>
 
         <div className="w-full px-5 py-4 space-y-4">
-          {/* Dashboard */}
-          <ImpactDashboard
-            impact={user?.impact || { foodSavedKg: 12, totalOrders: 24, moneySaved: 450000 }}
-            milestone={user?.milestone || { current: 'Gold', next: 'Platinum', progress: 85 }}
-          />
+          {/* Dashboard Switch */}
+          <div className="bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl p-5 text-white shadow-lg shadow-primary-600/30">
+            <h2 className="text-sm font-medium text-primary-100 mb-4 opacity-90 tracking-wide uppercase">Kinerja Toko</h2>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="text-2xl font-bold">Rp 450.000</p>
+                <p className="text-xs text-primary-100 mt-1">Penjualan Minggu Ini</p>
+              </div>
+              <div className="border-l border-primary-500/50 pl-4">
+                <p className="text-2xl font-bold">4.8 <span className="text-sm font-normal text-amber-300">★</span></p>
+                <p className="text-xs text-primary-100 mt-1">Rating Toko</p>
+              </div>
+            </div>
+          </div>
 
           {/* Seller Action Button */}
-          {role === 'buyer' ? (
-            <button
-              onClick={() => navigate('/register-merchant')}
-              className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold py-3.5 rounded-xl 
-                         hover:from-amber-600 hover:to-orange-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" />
-              </svg>
-              <span>Daftar sebagai Penjual</span>
-            </button>
-          ) : (
-            <button
-              onClick={() => navigate('/seller-dashboard')}
-              className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-3.5 rounded-xl 
-                         hover:from-purple-700 hover:to-indigo-700 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-              </svg>
-              <span>Dashboard Penjual</span>
-            </button>
-          )}
+          <button
+            onClick={() => {
+              setRole('buyer');
+              navigate('/profile');
+            }}
+            className="w-full bg-white border-2 border-primary-600 text-primary-600 font-semibold py-3.5 rounded-xl 
+                       hover:bg-primary-50 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <span>Beralih ke Tampilan Pembeli</span>
+          </button>
 
           {/* Menu Items */}
           <div className="card overflow-hidden">
@@ -156,7 +153,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Bottom Navigation */}
-      {role === 'seller' ? <MerchantBottomNav /> : <BottomNavBar />}
+      <MerchantBottomNav />
     </div>
   );
 }

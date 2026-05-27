@@ -27,7 +27,7 @@ const navItems = [
     ),
   },
   {
-    to: '/profile', // Profile page handles both roles
+    to: '/seller-profile',
     label: 'Profil',
     icon: (active) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill={active ? '#16A34A' : 'none'} stroke={active ? '#16A34A' : '#9CA3AF'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

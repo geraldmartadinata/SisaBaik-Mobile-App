@@ -12,6 +12,7 @@ import CheckoutPage from './pages/CheckoutPage';
 import OrderTrackingPage from './pages/OrderTrackingPage';
 import OrdersPage from './pages/OrdersPage';
 import ProfilePage from './pages/ProfilePage';
+import SellerProfilePage from './pages/SellerProfilePage';
 import RegisterMerchantPage from './pages/RegisterMerchantPage';
 import SellerDashboardPage from './pages/SellerDashboardPage';
 import SellerOrdersPage from './pages/SellerOrdersPage';
@@ -34,6 +35,7 @@ export default function App() {
                   <Route path="/order/:id" element={<OrderTrackingPage />} />
                   <Route path="/orders" element={<OrdersPage />} />
                   <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/seller-profile" element={<SellerProfilePage />} />
                   <Route path="/register-merchant" element={<RegisterMerchantPage />} />
                   <Route path="/seller-dashboard" element={<SellerDashboardPage />} />
                   <Route path="/seller-orders" element={<SellerOrdersPage />} />

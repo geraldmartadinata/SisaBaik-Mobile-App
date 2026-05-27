@@ -10,7 +10,11 @@ export default function SurpriseBagCard({ bag, store }) {
     <div className="flex gap-3.5 p-4 bg-white rounded-2xl border border-gray-100 shadow-card animate-fade-in">
       {/* Bag Image */}
       <div className="relative w-[90px] h-[90px] flex-shrink-0 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl flex items-center justify-center overflow-hidden">
-        <span className="text-3xl">🎁</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <path d="M16 10a4 4 0 0 1-8 0" />
+        </svg>
         {/* Discount tag */}
         <div className="absolute top-1.5 left-1.5 bg-primary-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md">
           {discountPercent}%

@@ -18,7 +18,12 @@ export default function StoreCard({ store }) {
       {/* Store Image */}
       <div className="relative h-[130px] bg-gradient-to-br from-primary-100 to-primary-200 overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-4xl">🏪</div>
+          <div className="text-gray-400">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+          </div>
         </div>
         {/* Urgency Badge */}
         {totalLeft <= 5 && (

@@ -40,7 +40,10 @@ export default function RegisterMerchantPage() {
         <main className="px-5 py-6">
           <div className="text-center mb-8">
             <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-3xl">🏬</span>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
             </div>
             <h2 className="text-xl font-bold text-gray-900">Bergabung dengan SisaBaik</h2>
             <p className="text-sm text-gray-500 mt-2">Ubah makanan berlebih Anda menjadi pendapatan dan selamatkan lingkungan.</p>
