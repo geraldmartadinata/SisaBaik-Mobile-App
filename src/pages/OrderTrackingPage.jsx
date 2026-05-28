@@ -4,6 +4,9 @@ import { useApp } from '../context/AppContext';
 import { useOrder } from '../context/OrderContext';
 import OrderTimeline from '../components/ui/OrderTimeline';
 import ordersData from '../data/orders.json';
+import storesData from '../data/stores.json';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import L from 'leaflet';
 
 export default function OrderTrackingPage() {
   const { id } = useParams();
@@ -93,31 +96,55 @@ export default function OrderTrackingPage() {
 
           {/* Map */}
           <div className="card overflow-hidden">
-            <div className="h-[180px] bg-gradient-to-br from-green-50 to-gray-100 relative">
-              {/* Simulated map */}
-              <svg className="absolute inset-0 w-full h-full opacity-[0.06]" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <pattern id="map-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#6B7280" strokeWidth="0.5"/>
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#map-grid)" />
-              </svg>
+            <div className="h-[180px] relative">
+              <MapContainer
+                center={(() => {
+                  const store = storesData.find(s => s.name === order.storeName);
+                  return store ? [store.lat, store.lng] : [-6.2231, 106.6490];
+                })()}
+                zoom={16}
+                zoomControl={false}
+                scrollWheelZoom={false}
+                dragging={false}
+                className="w-full h-full z-0"
+              >
+                <TileLayer
+                  url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                  attribution='&copy; OpenStreetMap contributors'
+                />
 
-              {/* Road lines */}
-              <svg className="absolute inset-0 w-full h-full opacity-15">
-                <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#9CA3AF" strokeWidth="3" />
-                <line x1="50%" y1="0" x2="50%" y2="100%" stroke="#9CA3AF" strokeWidth="2" />
-              </svg>
+                {/* Merchant Pin */}
+                <Marker
+                  position={(() => {
+                    const store = storesData.find(s => s.name === order.storeName);
+                    return store ? [store.lat, store.lng] : [-6.2231, 106.6490];
+                  })()}
+                  icon={L.divIcon({
+                    html: `<div style="display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);">
+                      <div style="width:36px;height:36px;background:#059669;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(5,150,105,0.4);">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3" fill="#059669"/></svg>
+                      </div>
+                      <div style="width:8px;height:8px;background:#059669;transform:rotate(45deg);margin-top:-5px;"></div>
+                    </div>`,
+                    className: '',
+                    iconSize: [0, 0],
+                    iconAnchor: [0, 0],
+                  })}
+                />
 
-              {/* Store pin */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                <div className="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center shadow-lg shadow-primary-600/30 animate-bounce-in">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                  </svg>
-                </div>
-              </div>
+                {/* User Location */}
+                <Marker
+                  position={[-6.2231, 106.6490]}
+                  icon={L.divIcon({
+                    html: `<div style="display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);">
+                      <div style="width:14px;height:14px;background:#3B82F6;border-radius:50%;border:3px solid white;box-shadow:0 0 0 4px rgba(59,130,246,0.3), 0 2px 8px rgba(0,0,0,0.2);"></div>
+                    </div>`,
+                    className: '',
+                    iconSize: [0, 0],
+                    iconAnchor: [0, 0],
+                  })}
+                />
+              </MapContainer>
             </div>
           </div>
 

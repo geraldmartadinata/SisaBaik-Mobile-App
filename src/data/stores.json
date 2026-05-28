@@ -13,8 +13,8 @@
     "description": "Rescue our fresh daily pastries and coffee before we close the campus branch!",
     "isOpen": true,
     "pickupWindow": "19:00 - 20:30",
-    "lat": -6.2235,
-    "lng": 106.6495,
+    "lat": -6.223415758270138,
+    "lng": 106.64861648650603,
     "surpriseBags": [
       {
         "id": "bag-001",

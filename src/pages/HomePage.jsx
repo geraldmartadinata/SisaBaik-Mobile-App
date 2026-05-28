@@ -128,6 +128,19 @@ export default function HomePage() {
               </Marker>
             );
           })}
+
+          {/* User Location */}
+          <Marker
+            position={[-6.2231, 106.6490]}
+            icon={L.divIcon({
+              html: `<div style="display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);">
+                <div style="width:16px;height:16px;background:#3B82F6;border-radius:50%;border:3px solid white;box-shadow:0 0 0 4px rgba(59,130,246,0.3), 0 2px 8px rgba(0,0,0,0.2);"></div>
+              </div>`,
+              className: '',
+              iconSize: [0, 0],
+              iconAnchor: [0, 0],
+            })}
+          />
         </MapContainer>
       </div>
 
