@@ -32,7 +32,49 @@ export function AppProvider({ children }) {
   const [cart, setCart] = useState(() => loadFromStorage(STORAGE_KEYS.CART, { items: [], store: null }));
 
   // ── Orders state ──
-  const [activeOrders, setActiveOrders] = useState(() => loadFromStorage(STORAGE_KEYS.ACTIVE_ORDERS, []));
+  const DUMMY_ORDERS = [
+    {
+      id: "ORD-1234-A",
+      orderCode: "#SB-1234A",
+      storeName: "Tomoro Coffee",
+      storeBranch: "Binus ALS",
+      status: "preparing",
+      createdAt: new Date().toISOString(),
+      items: [{ bagId: "bag-001", name: "Coffee & Pastry Bundle", price: 20000, quantity: 1 }],
+      subtotal: 20000,
+      platformFee: 2000,
+      total: 22000,
+      foodSavedKg: "1.0",
+      timeline: [
+        { step: "confirmed", label: "Pesanan Dikonfirmasi", description: "Penjual telah menerima pesanan.", time: "14:00", completed: true },
+        { step: "preparing", label: "Sedang Disiapkan", description: "Makanan sedang dikemas.", time: "14:15", completed: false, active: true },
+        { step: "ready", label: "Siap Diambil", description: "Tunjukkan QR code saat tiba di toko.", time: null, completed: false }
+      ]
+    },
+    {
+      id: "ORD-9876-B",
+      orderCode: "#SB-9876B",
+      storeName: "FamilyMart",
+      storeBranch: "Alam Sutera",
+      status: "ready",
+      createdAt: new Date().toISOString(),
+      items: [{ bagId: "bag-002", name: "Midnight Bento Bag", price: 25000, quantity: 2 }],
+      subtotal: 50000,
+      platformFee: 2000,
+      total: 52000,
+      foodSavedKg: "2.5",
+      timeline: [
+        { step: "confirmed", label: "Pesanan Dikonfirmasi", description: "Penjual telah menerima pesanan.", time: "13:30", completed: true },
+        { step: "preparing", label: "Sedang Disiapkan", description: "Makanan sedang dikemas.", time: "13:40", completed: true },
+        { step: "ready", label: "Siap Diambil", description: "Tunjukkan QR code saat tiba di toko.", time: "13:50", completed: true, active: true }
+      ]
+    }
+  ];
+
+  const [activeOrders, setActiveOrders] = useState(() => {
+    const stored = loadFromStorage(STORAGE_KEYS.ACTIVE_ORDERS, []);
+    return stored.length > 0 ? stored : DUMMY_ORDERS;
+  });
   const [completedOrders, setCompletedOrders] = useState(() => loadFromStorage(STORAGE_KEYS.COMPLETED_ORDERS, []));
 
   // ── Seller state ──
@@ -161,18 +203,22 @@ export function AppProvider({ children }) {
   }, []);
 
   const completeOrder = useCallback((orderId) => {
-    setActiveOrders(prev => {
-      const order = prev.find(o => o.id === orderId);
-      if (order) {
-        const completed = { ...order, status: 'completed', completedAt: new Date().toISOString() };
-        setCompletedOrders(cPrev => [completed, ...cPrev]);
-      }
-      return prev.filter(o => o.id !== orderId);
-    });
-  }, []);
+    const orderToComplete = activeOrders.find(o => o.id === orderId);
+    if (orderToComplete) {
+      const completed = { ...orderToComplete, status: 'completed', completedAt: new Date().toISOString() };
+      setCompletedOrders(prev => [completed, ...prev]);
+      setActiveOrders(prev => prev.filter(o => o.id !== orderId));
+    }
+  }, [activeOrders]);
 
   const cancelOrder = useCallback((orderId) => {
     setActiveOrders(prev => prev.filter(o => o.id !== orderId));
+  }, []);
+
+  const markOrderAsReviewed = useCallback((orderId, rating) => {
+    setCompletedOrders(prev => prev.map(o => 
+      o.id === orderId ? { ...o, isReviewed: true, rating: rating } : o
+    ));
   }, []);
 
   const getOrderById = useCallback((orderId) => {
@@ -212,6 +258,7 @@ export function AppProvider({ children }) {
     createOrder,
     completeOrder,
     cancelOrder,
+    markOrderAsReviewed,
     getOrderById,
     // Seller State
     role,

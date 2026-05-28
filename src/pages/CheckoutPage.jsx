@@ -5,6 +5,7 @@ import { useApp } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
 import PaymentMethodSelector from '../components/ui/PaymentMethodSelector';
 import { formatCurrency } from '../utils/formatCurrency';
+import { getMenuImage } from '../utils/imageMapper';
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -114,12 +115,8 @@ export default function CheckoutPage() {
             
             {items.map(item => (
               <div key={item.bagId} className="flex items-center gap-3 py-3 border-b border-gray-50 last:border-0">
-                <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-                    <line x1="3" y1="6" x2="21" y2="6" />
-                    <path d="M16 10a4 4 0 0 1-8 0" />
-                  </svg>
+                <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                  <img src={getMenuImage(item.bagId)} alt={item.name} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <h4 className="text-sm font-semibold text-gray-900 truncate">{item.name}</h4>

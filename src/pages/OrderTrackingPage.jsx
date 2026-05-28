@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { useOrder } from '../context/OrderContext';
 import OrderTimeline from '../components/ui/OrderTimeline';
 import ordersData from '../data/orders.json';
 import storesData from '../data/stores.json';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet';
 import L from 'leaflet';
 
 export default function OrderTrackingPage() {
@@ -14,7 +14,8 @@ export default function OrderTrackingPage() {
   const { getOrderById, completeOrder } = useApp();
   const { activeOrder: legacyOrder } = useOrder();
 
-  const [showQR, setShowQR] = useState(false);
+  const location = useLocation();
+  const [showQR, setShowQR] = useState(location.state?.showQR || false);
 
   const handleMagicCompleteClick = () => {
     // Magic demo function to complete order
@@ -54,10 +55,47 @@ export default function OrderTrackingPage() {
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
           </button>
-          <h1 className="text-lg font-bold text-gray-900">Status Pesanan</h1>
+          <h1 className="text-lg font-bold text-gray-900">{order.status === 'completed' ? 'Detail Pesanan' : 'Status Pesanan'}</h1>
         </div>
 
-        <div className="px-5 py-4 space-y-4">
+        {order.status === 'completed' ? (
+          <div className="px-5 py-4 space-y-4">
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center animate-fade-in">
+              <div className="w-16 h-16 mx-auto mb-4 bg-green-50 text-green-500 rounded-full flex items-center justify-center">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </div>
+              <h2 className="text-xl font-bold text-gray-900 mb-1">Pesanan Selesai</h2>
+              <p className="text-sm text-gray-500">Terima kasih telah menyelamatkan makanan ini!</p>
+            </div>
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 animate-fade-in">
+              <h3 className="font-bold text-gray-900 mb-3 border-b border-gray-100 pb-3">Ringkasan Pesanan</h3>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm text-gray-500">Toko</span>
+                <span className="text-sm font-semibold text-gray-900">{order.storeName}</span>
+              </div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm text-gray-500">Waktu Pengambilan</span>
+                <span className="text-sm font-semibold text-gray-900">
+                  {order.completedAt ? new Date(order.completedAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) : 'Selesai'}
+                </span>
+              </div>
+              <div className="flex justify-between items-center mb-4">
+                <span className="text-sm text-gray-500">ID Pesanan</span>
+                <span className="text-sm font-semibold text-gray-900">{order.orderCode || `#${order.id}`}</span>
+              </div>
+              <div className="border-t border-dashed border-gray-200 pt-4 mt-2">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm text-gray-900 font-bold">Total Pembayaran</span>
+                  <span className="text-sm font-bold text-primary-600">Rp {(order.total || 0).toLocaleString('id-ID')}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="px-5 py-4 space-y-4">
           {/* Store Info Card */}
           <div className="card p-4">
             <div className="flex items-center gap-3">
@@ -96,11 +134,11 @@ export default function OrderTrackingPage() {
 
           {/* Map */}
           <div className="card overflow-hidden">
-            <div className="h-[180px] relative">
+            <div className="h-64 relative">
               <MapContainer
                 center={(() => {
                   const store = storesData.find(s => s.name === order.storeName);
-                  return store ? [store.lat, store.lng] : [-6.2231, 106.6490];
+                  return store ? [store.lat, store.lng] : [-6.223608769133971, 106.64941394052858];
                 })()}
                 zoom={16}
                 zoomControl={false}
@@ -113,11 +151,22 @@ export default function OrderTrackingPage() {
                   attribution='&copy; OpenStreetMap contributors'
                 />
 
+                {/* Polyline Route */}
+                {storesData.find(s => s.name === order.storeName) && (
+                  <Polyline 
+                    positions={[
+                      [-6.223608769133971, 106.64941394052858],
+                      [storesData.find(s => s.name === order.storeName).lat, storesData.find(s => s.name === order.storeName).lng]
+                    ]}
+                    pathOptions={{ color: '#3B82F6', dashArray: '5, 10', weight: 3 }}
+                  />
+                )}
+
                 {/* Merchant Pin */}
                 <Marker
                   position={(() => {
                     const store = storesData.find(s => s.name === order.storeName);
-                    return store ? [store.lat, store.lng] : [-6.2231, 106.6490];
+                    return store ? [store.lat, store.lng] : [-6.223608769133971, 106.64941394052858];
                   })()}
                   icon={L.divIcon({
                     html: `<div style="display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);">
@@ -134,10 +183,13 @@ export default function OrderTrackingPage() {
 
                 {/* User Location */}
                 <Marker
-                  position={[-6.2231, 106.6490]}
+                  position={[-6.223608769133971, 106.64941394052858]}
                   icon={L.divIcon({
-                    html: `<div style="display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);">
-                      <div style="width:14px;height:14px;background:#3B82F6;border-radius:50%;border:3px solid white;box-shadow:0 0 0 4px rgba(59,130,246,0.3), 0 2px 8px rgba(0,0,0,0.2);"></div>
+                    html: `<div style="display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);">
+                      <svg width="24" height="36" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0C5.37258 0 0 5.37258 0 12C0 21 12 36 12 36C12 36 24 21 24 12C24 5.37258 18.6274 0 12 0Z" fill="#3B82F6"/>
+                        <circle cx="12" cy="12" r="5" fill="white"/>
+                      </svg>
                     </div>`,
                     className: '',
                     iconSize: [0, 0],
@@ -150,33 +202,36 @@ export default function OrderTrackingPage() {
 
           {/* Spacer for bottom buttons */}
           <div className="h-4" />
+          </div>
+        )}
+      </div>
+
+      {order.status !== 'completed' && (
+        <div className="flex-none p-4 bg-white shadow-bottom-bar border-t border-gray-100 space-y-3">
+          {/* Primary: Tampilkan QR */}
+          <button
+            onClick={() => setShowQR(true)}
+            className="btn-primary"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <path d="M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01" />
+            </svg>
+            <span>Tampilkan QR</span>
+          </button>
+
+          {/* Secondary outline: Chat Toko */}
+          <button
+            onClick={() => navigate(`/chat?name=${encodeURIComponent(order.storeName)}`)}
+            className="w-full py-3.5 rounded-xl border-2 border-gray-200 text-gray-700 text-sm font-semibold hover:bg-gray-50 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            Chat Toko
+          </button>
         </div>
-      </div>
-
-      {/* Bottom Action Buttons */}
-      <div className="flex-none p-4 bg-white shadow-bottom-bar border-t border-gray-100 space-y-3">
-        {/* Primary: Tampilkan QR */}
-        <button
-          onClick={() => setShowQR(true)}
-          className="btn-primary"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-            <path d="M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01" />
-          </svg>
-          <span>Tampilkan QR</span>
-        </button>
-
-        {/* Secondary outline: Chat Toko */}
-        <button
-          className="w-full py-3.5 rounded-xl border-2 border-gray-200 text-gray-700 text-sm font-semibold hover:bg-gray-50 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-          Chat Toko
-        </button>
-      </div>
+      )}
 
       {/* QR Code Overlay Modal */}
       {showQR && (

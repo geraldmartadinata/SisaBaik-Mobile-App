@@ -42,8 +42,8 @@
     "description": "Grab our end-of-day bento boxes and ready-to-eat meals.",
     "isOpen": true,
     "pickupWindow": "20:00 - 22:00",
-    "lat": -6.2225,
-    "lng": 106.6485,
+    "lat": -6.225278236805412,
+    "lng": 106.65180970416878,
     "surpriseBags": [
       {
         "id": "bag-002",
@@ -71,8 +71,8 @@
     "description": "Our fictional test bakery baking real virtual goods! Save our virtual croissants.",
     "isOpen": true,
     "pickupWindow": "18:00 - 19:30",
-    "lat": -6.2230,
-    "lng": 106.6500,
+    "lat": -6.224715627662531,
+    "lng": 106.65015813399852,
     "surpriseBags": [
       {
         "id": "bag-003",
@@ -139,8 +139,8 @@
     "description": "Fresh salads and grain bowls made daily. Rescue our end-of-day surplus!",
     "isOpen": true,
     "pickupWindow": "20:00 - 21:00",
-    "lat": -6.2255,
-    "lng": 106.6520,
+    "lat": -6.2229358056703115,
+    "lng": 106.65211212329513,
     "surpriseBags": [
       {
         "id": "bag-006",

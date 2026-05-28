@@ -32,16 +32,25 @@ export default function useDraggableScroll() {
       slider.scrollLeft = scrollLeft - walk;
     };
 
+    const onWheel = (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        slider.scrollLeft += e.deltaY;
+      }
+    };
+
     slider.addEventListener('mousedown', onMouseDown);
     slider.addEventListener('mouseleave', onMouseLeave);
     slider.addEventListener('mouseup', onMouseUp);
     slider.addEventListener('mousemove', onMouseMove);
+    slider.addEventListener('wheel', onWheel, { passive: false });
 
     return () => {
       slider.removeEventListener('mousedown', onMouseDown);
       slider.removeEventListener('mouseleave', onMouseLeave);
       slider.removeEventListener('mouseup', onMouseUp);
       slider.removeEventListener('mousemove', onMouseMove);
+      slider.removeEventListener('wheel', onWheel);
     };
   }, [isDragging, startX, scrollLeft]);
 

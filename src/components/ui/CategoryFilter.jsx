@@ -22,6 +22,8 @@ export default function CategoryFilter({ activeCategory, onCategoryChange }) {
           {cat.label}
         </button>
       ))}
+      {/* Spacer for right padding */}
+      <div className="w-1 shrink-0"></div>
     </div>
   );
 }

@@ -17,6 +17,7 @@ import RegisterMerchantPage from './pages/RegisterMerchantPage';
 import SellerDashboardPage from './pages/SellerDashboardPage';
 import SellerOrdersPage from './pages/SellerOrdersPage';
 import CreateListingPage from './pages/CreateListingPage';
+import ChatPage from './pages/ChatPage';
 
 export default function App() {
   return (
@@ -40,6 +41,7 @@ export default function App() {
                   <Route path="/seller-dashboard" element={<SellerDashboardPage />} />
                   <Route path="/seller-orders" element={<SellerOrdersPage />} />
                   <Route path="/create-listing" element={<CreateListingPage />} />
+                  <Route path="/chat" element={<ChatPage />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </MobileWrapper>

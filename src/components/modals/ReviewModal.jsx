@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function ReviewModal({ order, onClose }) {
+export default function ReviewModal({ order, onClose, onSubmit }) {
   const [rating, setRating] = useState(0);
   const [hoveredStar, setHoveredStar] = useState(0);
   const [submitted, setSubmitted] = useState(false);
@@ -10,6 +10,7 @@ export default function ReviewModal({ order, onClose }) {
   const handleSubmit = () => {
     setSubmitted(true);
     setTimeout(() => {
+      if (onSubmit) onSubmit(rating);
       onClose();
     }, 1500);
   };

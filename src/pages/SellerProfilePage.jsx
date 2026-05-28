@@ -64,16 +64,26 @@ export default function SellerProfilePage() {
 
   return (
     <div className="page-wrapper bg-gray-50 page-transition">
-      <div className="page-content">
-        {/* Profile Header */}
-        <div className="w-full bg-white px-5 pt-10 pb-6 text-center">
-          {/* Avatar */}
-          <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center shadow-md">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="#6B7280" stroke="none">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
+      <div className="page-content bg-gray-50 pb-24">
+        {/* Header */}
+        <header className="px-5 pt-12 pb-4 bg-white shadow-sm flex items-center justify-between sticky top-0 z-10">
+          <h1 className="text-2xl font-bold text-gray-900">Profil</h1>
+          <div className="flex items-center gap-3">
+            <button className="w-8 h-8 rounded-full flex items-center justify-center text-gray-500 relative bg-gray-50">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+              </svg>
+              <span className="absolute top-1 right-1.5 w-2 h-2 bg-red-500 border-2 border-white rounded-full"></span>
+            </button>
+            <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden border border-gray-200 flex-shrink-0">
+              <img src="/src/assets/images/sisabaikbakery.png" alt="Merchant Avatar" className="w-full h-full object-cover" />
+            </div>
           </div>
+        </header>
+
+        {/* Profile Info */}
+        <div className="w-full bg-white px-5 pt-6 pb-6 text-center">
 
           {/* Name & Tier */}
           <h2 className="mt-4 text-lg font-bold text-gray-900">
@@ -92,14 +102,18 @@ export default function SellerProfilePage() {
           {/* Dashboard Switch */}
           <div className="bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl p-5 text-white shadow-lg shadow-primary-600/30">
             <h2 className="text-sm font-medium text-primary-100 mb-4 opacity-90 tracking-wide uppercase">Kinerja Toko</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-2">
               <div>
-                <p className="text-2xl font-bold">Rp 450.000</p>
-                <p className="text-xs text-primary-100 mt-1">Penjualan Minggu Ini</p>
+                <p className="text-[17px] font-bold">1.25M</p>
+                <p className="text-[10px] text-primary-100 mt-1">Pendapatan</p>
               </div>
-              <div className="border-l border-primary-500/50 pl-4">
-                <p className="text-2xl font-bold">4.8 <span className="text-sm font-normal text-amber-300">★</span></p>
-                <p className="text-xs text-primary-100 mt-1">Rating Toko</p>
+              <div className="border-l border-primary-500/50 pl-2">
+                <p className="text-[17px] font-bold">42 kg</p>
+                <p className="text-[10px] text-primary-100 mt-1">Diselamatkan</p>
+              </div>
+              <div className="border-l border-primary-500/50 pl-2">
+                <p className="text-[17px] font-bold">4.8 <span className="text-[10px] font-normal text-amber-300">★</span></p>
+                <p className="text-[10px] text-primary-100 mt-1">Rating</p>
               </div>
             </div>
           </div>

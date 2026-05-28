@@ -5,6 +5,7 @@ import SurpriseBagCard from '../components/ui/SurpriseBagCard';
 import Badge from '../components/ui/Badge';
 import PaymentSuccessModal from '../components/modals/PaymentSuccessModal';
 import { formatCurrency } from '../utils/formatCurrency';
+import { getStoreImage } from '../utils/imageMapper';
 import storesData from '../data/stores.json';
 
 export default function StoreDetailPage() {
@@ -40,25 +41,10 @@ export default function StoreDetailPage() {
     <div className="page-wrapper bg-gray-50 page-transition">
       <div className="page-content">
         {/* Hero Image */}
-        <div className="relative h-[250px] bg-gradient-to-br from-amber-100 via-orange-100 to-yellow-50 overflow-hidden">
-          {/* Decorative pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <svg className="w-full h-full">
-              <defs>
-                <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
-                  <circle cx="10" cy="10" r="1.5" fill="#92400e" />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#dots)" />
-            </svg>
-          </div>
-          
-          <div className="absolute inset-0 flex items-center justify-center">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              <polyline points="9 22 9 12 15 12 15 22" />
-            </svg>
-          </div>
+        <div className="relative h-[250px] bg-gray-100 overflow-hidden">
+          <img src={getStoreImage(store.name)} alt={store.name} className="w-full h-full object-cover" />
+          {/* Dark gradient overlay for top buttons */}
+          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/60 to-transparent pointer-events-none"></div>
 
           {/* Top Actions */}
           <div className="absolute top-4 left-4 right-4 flex items-center justify-between">

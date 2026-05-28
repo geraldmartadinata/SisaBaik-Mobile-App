@@ -4,8 +4,8 @@ import userData from '../data/user.json';
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [user, setUser] = useState(userData);
 
   const login = (email, password) => {
     // Simulate login — accept any credentials

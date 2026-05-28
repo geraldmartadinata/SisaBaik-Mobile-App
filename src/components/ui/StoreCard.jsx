@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { formatCurrency } from '../../utils/formatCurrency';
+import { getStoreImage } from '../../utils/imageMapper';
 
 export default function StoreCard({ store }) {
   const navigate = useNavigate();
@@ -16,15 +17,8 @@ export default function StoreCard({ store }) {
                  cursor-pointer active:scale-[0.97] transition-all duration-200 hover:shadow-card-hover"
     >
       {/* Store Image */}
-      <div className="relative h-[130px] bg-gradient-to-br from-primary-100 to-primary-200 overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-gray-400">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              <polyline points="9 22 9 12 15 12 15 22" />
-            </svg>
-          </div>
-        </div>
+      <div className="relative h-[130px] bg-gray-100 overflow-hidden">
+        <img src={getStoreImage(store.name)} alt={store.name} className="w-full h-full object-cover" />
         {/* Urgency Badge */}
         {totalLeft <= 5 && (
           <div className="absolute top-3 left-3 bg-red-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-full animate-pulse-soft">

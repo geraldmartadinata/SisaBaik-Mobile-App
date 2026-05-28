@@ -3,21 +3,21 @@
     "id": "ORD-8472-A",
     "orderCode": "#SB-9824A",
     "storeId": "store-001",
-    "storeName": "Daily Bread Bakery",
+    "storeName": "SisaBaik Bakery",
     "storeBranch": "Sudirman",
     "storeAvatar": null,
     "pickupWindow": "19:00 - 20:30",
     "items": [
       {
-        "bagId": "bag-001",
-        "name": "Surprise Pastry Box",
+        "bagId": "bag-003",
+        "name": "Virtual Croissant Box",
         "quantity": 1,
-        "price": 25000
+        "price": 30000
       }
     ],
-    "subtotal": 25000,
+    "subtotal": 30000,
     "platformFee": 2000,
-    "total": 27000,
+    "total": 32000,
     "paymentMethod": "GoPay",
     "status": "preparing",
     "timeline": [

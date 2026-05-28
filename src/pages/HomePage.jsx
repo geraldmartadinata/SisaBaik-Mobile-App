@@ -25,7 +25,7 @@ export default function HomePage() {
   const firstName = user?.name?.split(' ')[0] || 'User';
 
   // Map center (Binus Alam Sutera)
-  const mapCenter = [-6.2231, 106.6490];
+  const mapCenter = [-6.223608769133971, 106.64941394052858];
 
   // Helper to create a custom HTML icon for Leaflet
   const createCustomIcon = (price, isOpen) => {
@@ -131,10 +131,13 @@ export default function HomePage() {
 
           {/* User Location */}
           <Marker
-            position={[-6.2231, 106.6490]}
+            position={mapCenter}
             icon={L.divIcon({
-              html: `<div style="display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);">
-                <div style="width:16px;height:16px;background:#3B82F6;border-radius:50%;border:3px solid white;box-shadow:0 0 0 4px rgba(59,130,246,0.3), 0 2px 8px rgba(0,0,0,0.2);"></div>
+              html: `<div style="display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);">
+                <svg width="24" height="36" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 0C5.37258 0 0 5.37258 0 12C0 21 12 36 12 36C12 36 24 21 24 12C24 5.37258 18.6274 0 12 0Z" fill="#3B82F6"/>
+                  <circle cx="12" cy="12" r="5" fill="white"/>
+                </svg>
               </div>`,
               className: '',
               iconSize: [0, 0],
@@ -142,23 +145,17 @@ export default function HomePage() {
             })}
           />
         </MapContainer>
-      </div>
 
-      {/* Bottom Sheet anchored section (Design Layout separation) */}
-      <div className="flex-none bg-white rounded-t-3xl shadow-[0_-15px_40px_rgba(0,0,0,0.08)] relative z-10 -mt-6">
-        
-        {/* Grab Handle */}
-        <div className="w-full flex justify-center pt-3 pb-2">
-          <div className="w-12 h-1.5 bg-gray-200 rounded-full"></div>
-        </div>
-
-        {/* Category Filter */}
-        <div className="mb-4">
+        {/* Bottom Sheet anchored section (Fixed, floating at bottom of map) */}
+        <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] shadow-[0_-10px_40px_rgba(0,0,0,0.1)] z-10 pt-5">
+          
+          {/* Category Filter */}
+          <div className="mb-4">
           <CategoryFilter activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
         </div>
 
         {/* Store Cards Carousel */}
-        <div ref={scrollRef} className="flex w-full gap-3 overflow-x-auto no-scrollbar px-5 pb-5 cursor-grab active:cursor-grabbing select-none">
+        <div ref={scrollRef} className="flex w-full gap-3 overflow-x-auto no-scrollbar px-5 pb-5 cursor-grab active:cursor-grabbing select-none flex-nowrap">
           {filteredStores.filter(s => s.isOpen).map(store => (
             <StoreCard key={store.id} store={store} />
           ))}
@@ -167,7 +164,10 @@ export default function HomePage() {
               Tidak ada toko yang buka.
             </div>
           )}
+          {/* Spacer for right padding in flex row */}
+          <div className="w-2 shrink-0"></div>
         </div>
+      </div>
       </div>
 
       {/* Bottom Navigation */}
