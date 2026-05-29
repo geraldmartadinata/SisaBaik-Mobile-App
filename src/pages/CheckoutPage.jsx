@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
 import { useApp } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import PaymentMethodSelector from '../components/ui/PaymentMethodSelector';
 import { formatCurrency } from '../utils/formatCurrency';
 import { getMenuImage } from '../utils/imageMapper';
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
-  const { items, store, subtotal, total, platformFee, clearCart } = useCart();
-  const { createOrder: appCreateOrder, clearCart: appClearCart } = useApp();
+  const { cartItems, cartStore, cartSubtotal, cartTotal, platformFee, clearCart, createOrder } = useApp();
   const { user } = useAuth();
+  const { addToast } = useToast();
   const [paymentMethod, setPaymentMethod] = useState('gopay');
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  if (!store || items.length === 0) {
+  if (!cartStore || cartItems.length === 0) {
     return (
       <div className="page-wrapper bg-white flex items-center justify-center">
         <main className="text-center">
@@ -28,33 +29,37 @@ export default function CheckoutPage() {
   }
 
   const handlePayment = () => {
-    const order = appCreateOrder({
-      storeId: store.id,
-      storeName: store.name,
-      storeBranch: store.branch,
-      storeAvatar: null,
-      pickupWindow: store.pickupWindow,
-      items: items.map(item => ({
-        bagId: item.bagId,
-        name: item.name,
-        quantity: item.quantity,
-        price: item.price,
-      })),
-      subtotal,
-      platformFee,
-      total,
-      paymentMethod,
-      storeLat: store.lat,
-      storeLng: store.lng,
-      userName: user?.name,
-    });
+    setIsProcessing(true);
+    addToast('Processing secure payment...', 'success');
 
-    // Clear cart in both contexts
-    clearCart();
-    appClearCart();
+    setTimeout(() => {
+      const order = createOrder({
+        storeId: cartStore.id,
+        storeName: cartStore.name,
+        storeBranch: cartStore.branch,
+        storeAvatar: null,
+        pickupWindow: cartStore.pickupWindow,
+        items: cartItems.map(item => ({
+          bagId: item.bagId,
+          name: item.name,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        subtotal: cartSubtotal,
+        platformFee,
+        total: cartTotal,
+        paymentMethod,
+        storeLat: cartStore.lat,
+        storeLng: cartStore.lng,
+        userName: user?.name,
+      });
 
-    // Navigate back to the store detail page with the completed order in state
-    navigate(`/store/${store.id}`, { state: { completedOrder: order }, replace: true });
+      clearCart();
+      setIsProcessing(false);
+
+      // Navigate back to the store detail page with the completed order in state
+      navigate(`/store/${cartStore.id}`, { state: { completedOrder: order }, replace: true });
+    }, 450); // 450ms constraint max
   };
 
   return (
@@ -87,9 +92,9 @@ export default function CheckoutPage() {
               </svg>
               <h2 className="text-sm font-bold text-gray-900">Pickup Details</h2>
             </div>
-            <h3 className="font-semibold text-gray-900 text-[15px]">{store.name} - {store.branch}</h3>
-            <p className="text-xs text-gray-500 mt-1">{store.address}</p>
-            <p className="text-xs text-gray-500">Distance: {store.distance}</p>
+            <h3 className="font-semibold text-gray-900 text-[15px]">{cartStore.name} - {cartStore.branch}</h3>
+            <p className="text-xs text-gray-500 mt-1">{cartStore.address}</p>
+            <p className="text-xs text-gray-500">Distance: {cartStore.distance}</p>
             <div className="flex items-center gap-2 mt-3 bg-primary-50 rounded-lg px-3 py-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2">
                 <circle cx="12" cy="12" r="10" />
@@ -97,7 +102,7 @@ export default function CheckoutPage() {
               </svg>
               <div>
                 <p className="text-xs font-semibold text-primary-700">Pickup Window</p>
-                <p className="text-xs text-primary-600">Today, {store.pickupWindow}</p>
+                <p className="text-xs text-primary-600">Today, {cartStore.pickupWindow}</p>
               </div>
             </div>
           </div>
@@ -113,7 +118,7 @@ export default function CheckoutPage() {
               <h2 className="text-sm font-bold text-gray-900">Order Summary</h2>
             </div>
             
-            {items.map(item => (
+            {cartItems.map(item => (
               <div key={item.bagId} className="flex items-center gap-3 py-3 border-b border-gray-50 last:border-0">
                 <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
                   <img src={getMenuImage(item.bagId)} alt={item.name} className="w-full h-full object-cover" />
@@ -132,7 +137,7 @@ export default function CheckoutPage() {
             <div className="mt-3 pt-3 border-t border-gray-100 space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Subtotal</span>
-                <span className="text-gray-900">{formatCurrency(subtotal)}</span>
+                <span className="text-gray-900">{formatCurrency(cartSubtotal)}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Platform Fee</span>
@@ -140,7 +145,7 @@ export default function CheckoutPage() {
               </div>
               <div className="flex justify-between text-base font-bold pt-2 border-t border-gray-100">
                 <span className="text-gray-900">Total</span>
-                <span className="text-primary-600">{formatCurrency(total)}</span>
+                <span className="text-primary-600">{formatCurrency(cartTotal)}</span>
               </div>
             </div>
           </div>
@@ -163,13 +168,20 @@ export default function CheckoutPage() {
       <nav className="flex-none z-10 bg-white shadow-bottom-bar border-t border-gray-100 p-5">
         <button
           onClick={handlePayment}
-          className="btn-primary"
+          disabled={isProcessing}
+          className="btn-primary relative"
         >
-          <span>Bayar Sekarang - {formatCurrency(total)}</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-          </svg>
+          {isProcessing ? (
+            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+          ) : (
+            <>
+              <span>Bayar Sekarang - {formatCurrency(cartTotal)}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </>
+          )}
         </button>
       </nav>
 

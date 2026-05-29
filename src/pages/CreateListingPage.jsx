@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useToast } from '../context/ToastContext';
 
 export default function CreateListingPage() {
   const navigate = useNavigate();
   const { setListings } = useApp();
+  const { addToast } = useToast();
+  const [step, setStep] = useState(1);
+  const totalSteps = 4;
 
   const [formData, setFormData] = useState({
     category: 'Bakery',
@@ -13,8 +18,17 @@ export default function CreateListingPage() {
     pickupTime: '19:00 - 20:30'
   });
 
+  const nextStep = () => {
+    if (step < totalSteps) setStep(step + 1);
+  };
+  
+  const prevStep = () => {
+    if (step > 1) setStep(step - 1);
+    else navigate(-1);
+  };
+
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     if (!formData.price) return;
 
     const newListing = {
@@ -27,95 +41,161 @@ export default function CreateListingPage() {
     };
 
     setListings(prev => [newListing, ...prev]);
+    addToast('Listing berhasil diterbitkan!', 'success');
     navigate('/seller-dashboard', { replace: true });
+  };
+
+  const variants = {
+    initial: { x: 50, opacity: 0 },
+    animate: { x: 0, opacity: 1 },
+    exit: { x: -50, opacity: 0 }
   };
 
   return (
     <div className="page-wrapper bg-white page-transition">
-      <div className="page-content">
-        {/* Header */}
-        <header className="flex items-center gap-3 px-5 pt-5 pb-4 border-b border-gray-100">
-          <button
-            onClick={() => navigate(-1)}
-            className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center active:scale-90 transition-transform"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <h1 className="text-lg font-bold text-gray-900">Buat Listing Baru</h1>
+      <div className="page-content flex flex-col">
+        {/* Header with Progress */}
+        <header className="flex-none pt-5 pb-4 px-5 border-b border-gray-100 bg-white z-10 sticky top-0">
+          <div className="flex items-center gap-3 mb-4">
+            <button
+              onClick={prevStep}
+              className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center active:scale-90 transition-transform"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <div className="flex-1">
+              <h1 className="text-lg font-bold text-gray-900 leading-none">Buat Listing</h1>
+              <p className="text-xs text-gray-500 mt-1">Langkah {step} dari {totalSteps}</p>
+            </div>
+          </div>
+          {/* Progress Bar */}
+          <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+            <motion.div 
+              className="h-full bg-primary-500"
+              initial={{ width: `${((step - 1) / totalSteps) * 100}%` }}
+              animate={{ width: `${(step / totalSteps) * 100}%` }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
         </header>
 
-        <main className="px-5 py-6">
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1.5">Kategori Makanan</label>
-              <select
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                className="input-field"
-              >
-                <option value="Bakery">Bakery / Roti</option>
-                <option value="Meals">Makanan Berat (Meals)</option>
-                <option value="Groceries">Bahan Makanan (Groceries)</option>
-                <option value="Desserts">Kue & Manisan (Desserts)</option>
-              </select>
-            </div>
+        <main className="flex-1 px-5 py-6 overflow-x-hidden relative">
+          <AnimatePresence mode="wait">
+            {step === 1 && (
+              <motion.div key="step1" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-4">
+                <h2 className="text-2xl font-bold text-gray-900">Apa yang Anda jual hari ini?</h2>
+                <p className="text-gray-500 text-sm mb-6">Pilih kategori makanan yang paling sesuai.</p>
+                <div className="grid grid-cols-2 gap-3">
+                  {['Bakery', 'Meals', 'Groceries', 'Desserts'].map(cat => (
+                    <button
+                      key={cat}
+                      onClick={() => { setFormData({...formData, category: cat}); setTimeout(nextStep, 200); }}
+                      className={`p-4 rounded-2xl border-2 text-left transition-all ${
+                        formData.category === cat 
+                        ? 'border-primary-500 bg-primary-50 shadow-sm shadow-primary-100' 
+                        : 'border-gray-100 bg-white hover:border-gray-200'
+                      }`}
+                    >
+                      <div className="text-2xl mb-2">
+                        {cat === 'Bakery' ? '🥐' : cat === 'Meals' ? '🍱' : cat === 'Groceries' ? '🥬' : '🍰'}
+                      </div>
+                      <h3 className={`font-semibold ${formData.category === cat ? 'text-primary-700' : 'text-gray-700'}`}>
+                        {cat === 'Bakery' ? 'Roti/Bakery' : cat === 'Meals' ? 'Makanan Berat' : cat === 'Groceries' ? 'Bahan Mentah' : 'Pencuci Mulut'}
+                      </h3>
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1.5">Jumlah Bag (Kuantitas)</label>
-              <div className="flex items-center gap-4">
-                <button 
-                  type="button"
-                  onClick={() => setFormData(prev => ({ ...prev, quantity: Math.max(1, prev.quantity - 1) }))}
-                  className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center text-xl font-bold text-gray-600 active:scale-95"
-                >-</button>
-                <div className="flex-1 text-center text-lg font-bold">{formData.quantity}</div>
-                <button 
-                  type="button"
-                  onClick={() => setFormData(prev => ({ ...prev, quantity: prev.quantity + 1 }))}
-                  className="w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center text-xl font-bold text-primary-700 active:scale-95"
-                >+</button>
-              </div>
-            </div>
+            {step === 2 && (
+              <motion.div key="step2" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-4">
+                <h2 className="text-2xl font-bold text-gray-900">Berapa banyak porsi?</h2>
+                <p className="text-gray-500 text-sm mb-6">Tentukan jumlah porsi Surprise Bag yang tersedia.</p>
+                <div className="flex items-center justify-center py-10">
+                  <div className="flex items-center gap-6">
+                    <button 
+                      onClick={() => setFormData(prev => ({ ...prev, quantity: Math.max(1, prev.quantity - 1) }))}
+                      className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center text-3xl font-bold text-gray-600 active:scale-95 transition-transform"
+                    >-</button>
+                    <div className="w-20 text-center text-5xl font-bold text-gray-900">{formData.quantity}</div>
+                    <button 
+                      onClick={() => setFormData(prev => ({ ...prev, quantity: prev.quantity + 1 }))}
+                      className="w-16 h-16 rounded-2xl bg-primary-100 flex items-center justify-center text-3xl font-bold text-primary-600 active:scale-95 transition-transform shadow-md shadow-primary-500/20"
+                    >+</button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1.5">Harga Diskon (Rp)</label>
-              <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">Rp</span>
-                <input
-                  type="number"
-                  value={formData.price}
-                  onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                  placeholder="20000"
-                  className="input-field pl-12"
-                  required
-                  min="0"
-                  step="500"
-                />
-              </div>
-              <p className="text-xs text-gray-400 mt-1.5">Berikan diskon minimal 50% dari harga asli.</p>
-            </div>
+            {step === 3 && (
+              <motion.div key="step3" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-4">
+                <h2 className="text-2xl font-bold text-gray-900">Berapa harga diskonnya?</h2>
+                <p className="text-gray-500 text-sm mb-6">Kami menyarankan diskon 50-70% dari harga asli.</p>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-xl">Rp</span>
+                  <input
+                    type="number"
+                    value={formData.price}
+                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                    placeholder="20000"
+                    autoFocus
+                    className="w-full pl-14 pr-4 py-4 bg-gray-50 border-2 border-primary-200 rounded-2xl text-2xl font-bold text-gray-900 focus:outline-none focus:border-primary-500 focus:bg-white transition-all shadow-sm"
+                  />
+                </div>
+              </motion.div>
+            )}
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1.5">Waktu Pengambilan</label>
-              <input
-                type="text"
-                value={formData.pickupTime}
-                onChange={(e) => setFormData({ ...formData, pickupTime: e.target.value })}
-                placeholder="Contoh: 19:00 - 20:30"
-                className="input-field"
-                required
-              />
-            </div>
-
-            <div className="pt-6">
-              <button type="submit" className="btn-primary w-full shadow-lg shadow-primary-500/30">
-                Terbitkan Listing
-              </button>
-            </div>
-          </form>
+            {step === 4 && (
+              <motion.div key="step4" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-4">
+                <h2 className="text-2xl font-bold text-gray-900">Kapan pembeli bisa mengambil?</h2>
+                <p className="text-gray-500 text-sm mb-6">Tentukan batas waktu (window) pengambilan pesanan di toko Anda.</p>
+                
+                <div className="grid grid-cols-1 gap-3">
+                  {['17:00 - 18:00', '19:00 - 20:30', '20:00 - 21:00', 'Tutup Toko (21:00+)'].map(time => (
+                    <button
+                      key={time}
+                      onClick={() => setFormData({...formData, pickupTime: time})}
+                      className={`p-4 rounded-xl border-2 text-left flex items-center justify-between transition-all ${
+                        formData.pickupTime === time 
+                        ? 'border-primary-500 bg-primary-50' 
+                        : 'border-gray-100 bg-white hover:border-gray-200'
+                      }`}
+                    >
+                      <span className={`font-semibold ${formData.pickupTime === time ? 'text-primary-700' : 'text-gray-700'}`}>{time}</span>
+                      {formData.pickupTime === time && (
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </main>
+
+        <footer className="flex-none p-5 border-t border-gray-100 bg-white shadow-[0_-8px_30px_rgba(0,0,0,0.05)]">
+          {step < totalSteps ? (
+            <button 
+              onClick={nextStep}
+              disabled={step === 3 && !formData.price}
+              className="btn-primary disabled:opacity-50 disabled:active:scale-100"
+            >
+              Lanjutkan
+            </button>
+          ) : (
+            <button 
+              onClick={handleSubmit}
+              className="btn-primary shadow-lg shadow-primary-500/30"
+            >
+              Terbitkan Listing
+            </button>
+          )}
+        </footer>
       </div>
     </div>
   );

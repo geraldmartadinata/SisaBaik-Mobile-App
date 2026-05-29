@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { formatCurrency } from '../../utils/formatCurrency';
+import { motion } from 'framer-motion';
 
 export default function PaymentSuccessModal({ order, onClose }) {
   const navigate = useNavigate();
@@ -7,8 +8,19 @@ export default function PaymentSuccessModal({ order, onClose }) {
   if (!order) return null;
 
   return (
-    <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white rounded-3xl mx-6 p-6 shadow-modal animate-bounce-in max-w-[360px] w-full">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="absolute inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
+    >
+      <motion.div 
+        initial={{ scale: 0.9, opacity: 0, y: 10 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.9, opacity: 0, y: 10 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+        className="bg-white rounded-3xl mx-6 p-6 shadow-modal max-w-[360px] w-full"
+      >
         {/* Green Success Checkmark */}
         <div className="flex justify-center mb-4">
           <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center shadow-lg shadow-green-500/30">
@@ -74,7 +86,7 @@ export default function PaymentSuccessModal({ order, onClose }) {
             Kembali
           </button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

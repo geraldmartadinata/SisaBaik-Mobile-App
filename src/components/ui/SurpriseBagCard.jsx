@@ -1,10 +1,10 @@
 import { formatCurrency } from '../../utils/formatCurrency';
-import { useCart } from '../../context/CartContext';
+import { useApp } from '../../context/AppContext';
 import { getMenuImage } from '../../utils/imageMapper';
 
-export default function SurpriseBagCard({ bag, store }) {
-  const { addItem, removeItem, getItemQuantity } = useCart();
-  const quantity = getItemQuantity(bag.id);
+export default function SurpriseBagCard({ bag, storeData }) {
+  const { addItemToCart, removeItemFromCart, getCartItemQuantity } = useApp();
+  const quantity = getCartItemQuantity(bag.id);
   const discountPercent = Math.round((1 - bag.discountedPrice / bag.originalPrice) * 100);
 
   return (
@@ -47,7 +47,7 @@ export default function SurpriseBagCard({ bag, store }) {
             {quantity > 0 ? (
               <>
                 <button
-                  onClick={() => removeItem(bag.id)}
+                  onClick={() => removeItemFromCart(bag.id)}
                   className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center 
                            text-gray-600 hover:bg-gray-200 active:scale-90 transition-all duration-150"
                 >
@@ -55,7 +55,7 @@ export default function SurpriseBagCard({ bag, store }) {
                 </button>
                 <span className="w-6 text-center text-sm font-semibold text-gray-900">{quantity}</span>
                 <button
-                  onClick={() => addItem(bag, store)}
+                  onClick={() => addItemToCart(bag, storeData)}
                   disabled={quantity >= bag.maxPerOrder || quantity >= bag.quantityLeft}
                   className="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center 
                            text-white hover:bg-primary-700 active:scale-90 transition-all duration-150
@@ -66,7 +66,7 @@ export default function SurpriseBagCard({ bag, store }) {
               </>
             ) : (
               <button
-                onClick={() => addItem(bag, store)}
+                onClick={() => addItemToCart(bag, storeData)}
                 disabled={bag.quantityLeft === 0}
                 className="w-9 h-9 rounded-full bg-primary-600 flex items-center justify-center 
                          text-white hover:bg-primary-700 active:scale-90 transition-all duration-150 shadow-md shadow-primary-600/30

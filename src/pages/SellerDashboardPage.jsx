@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
-import SellerLayout from '../layouts/SellerLayout';
 import { getStoreImage, getMenuImage } from '../utils/imageMapper';
 import SellerHeader from '../components/ui/SellerHeader';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function SellerDashboardPage() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function SellerDashboardPage() {
 
   return (
     <SellerLayout>
-      <div className="flex flex-col space-y-6 pb-24 bg-gray-50 min-h-screen relative">
+      <div className="flex flex-col space-y-6 pb-24 bg-gray-50 min-h-screen relative page-transition">
         {/* Header */}
         <SellerHeader title="Dashboard" />
 
@@ -103,6 +103,40 @@ export default function SellerDashboardPage() {
                 <p className="text-xl font-bold text-white leading-tight">42 Kg</p>
                 <p className="text-[10px] text-white/80 font-medium mt-0.5">Makanan</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Weekly Stats CSS Chart */}
+        <section className="px-5">
+          <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+            <h2 className="text-[15px] font-bold text-gray-900 mb-4">Penjualan Minggu Ini</h2>
+            <div className="flex items-end justify-between h-32 gap-2 mt-2">
+              {[
+                { day: 'Sen', val: 40 },
+                { day: 'Sel', val: 65 },
+                { day: 'Rab', val: 45 },
+                { day: 'Kam', val: 80 },
+                { day: 'Jum', val: 100 },
+                { day: 'Sab', val: 60 },
+                { day: 'Min', val: 30 }
+              ].map((data, i) => (
+                <div key={i} className="flex flex-col items-center gap-2 flex-1 group">
+                  <div className="w-full relative h-[100px] bg-gray-50 rounded-t-sm flex items-end justify-center">
+                    <motion.div 
+                      initial={{ height: 0 }}
+                      animate={{ height: `${data.val}%` }}
+                      transition={{ duration: 0.8, delay: i * 0.1, type: "spring" }}
+                      className={`w-full rounded-t-sm ${data.day === 'Jum' ? 'bg-[#0f6f3b]' : 'bg-primary-300'}`}
+                    />
+                    {/* Tooltip on hover */}
+                    <div className="absolute -top-7 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-800 text-white text-[9px] px-1.5 py-0.5 rounded pointer-events-none">
+                      {data.val}
+                    </div>
+                  </div>
+                  <span className={`text-[10px] font-bold ${data.day === 'Jum' ? 'text-gray-900' : 'text-gray-400'}`}>{data.day}</span>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -200,40 +234,50 @@ export default function SellerDashboardPage() {
       </div>
 
       {/* Close Shop Modal */}
-      {showCloseModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/50 animate-fade-in">
-          <div className="bg-white rounded-2xl w-full max-w-sm p-5 shadow-2xl animate-scale-up">
-            <div className="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mb-4 mx-auto">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="8" x2="12" y2="12" />
-                <line x1="12" y1="16" x2="12.01" y2="16" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-bold text-gray-900 text-center mb-2">Tutup Toko?</h3>
-            <p className="text-sm text-gray-500 text-center mb-6">
-              Apakah Anda yakin ingin menutup toko sekarang? Anda masih memiliki <span className="font-bold text-gray-900">5 Surprise Bag</span> di listing aktif.
-            </p>
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShowCloseModal(false)}
-                className="flex-1 py-2.5 rounded-xl text-gray-600 font-bold bg-gray-100 hover:bg-gray-200"
-              >
-                Batal
-              </button>
-              <button
-                onClick={() => {
-                  setIsShopOpen(false);
-                  setShowCloseModal(false);
-                }}
-                className="flex-1 py-2.5 rounded-xl text-white font-bold bg-amber-500 hover:bg-amber-600"
-              >
-                Ya, Tutup
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {showCloseModal && (
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/50 backdrop-blur-sm"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0, y: 10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 10 }}
+              className="bg-white rounded-2xl w-full max-w-sm p-5 shadow-2xl"
+            >
+              <div className="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mb-4 mx-auto">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 text-center mb-2">Tutup Toko?</h3>
+              <p className="text-sm text-gray-500 text-center mb-6">
+                Apakah Anda yakin ingin menutup toko sekarang? Anda masih memiliki <span className="font-bold text-gray-900">5 Surprise Bag</span> di listing aktif.
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowCloseModal(false)}
+                  className="flex-1 py-2.5 rounded-xl text-gray-600 font-bold bg-gray-100 hover:bg-gray-200"
+                >
+                  Batal
+                </button>
+                <button
+                  onClick={() => {
+                    setIsShopOpen(false);
+                    setShowCloseModal(false);
+                  }}
+                  className="flex-1 py-2.5 rounded-xl text-white font-bold bg-amber-500 hover:bg-amber-600"
+                >
+                  Ya, Tutup
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </SellerLayout>
   );
 }

@@ -4,6 +4,7 @@ import { useApp } from '../context/AppContext';
 import ImpactDashboard from '../components/ui/ImpactDashboard';
 import BottomNavBar from '../components/ui/BottomNavBar';
 import MerchantBottomNav from '../components/ui/MerchantBottomNav';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const menuItems = [
   {
@@ -95,36 +96,50 @@ export default function ProfilePage() {
           />
 
           {/* Seller Action Button */}
-          {role === 'buyer' ? (
-            <button
-              onClick={() => {
-                setRole('seller');
-                navigate('/seller-dashboard');
-              }}
-              className="relative z-20 cursor-pointer w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold py-3.5 rounded-xl 
-                         hover:from-amber-600 hover:to-orange-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" />
-              </svg>
-              <span>Daftar sebagai Penjual</span>
-            </button>
-          ) : (
-            <button
-              onClick={() => navigate('/seller-dashboard')}
-              className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-3.5 rounded-xl 
-                         hover:from-purple-700 hover:to-indigo-700 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-              </svg>
-              <span>Dashboard Penjual</span>
-            </button>
-          )}
+          <div className="relative h-[52px]">
+            <AnimatePresence mode="wait">
+              {role === 'buyer' ? (
+                <motion.button
+                  key="buyer-btn"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => {
+                    setRole('seller');
+                    navigate('/seller-dashboard');
+                  }}
+                  className="absolute inset-0 z-20 cursor-pointer w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold py-3.5 rounded-xl 
+                             hover:from-amber-600 hover:to-orange-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                  </svg>
+                  <span>Daftar sebagai Penjual</span>
+                </motion.button>
+              ) : (
+                <motion.button
+                  key="seller-btn"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => navigate('/seller-dashboard')}
+                  className="absolute inset-0 w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-3.5 rounded-xl 
+                             hover:from-purple-700 hover:to-indigo-700 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                  </svg>
+                  <span>Dashboard Penjual</span>
+                </motion.button>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* Menu Items */}
           <div className="card overflow-hidden">

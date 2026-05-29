@@ -1,18 +1,17 @@
 import { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
-import { useOrder } from '../context/OrderContext';
 import OrderTimeline from '../components/ui/OrderTimeline';
 import ordersData from '../data/orders.json';
 import storesData from '../data/stores.json';
 import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet';
 import L from 'leaflet';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function OrderTrackingPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { getOrderById, completeOrder } = useApp();
-  const { activeOrder: legacyOrder } = useOrder();
 
   const location = useLocation();
   const [showQR, setShowQR] = useState(location.state?.showQR || false);
@@ -234,15 +233,23 @@ export default function OrderTrackingPage() {
       )}
 
       {/* QR Code Overlay Modal */}
-      {showQR && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/60 backdrop-blur-sm animate-fade-in"
-          onClick={() => setShowQR(false)}
-        >
-          <div 
-            className="bg-white rounded-3xl p-6 w-full max-w-[340px] shadow-2xl relative animate-scale-in"
-            onClick={e => e.stopPropagation()}
+      <AnimatePresence>
+        {showQR && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/60 backdrop-blur-sm"
+            onClick={() => setShowQR(false)}
           >
+            <motion.div 
+              initial={{ scale: 0.95, opacity: 0, y: 10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 10 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="bg-white rounded-3xl p-6 w-full max-w-[340px] shadow-2xl relative"
+              onClick={e => e.stopPropagation()}
+            >
             {/* Close Button */}
             <button 
               onClick={() => setShowQR(false)}
@@ -326,9 +333,10 @@ export default function OrderTrackingPage() {
             <div className="mt-4 text-center">
               <p className="text-gray-500 text-sm">Ketuk QR untuk simulasi penyelesaian pesanan (Demo)</p>
             </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

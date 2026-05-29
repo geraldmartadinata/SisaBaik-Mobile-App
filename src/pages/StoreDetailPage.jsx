@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
+import { useApp } from '../context/AppContext';
 import SurpriseBagCard from '../components/ui/SurpriseBagCard';
 import Badge from '../components/ui/Badge';
 import PaymentSuccessModal from '../components/modals/PaymentSuccessModal';
+import { AnimatePresence } from 'framer-motion';
 import { formatCurrency } from '../utils/formatCurrency';
 import { getStoreImage } from '../utils/imageMapper';
 import storesData from '../data/stores.json';
@@ -12,7 +13,7 @@ export default function StoreDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const { totalItems, subtotal, store: cartStore } = useCart();
+  const { cartTotalItems, cartSubtotal, cartStore } = useApp();
 
   const store = storesData.find(s => s.id === id);
 
@@ -35,7 +36,7 @@ export default function StoreDetailPage() {
     );
   }
 
-  const showCartBar = totalItems > 0 && cartStore?.id === store.id;
+  const showCartBar = cartTotalItems > 0 && cartStore?.id === store.id;
 
   return (
     <div className="page-wrapper bg-gray-50 page-transition">
@@ -147,21 +148,23 @@ export default function StoreDetailPage() {
           >
             <span className="flex items-center gap-2">
               <span className="bg-white/20 px-2.5 py-0.5 rounded-lg text-sm font-bold">
-                {totalItems} Item{totalItems > 1 ? 's' : ''}
+                {cartTotalItems} Item{cartTotalItems > 1 ? 's' : ''}
               </span>
-              <span>Review Order - {formatCurrency(subtotal)}</span>
+              <span>Review Order - {formatCurrency(cartSubtotal)}</span>
             </span>
           </button>
         </div>
       )}
 
       {/* Payment Success Modal — shown after checkout redirect */}
-      {completedOrder && (
-        <PaymentSuccessModal
-          order={completedOrder}
-          onClose={() => setCompletedOrder(null)}
-        />
-      )}
+      <AnimatePresence>
+        {completedOrder && (
+          <PaymentSuccessModal
+            order={completedOrder}
+            onClose={() => setCompletedOrder(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
