@@ -14,7 +14,8 @@ export default function StoreCard({ store }) {
     <div
       onClick={() => navigate(`/store/${store.id}`)}
       className="flex-shrink-0 w-[280px] bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden
-                 cursor-pointer active:scale-[0.97] transition-all duration-200 hover:shadow-card-hover"
+                 cursor-pointer active:scale-[0.97] transition-all duration-200
+                 hover:shadow-[0_8px_25px_rgba(0,0,0,0.12)] hover:-translate-y-1"
     >
       {/* Store Image */}
       <div className="relative h-[130px] bg-gray-100 overflow-hidden">
@@ -44,7 +45,7 @@ export default function StoreCard({ store }) {
           <span>Pick up {store.pickupWindow}</span>
         </div>
 
-        <div className="flex items-center justify-between mt-3">
+        <div className="flex items-center justify-between mt-2">
           <div className="flex items-center gap-1.5">
             <span className="text-xs text-gray-400 line-through">{formatCurrency(cheapestBag.originalPrice)}</span>
           </div>

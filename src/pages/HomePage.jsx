@@ -51,15 +51,65 @@ export default function HomePage() {
   return (
     <div className="page-wrapper bg-gray-50 page-transition">
       
-      {/* Map Area (Top Half) */}
-      <div className="relative flex-1 bg-gray-100 overflow-hidden z-0">
-        
+      {/* Full-screen map + overlays container */}
+      <div className="relative flex-1">
+
+        {/* Map Background Layer — spans entire screen */}
+        <div className="absolute inset-0 w-full h-full z-0">
+          <MapContainer 
+            center={mapCenter} 
+            zoom={16} 
+            zoomControl={false}
+            className="w-full h-full z-0"
+          >
+            <TileLayer
+              url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            
+            {filteredStores.map((store, index) => {
+              const cheapestBag = store.surpriseBags.reduce((min, bag) =>
+                bag.discountedPrice < min.discountedPrice ? bag : min
+              , store.surpriseBags[0]);
+
+              return (
+                <Marker 
+                  key={store.id} 
+                  position={[store.lat, store.lng]}
+                  icon={createCustomIcon(cheapestBag.discountedPrice, store.isOpen)}
+                >
+                  <Popup className="rounded-xl overflow-hidden">
+                    <div className="text-center font-semibold text-gray-900">{store.name}</div>
+                    <div className="text-xs text-gray-500">{store.category}</div>
+                  </Popup>
+                </Marker>
+              );
+            })}
+
+            {/* User Location */}
+            <Marker
+              position={mapCenter}
+              icon={L.divIcon({
+                html: `<div style="display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);">
+                  <svg width="24" height="36" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 0C5.37258 0 0 5.37258 0 12C0 21 12 36 12 36C12 36 24 21 24 12C24 5.37258 18.6274 0 12 0Z" fill="#3B82F6"/>
+                    <circle cx="12" cy="12" r="5" fill="white"/>
+                  </svg>
+                </div>`,
+                className: '',
+                iconSize: [0, 0],
+                iconAnchor: [0, 0],
+              })}
+            />
+          </MapContainer>
+        </div>
+
         {/* Floating Header overlay */}
         <div className="absolute top-0 left-0 right-0 z-[1000] pt-4 px-5 pointer-events-none">
           <div className="pointer-events-auto">
             {/* Greeting bar */}
             <div className="flex items-center justify-between mb-3 drop-shadow-md">
-              <div className="bg-white/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/40">
+              <div className="px-3 py-1.5 rounded-xl border border-white/20 shadow-sm" style={{ background: 'rgba(255, 255, 255, 0.35)', backdropFilter: 'blur(40px) saturate(190%)', WebkitBackdropFilter: 'blur(40px) saturate(190%)' }}>
                 <p className="text-xs text-gray-500 font-medium">Good morning,</p>
                 <h2 className="text-sm font-bold text-gray-900">{firstName}</h2>
               </div>
@@ -69,7 +119,7 @@ export default function HomePage() {
             </div>
 
             {/* Search bar */}
-            <div className="relative mb-3 rounded-2xl overflow-hidden glass shadow-lg border border-white/40">
+            <div className="relative mb-3 rounded-2xl overflow-hidden shadow-lg border border-white/20" style={{ background: 'rgba(255, 255, 255, 0.35)', backdropFilter: 'blur(40px) saturate(190%)', WebkitBackdropFilter: 'blur(40px) saturate(190%)' }}>
               <svg className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -98,76 +148,34 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Real Map */}
-        <MapContainer 
-          center={mapCenter} 
-          zoom={16} 
-          zoomControl={false}
-          className="w-full h-full z-0"
+        {/* Bottom Sheet — glassmorphism overlay on top of map */}
+        <div className="absolute bottom-0 w-full z-10 rounded-t-[28px] overflow-hidden border-t border-white/40 shadow-[0_-8px_32px_rgba(0,0,0,0.1)] pt-4 pb-5"
+          style={{
+            background: 'rgba(255, 255, 255, 0.35)',
+            backdropFilter: 'blur(40px) saturate(190%)',
+            WebkitBackdropFilter: 'blur(40px) saturate(190%)',
+          }}
         >
-          <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          />
-          
-          {filteredStores.map((store, index) => {
-            const cheapestBag = store.surpriseBags.reduce((min, bag) =>
-              bag.discountedPrice < min.discountedPrice ? bag : min
-            , store.surpriseBags[0]);
-
-            return (
-              <Marker 
-                key={store.id} 
-                position={[store.lat, store.lng]}
-                icon={createCustomIcon(cheapestBag.discountedPrice, store.isOpen)}
-              >
-                <Popup className="rounded-xl overflow-hidden">
-                  <div className="text-center font-semibold text-gray-900">{store.name}</div>
-                  <div className="text-xs text-gray-500">{store.category}</div>
-                </Popup>
-              </Marker>
-            );
-          })}
-
-          {/* User Location */}
-          <Marker
-            position={mapCenter}
-            icon={L.divIcon({
-              html: `<div style="display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);">
-                <svg width="24" height="36" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 0C5.37258 0 0 5.37258 0 12C0 21 12 36 12 36C12 36 24 21 24 12C24 5.37258 18.6274 0 12 0Z" fill="#3B82F6"/>
-                  <circle cx="12" cy="12" r="5" fill="white"/>
-                </svg>
-              </div>`,
-              className: '',
-              iconSize: [0, 0],
-              iconAnchor: [0, 0],
-            })}
-          />
-        </MapContainer>
-
-        {/* Bottom Sheet anchored section (Fixed, floating at bottom of map) */}
-        <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] shadow-[0_-10px_40px_rgba(0,0,0,0.1)] z-10 pt-5">
           
           {/* Category Filter */}
-          <div className="mb-4">
-          <CategoryFilter activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
-        </div>
+          <div className="mb-2">
+            <CategoryFilter activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
+          </div>
 
-        {/* Store Cards Carousel */}
-        <div ref={scrollRef} className="flex w-full gap-3 overflow-x-auto no-scrollbar px-5 pb-5 cursor-grab active:cursor-grabbing select-none flex-nowrap">
-          {filteredStores.filter(s => s.isOpen).map(store => (
-            <StoreCard key={store.id} store={store} />
-          ))}
-          {filteredStores.filter(s => s.isOpen).length === 0 && (
-            <div className="w-full text-center py-8 text-gray-400 text-sm">
-              Tidak ada toko yang buka.
-            </div>
-          )}
-          {/* Spacer for right padding in flex row */}
-          <div className="w-2 shrink-0"></div>
+          {/* Store Cards Carousel */}
+          <div ref={scrollRef} className="flex w-full gap-3 overflow-x-auto no-scrollbar px-5 pb-3 cursor-grab active:cursor-grabbing select-none flex-nowrap">
+            {filteredStores.filter(s => s.isOpen).map(store => (
+              <StoreCard key={store.id} store={store} />
+            ))}
+            {filteredStores.filter(s => s.isOpen).length === 0 && (
+              <div className="w-full text-center py-8 text-gray-400 text-sm">
+                Tidak ada toko yang buka.
+              </div>
+            )}
+            {/* Spacer for right padding in flex row */}
+            <div className="w-2 shrink-0"></div>
+          </div>
         </div>
-      </div>
       </div>
 
       {/* Bottom Navigation */}

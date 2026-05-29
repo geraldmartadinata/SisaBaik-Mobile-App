@@ -5,17 +5,17 @@ export default function CategoryFilter({ activeCategory, onCategoryChange }) {
   const scrollRef = useDraggableScroll();
   
   return (
-    <div ref={scrollRef} className="flex gap-2 overflow-x-auto no-scrollbar px-5 py-2 cursor-grab active:cursor-grabbing select-none">
+    <div ref={scrollRef} className="flex gap-2 overflow-x-auto no-scrollbar px-5 py-1.5 cursor-grab active:cursor-grabbing select-none">
       {CATEGORIES.map((cat) => (
         <button
           key={cat.id}
           onClick={() => onCategoryChange(cat.id)}
           className={`
-            flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium
-            transition-all duration-200 active:scale-95
+            flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium
+            transition-all duration-200 active:scale-95 border
             ${activeCategory === cat.id
-              ? 'bg-primary-600 text-white shadow-md shadow-primary-600/25'
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              ? 'bg-primary-600 text-white shadow-md shadow-primary-600/25 border-primary-600'
+              : 'text-gray-700 bg-white/90 border-white/50 shadow-sm hover:bg-white'
             }
           `}
         >

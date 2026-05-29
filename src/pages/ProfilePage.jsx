@@ -57,7 +57,7 @@ const menuItems = [
 export default function ProfilePage() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const { role } = useApp();
+  const { role, setRole } = useApp();
 
   const handleLogout = () => {
     logout();
@@ -101,7 +101,7 @@ export default function ProfilePage() {
                 setRole('seller');
                 navigate('/seller-dashboard');
               }}
-              className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold py-3.5 rounded-xl 
+              className="relative z-20 cursor-pointer w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold py-3.5 rounded-xl 
                          hover:from-amber-600 hover:to-orange-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

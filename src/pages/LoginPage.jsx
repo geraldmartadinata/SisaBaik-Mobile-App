@@ -21,7 +21,7 @@ export default function LoginPage() {
       <div className="relative flex-none w-full">
         <div className="bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 px-5 pt-5 pb-14 relative overflow-hidden">
           {/* Wave decoration */}
-          <svg className="absolute left-0 right-0 w-full" viewBox="0 0 430 40" preserveAspectRatio="none" style={{ height: '40px', bottom: '-1px' }}>
+          <svg className="absolute left-0 right-0 w-full" viewBox="0 0 430 40" preserveAspectRatio="none" style={{ height: '42px', bottom: '-2px' }}>
             <path d="M0 40 L0 15 Q107 0 215 15 Q322 30 430 15 L430 40 Z" fill="white" />
           </svg>
 
@@ -54,7 +54,7 @@ export default function LoginPage() {
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar">
+      <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar -mt-[3px] bg-white relative z-[1]">
         <div className="px-7 pt-6 pb-8 flex flex-col min-h-full">
           {/* Welcome Title */}
           <div className="mb-6">
