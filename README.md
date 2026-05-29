@@ -1,16 +1,40 @@
-# React + Vite
+# SisaBaik Mobile App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SisaBaik is a food rescue platform designed to combat food waste by connecting users with local merchants offering surplus food at discounted rates. This repository contains the frontend mobile web application.
 
-Currently, two official plugins are available:
+## Tech Stack
+- **Core:** React 19 + Vite (for fast HMR and optimized builds)
+- **Routing:** React Router v7
+- **Styling:** Tailwind CSS (utilizing custom glassmorphism utilities)
+- **Maps:** Leaflet & React-Leaflet for location-based store discovery
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Architecture & Design Notes
+- **Simulated Mobile Viewport:** The app uses a custom `<MobileWrapper />` layout to perfectly simulate a 430x932 mobile screen within desktop browsers, ensuring native mobile proportions are maintained during development.
+- **Component-Driven:** Heavy reliance on reusable UI components (e.g., `StoreCard`, `CategoryFilter`) isolated in `src/components/ui` to keep pages clean.
+- **Premium UI (Apple-Style Glassmorphism):** We implemented a highly translucent frosted glass effect across overlays (bottom sheets, nav bars) using precise `backdrop-filter: blur() saturate()` combinations for a native OS feel.
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
 
-## Expanding the ESLint configuration
+### Local Setup
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+2. **Run the dev server:**
+   ```bash
+   npm run dev
+   ```
+   The app will be served at `http://localhost:5173` (or the next available port).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Project Structure
+- `/src/pages`: Top-level route components (Home, Login, Profile, etc.)
+- `/src/components`: Shared UI building blocks.
+- `/src/layouts`: Layout wrappers (including the mobile device simulator).
+- `/src/context`: Global state management (e.g., `AuthContext`).
+
+## Contributing
+When making UI changes, please ensure you test against the simulated mobile wrapper to verify that padding, safe areas, and touch-targets remain consistent with mobile design standards.
