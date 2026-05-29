@@ -90,7 +90,8 @@ export default function CreateListingPage() {
                   placeholder="20000"
                   className="input-field pl-12"
                   required
-                  min="1000"
+                  min="0"
+                  step="500"
                 />
               </div>
               <p className="text-xs text-gray-400 mt-1.5">Berikan diskon minimal 50% dari harga asli.</p>

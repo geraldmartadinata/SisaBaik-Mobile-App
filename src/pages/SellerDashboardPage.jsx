@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import SellerLayout from '../layouts/SellerLayout';
 import { getStoreImage, getMenuImage } from '../utils/imageMapper';
+import SellerHeader from '../components/ui/SellerHeader';
 
 export default function SellerDashboardPage() {
   const navigate = useNavigate();
@@ -23,21 +24,7 @@ export default function SellerDashboardPage() {
     <SellerLayout>
       <div className="flex flex-col space-y-6 pb-24 bg-gray-50 min-h-screen relative">
         {/* Header */}
-        <header className="px-5 pt-12 pb-4 bg-white shadow-sm flex items-center justify-between sticky top-0 z-10">
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <div className="flex items-center gap-3">
-            <button className="w-8 h-8 rounded-full flex items-center justify-center text-gray-500 relative bg-gray-50">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-              </svg>
-              <span className="absolute top-1 right-1.5 w-2 h-2 bg-red-500 border-2 border-white rounded-full"></span>
-            </button>
-            <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden border border-gray-200 flex-shrink-0">
-              <img src={getStoreImage('Toko Roti Makmur')} alt="Merchant Avatar" className="w-full h-full object-cover" />
-            </div>
-          </div>
-        </header>
+        <SellerHeader title="Dashboard" />
 
         {/* Shop Status Toggle */}
         <section className="px-5">
@@ -189,8 +176,13 @@ export default function SellerDashboardPage() {
         {/* Floating Action Button */}
         <div className="px-5 mt-auto pb-4 pt-6">
           <button
-            onClick={() => navigate('/create-listing')}
-            className="w-full bg-[#0f6f3b] text-white font-bold text-[15px] py-3.5 rounded-xl shadow-lg shadow-green-900/20 hover:bg-[#0c592f] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+            onClick={() => isShopOpen && navigate('/create-listing')}
+            disabled={!isShopOpen}
+            className={`w-full font-bold text-[15px] py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 ${
+              isShopOpen 
+                ? 'bg-[#0f6f3b] text-white shadow-lg shadow-green-900/20 hover:bg-[#0c592f] active:scale-[0.98]' 
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none'
+            }`}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10" />
@@ -199,6 +191,11 @@ export default function SellerDashboardPage() {
             </svg>
             Buat Listing Surprise Bag
           </button>
+          {!isShopOpen && (
+            <p className="text-sm text-gray-500 mt-2 text-center">
+              Toko sedang tutup. Aktifkan status toko untuk membuat listing.
+            </p>
+          )}
         </div>
       </div>
 

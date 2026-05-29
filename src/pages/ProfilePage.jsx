@@ -97,7 +97,10 @@ export default function ProfilePage() {
           {/* Seller Action Button */}
           {role === 'buyer' ? (
             <button
-              onClick={() => navigate('/register-merchant')}
+              onClick={() => {
+                setRole('seller');
+                navigate('/seller-dashboard');
+              }}
               className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold py-3.5 rounded-xl 
                          hover:from-amber-600 hover:to-orange-600 active:scale-[0.98] transition-all duration-200 shadow-md flex items-center justify-center gap-2"
             >

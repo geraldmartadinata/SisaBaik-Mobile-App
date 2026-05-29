@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
 import MerchantBottomNav from '../components/ui/MerchantBottomNav';
+import SellerHeader from '../components/ui/SellerHeader';
 
 const menuItems = [
   {
@@ -66,36 +67,35 @@ export default function SellerProfilePage() {
     <div className="page-wrapper bg-gray-50 page-transition">
       <div className="page-content bg-gray-50 pb-24">
         {/* Header */}
-        <header className="px-5 pt-12 pb-4 bg-white shadow-sm flex items-center justify-between sticky top-0 z-10">
-          <h1 className="text-2xl font-bold text-gray-900">Profil</h1>
-          <div className="flex items-center gap-3">
-            <button className="w-8 h-8 rounded-full flex items-center justify-center text-gray-500 relative bg-gray-50">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-              </svg>
-              <span className="absolute top-1 right-1.5 w-2 h-2 bg-red-500 border-2 border-white rounded-full"></span>
-            </button>
-            <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden border border-gray-200 flex-shrink-0">
-              <img src="/src/assets/images/sisabaikbakery.png" alt="Merchant Avatar" className="w-full h-full object-cover" />
+        <SellerHeader title="Profil" />
+
+        {/* Profile Info (Background Image) */}
+        <div className="px-5 pt-6 pb-4">
+          <div 
+            className="w-full rounded-2xl p-5 flex flex-col justify-end items-start relative overflow-hidden shadow-md"
+            style={{ 
+              aspectRatio: '16/9',
+              backgroundImage: 'url(/src/assets/images/seller_profile.png)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            {/* Gradient overlay for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+            
+            <div className="relative z-10">
+              <h2 className="text-xl font-bold text-white mb-2 shadow-sm">
+                Group 8 Bakery
+              </h2>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 backdrop-blur-md text-white rounded-full text-xs font-semibold border border-white/30">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+                Merchant Aktif
+              </span>
             </div>
           </div>
-        </header>
-
-        {/* Profile Info */}
-        <div className="w-full bg-white px-5 pt-6 pb-6 text-center">
-
-          {/* Name & Tier */}
-          <h2 className="mt-4 text-lg font-bold text-gray-900">
-            Toko Roti Makmur
-          </h2>
-          <span className="inline-flex items-center gap-1.5 mt-1.5 px-3 py-1 bg-primary-50 text-primary-700 rounded-full text-xs font-semibold border border-primary-100">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-              <polyline points="22 4 12 14.01 9 11.01" />
-            </svg>
-            Merchant Aktif
-          </span>
         </div>
 
         <div className="w-full px-5 py-4 space-y-4">

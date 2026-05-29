@@ -21,7 +21,7 @@ export default function LoginPage() {
       <div className="relative flex-none w-full">
         <div className="bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 px-5 pt-5 pb-14 relative overflow-hidden">
           {/* Wave decoration */}
-          <svg className="absolute bottom-0 left-0 right-0 w-full" viewBox="0 0 430 40" preserveAspectRatio="none" style={{ height: '40px' }}>
+          <svg className="absolute left-0 right-0 w-full" viewBox="0 0 430 40" preserveAspectRatio="none" style={{ height: '40px', bottom: '-1px' }}>
             <path d="M0 40 L0 15 Q107 0 215 15 Q322 30 430 15 L430 40 Z" fill="white" />
           </svg>
 
