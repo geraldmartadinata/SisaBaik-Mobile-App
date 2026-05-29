@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
 import MerchantBottomNav from '../components/ui/MerchantBottomNav';
 import SellerHeader from '../components/ui/SellerHeader';
+import sellerProfileBg from '../assets/images/seller_profile.png';
 
 const menuItems = [
   {
@@ -75,7 +76,7 @@ export default function SellerProfilePage() {
             className="w-full rounded-2xl p-5 flex flex-col justify-end items-start relative overflow-hidden shadow-md"
             style={{ 
               aspectRatio: '16/9',
-              backgroundImage: 'url(/src/assets/images/seller_profile.png)',
+              backgroundImage: `url(${sellerProfileBg})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center'
             }}
