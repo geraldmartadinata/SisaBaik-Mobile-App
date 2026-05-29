@@ -190,7 +190,10 @@ export function AppProvider({ children }) {
                 completedAt: new Date().toISOString(),
                 timeline: orderToComplete.timeline.map(t => ({...t, completed: true, active: false, time: t.time || new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}))
             };
-            setCompletedOrders(oldCompleted => [completed, ...oldCompleted]);
+            setCompletedOrders(oldCompleted => {
+                if (oldCompleted.some(o => o.id === orderId)) return oldCompleted;
+                return [completed, ...oldCompleted];
+            });
         }
         return prev.filter(o => o.id !== orderId);
     });

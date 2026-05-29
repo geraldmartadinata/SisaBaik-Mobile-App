@@ -4,6 +4,7 @@ import { useApp } from '../context/AppContext';
 import { getStoreImage, getMenuImage } from '../utils/imageMapper';
 import SellerHeader from '../components/ui/SellerHeader';
 import { motion, AnimatePresence } from 'framer-motion';
+import SellerLayout from '../layouts/SellerLayout';
 
 export default function SellerDashboardPage() {
   const navigate = useNavigate();

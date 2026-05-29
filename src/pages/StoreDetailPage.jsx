@@ -133,7 +133,7 @@ export default function StoreDetailPage() {
 
           <div className="space-y-3">
             {store.surpriseBags.map(bag => (
-              <SurpriseBagCard key={bag.id} bag={bag} store={store} />
+              <SurpriseBagCard key={bag.id} bag={bag} storeData={store} />
             ))}
           </div>
         </div>
