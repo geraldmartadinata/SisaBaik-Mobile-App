@@ -65,6 +65,7 @@ export default function CreateListingPage() {
                 <path d="M19 12H5M12 19l-7-7 7-7" />
               </svg>
             </button>
+            <div className="flex-1">
               <h1 className="text-lg font-bold text-gray-900 leading-none">Create Listing</h1>
               <p className="text-xs text-gray-500 mt-1">Step {step} of {totalSteps}</p>
             </div>
