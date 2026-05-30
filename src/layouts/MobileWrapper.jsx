@@ -1,7 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export default function MobileWrapper({ children }) {
   const [scale, setScale] = useState(1);
+  const phoneRef = useRef(null);
+  const outerRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
     const calculateScale = () => {
@@ -29,9 +33,19 @@ export default function MobileWrapper({ children }) {
     return () => window.removeEventListener('resize', calculateScale);
   }, []);
 
+  // GLOBAL SCROLL RESET: On every route change, forcefully reset scroll position
+  // of both the phone container and the outer wrapper. This prevents any page
+  // (chat, modals, etc.) from permanently shifting the phone frame.
+  useEffect(() => {
+    if (phoneRef.current) phoneRef.current.scrollTop = 0;
+    if (outerRef.current) outerRef.current.scrollTop = 0;
+    // Also reset window scroll in case anything bubbled to document level
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
     // The Global Desktop Background
-    <div className="flex items-center justify-center w-full h-[100dvh] bg-gray-200 overflow-hidden">
+    <div ref={outerRef} className="flex items-center justify-center w-full h-[100dvh] bg-gray-200 overflow-hidden">
       
       {/* 
           The True Phone Simulator
@@ -43,11 +57,12 @@ export default function MobileWrapper({ children }) {
           so it perfectly fits in the user's browser window without scrolling.
       */}
       <div 
+        ref={phoneRef}
         className="relative bg-gray-50 rounded-[40px] shadow-2xl overflow-hidden flex flex-col shrink-0"
         style={{
           width: '430px',
           height: '932px',
-          border: '8px solid #1f2937', // Kept the neat dark bezel, but now it scales perfectly!
+          border: '8px solid #1f2937',
           transform: `scale(${scale})`,
           transformOrigin: 'center center',
           transition: 'transform 0.1s ease-out'
@@ -58,3 +73,4 @@ export default function MobileWrapper({ children }) {
     </div>
   );
 }
+

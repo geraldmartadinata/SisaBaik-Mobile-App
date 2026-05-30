@@ -47,7 +47,7 @@ export default function LoginPage() {
               onClick={() => { login('skip', 'skip'); navigate('/home'); }}
               className="text-white/90 text-sm font-semibold hover:text-white transition-colors"
             >
-              Lewati
+              Skip
             </button>
           </div>
         </div>
@@ -59,12 +59,11 @@ export default function LoginPage() {
           {/* Welcome Title */}
           <div className="mb-6">
             <h1 className="text-[30px] font-extrabold text-gray-900 leading-[1.15]">
-              Selamat<br />
-              <span className="text-primary-600">datang</span><br />
-              kembali!
+              Welcome<br />
+              <span className="text-primary-600">back!</span>
             </h1>
             <p className="text-sm text-gray-500 mt-3 leading-relaxed">
-              Masuk untuk melanjutkan aksi baikmu menyelamatkan makanan hari ini.
+              Log in to continue your good deed of saving food today.
             </p>
           </div>
 
@@ -94,9 +93,9 @@ export default function LoginPage() {
               {/* Password */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-sm font-semibold text-gray-700">Kata Sandi</label>
+                  <label className="block text-sm font-semibold text-gray-700">Password</label>
                   <button type="button" className="text-xs text-primary-600 font-semibold hover:text-primary-700">
-                    Lupa Sandi?
+                    Forgot Password?
                   </button>
                 </div>
                 <div className="relative">
@@ -131,14 +130,14 @@ export default function LoginPage() {
                          hover:bg-primary-700 active:scale-[0.98] transition-all duration-200
                          shadow-lg shadow-primary-600/25 text-[15px]"
               >
-                Masuk →
+                Log In →
               </button>
             </div>
 
             {/* Divider */}
             <div className="flex items-center gap-4 my-6">
               <div className="flex-1 h-px bg-gray-200" />
-              <span className="text-xs text-gray-400 font-medium">atau masuk dengan</span>
+              <span className="text-xs text-gray-400 font-medium">or log in with</span>
               <div className="flex-1 h-px bg-gray-200" />
             </div>
 
@@ -174,9 +173,9 @@ export default function LoginPage() {
             {/* Register Link */}
             <div className="mt-auto pt-6 pb-2">
               <p className="text-center text-sm text-gray-500">
-                Belum punya akun?{' '}
+                Don't have an account?{' '}
                 <button type="button" className="text-primary-600 font-bold hover:text-primary-700">
-                  Daftar sekarang
+                  Sign up now
                 </button>
               </p>
             </div>

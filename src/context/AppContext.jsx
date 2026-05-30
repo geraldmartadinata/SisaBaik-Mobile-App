@@ -47,7 +47,7 @@ export function AppProvider({ children }) {
       timeline: [
         { step: "confirmed", label: "Order Confirmed", description: "The seller has received the order.", time: "14:00", completed: true },
         { step: "preparing", label: "Preparing", description: "Food is being packed.", time: "14:15", completed: false, active: true },
-        { step: "ready", label: "Ready for Pickup", description: "Show the QR code when you arrive at the store.", time: null, completed: false }
+        { step: "ready", label: "Ready for Pickup", description: "Show your QR code at the store.", time: null, completed: false }
       ]
     }
   ];
@@ -154,7 +154,7 @@ export function AppProvider({ children }) {
       timeline: [
         { step: 'confirmed', label: 'Order Confirmed', description: `${new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} - The seller has received your order.`, time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }), completed: true },
         { step: 'preparing', label: 'Preparing', description: 'Food is being packed to be rescued.', time: null, completed: false, active: true },
-        { step: 'ready', label: 'Ready for Pickup', description: 'Show the QR code when you arrive at the store.', time: null, completed: false },
+        { step: 'ready', label: 'Ready for Pickup', description: 'Show your QR code at the store.', time: null, completed: false },
       ],
       foodSavedKg: (orderData.subtotal / 20000).toFixed(1),
     };

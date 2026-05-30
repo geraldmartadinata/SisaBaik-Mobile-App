@@ -5,17 +5,21 @@ export default function ChatPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const chatName = searchParams.get('name') || 'Toko / Pembeli';
+  const chatName = searchParams.get('name') || 'Store / Buyer';
   
   const [messages, setMessages] = useState([
-    { id: 1, text: 'Halo! Pesanan saya apakah sudah bisa diambil?', sender: 'me', time: '14:30' },
-    { id: 2, text: 'Halo kak, sedang kami siapkan ya. Sekitar 5 menit lagi siap.', sender: 'them', time: '14:32' },
+    { id: 1, text: 'Hello! Is my order ready for pickup?', sender: 'me', time: '14:30' },
+    { id: 2, text: 'Hello, we are preparing your order. It will be ready in about 5 minutes.', sender: 'them', time: '14:32' },
   ]);
   const [newMessage, setNewMessage] = useState('');
-  const messagesEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
+  // Scoped scroll: only scrolls the chat container, NOT ancestors
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const el = chatContainerRef.current;
+    if (el) {
+      el.scrollTop = el.scrollHeight;
+    }
   };
 
   useEffect(() => {
@@ -39,7 +43,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="page-wrapper bg-gray-50 flex flex-col page-transition h-full">
+    <div className="page-wrapper bg-gray-50">
       {/* Header */}
       <div className="flex-none bg-white px-5 py-4 flex items-center gap-4 shadow-sm z-10">
         <button 
@@ -61,8 +65,8 @@ export default function ChatPage() {
         </div>
       </div>
 
-      {/* Chat Area */}
-      <div className="flex-1 overflow-y-auto px-5 py-6 space-y-4 no-scrollbar">
+      {/* Chat Area — flex-1 + min-h-0 constrains height, ref for scoped scroll */}
+      <div ref={chatContainerRef} className="flex-1 min-h-0 overflow-y-auto px-5 py-6 space-y-4 no-scrollbar">
         {messages.map((msg) => (
           <div key={msg.id} className={`flex ${msg.sender === 'me' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[75%] rounded-2xl px-4 py-2.5 shadow-sm ${
@@ -77,7 +81,6 @@ export default function ChatPage() {
             </div>
           </div>
         ))}
-        <div ref={messagesEndRef} />
       </div>
 
       {/* Input Area */}
@@ -88,7 +91,7 @@ export default function ChatPage() {
               type="text"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              placeholder="Ketik pesan..."
+              placeholder="Type a message..."
               className="w-full bg-gray-100 border-transparent focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500 rounded-full pl-4 pr-12 py-3 text-sm transition-all"
             />
             <button type="button" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary-600">
@@ -112,3 +115,4 @@ export default function ChatPage() {
     </div>
   );
 }
+

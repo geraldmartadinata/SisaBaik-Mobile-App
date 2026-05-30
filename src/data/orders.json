@@ -23,23 +23,23 @@
     "timeline": [
       {
         "step": "confirmed",
-        "label": "Pesanan Dikonfirmasi",
-        "description": "18:30 - Penjual telah menerima pesanan Anda.",
+        "label": "Order Confirmed",
+        "description": "18:30 - The seller has received your order.",
         "time": "18:30",
         "completed": true
       },
       {
         "step": "preparing",
-        "label": "Sedang Disiapkan",
-        "description": "Makanan sedang dikemas untuk diselamatkan.",
+        "label": "Preparing",
+        "description": "Food is being packed.",
         "time": null,
         "completed": false,
         "active": true
       },
       {
         "step": "ready",
-        "label": "Siap Diambil",
-        "description": "Tunjukkan QR code saat tiba di toko.",
+        "label": "Ready for Pickup",
+        "description": "Show your QR code at the store.",
         "time": null,
         "completed": false
       }
