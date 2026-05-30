@@ -3,7 +3,7 @@ import { useState } from 'react';
 export default function SellerHeader({ title }) {
   const [showNotifications, setShowNotifications] = useState(false);
 
-  // Dummy notifications
+  // data notifikasi
   const notifications = [
     { id: 1, text: "Order #SB-9012 waiting for pickup", time: "10 mins ago", unread: true },
     { id: 2, text: "Listing 'Surprise Bag - Bakery' sold out", time: "1 hour ago", unread: false }

@@ -19,7 +19,7 @@ export default function ReviewModal({ order, onClose, onSubmit }) {
     <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-fade-in">
       <div className="bg-white rounded-3xl mx-6 p-6 shadow-modal animate-bounce-in max-w-[360px] w-full">
         {submitted ? (
-          /* Success state */
+          /* status sukses */
           <div className="text-center py-4">
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center shadow-lg shadow-green-500/30">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -31,7 +31,7 @@ export default function ReviewModal({ order, onClose, onSubmit }) {
           </div>
         ) : (
           <>
-            {/* Header */}
+            {/* header */}
             <div className="text-center mb-5">
               <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-primary-50 flex items-center justify-center border-4 border-white shadow-sm">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -43,7 +43,7 @@ export default function ReviewModal({ order, onClose, onSubmit }) {
               <p className="text-sm text-gray-500 mt-1">{order.storeName}</p>
             </div>
 
-            {/* Star Rating */}
+            {/* rating bintang */}
             <div className="flex justify-center gap-2 mb-6">
               {[1, 2, 3, 4, 5].map((star) => {
                 const isActive = star <= (hoveredStar || rating);
@@ -70,7 +70,7 @@ export default function ReviewModal({ order, onClose, onSubmit }) {
               })}
             </div>
 
-            {/* Rating label */}
+            {/* teks rating */}
             <div className="text-center mb-5">
               <p className="text-sm font-medium text-gray-700 h-5">
                 {rating === 1 && 'Very Bad'}
@@ -81,7 +81,7 @@ export default function ReviewModal({ order, onClose, onSubmit }) {
               </p>
             </div>
 
-            {/* Actions */}
+            {/* aksi tombol */}
             <div className="space-y-3">
               <button
                 onClick={handleSubmit}

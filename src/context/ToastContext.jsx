@@ -17,7 +17,7 @@ export function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={{ addToast }}>
       {children}
-      {/* Toast Container - absolute positioned over everything */}
+      {/* kontainer toast */}
       <div className="absolute top-10 left-0 right-0 z-[9999] flex flex-col items-center pointer-events-none px-4 gap-2">
         <AnimatePresence>
           {toasts.map(toast => (

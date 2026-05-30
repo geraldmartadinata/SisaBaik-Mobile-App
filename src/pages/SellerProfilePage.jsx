@@ -67,10 +67,10 @@ export default function SellerProfilePage() {
   return (
     <div className="page-wrapper bg-gray-50 page-transition">
       <div className="page-content bg-gray-50 pb-24">
-        {/* Header */}
+        {/* header */}
         <SellerHeader title="Profile" />
 
-        {/* Profile Info (Background Image) */}
+        {/* info profil */}
         <div className="px-5 pt-6 pb-4">
           <div 
             className="w-full rounded-2xl p-5 flex flex-col justify-end items-start relative overflow-hidden shadow-md"
@@ -81,7 +81,7 @@ export default function SellerProfilePage() {
               backgroundPosition: 'center'
             }}
           >
-            {/* Gradient overlay for text readability */}
+            {/* overlay gradien */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
             
             <div className="relative z-10">
@@ -100,7 +100,7 @@ export default function SellerProfilePage() {
         </div>
 
         <div className="w-full px-5 py-4 space-y-4">
-          {/* Dashboard Switch */}
+          {/* ringkasan toko */}
           <div className="bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl p-5 text-white shadow-lg shadow-primary-600/30">
             <h2 className="text-sm font-medium text-primary-100 mb-4 opacity-90 tracking-wide uppercase">Store Performance</h2>
             <div className="grid grid-cols-3 gap-2">
@@ -119,7 +119,7 @@ export default function SellerProfilePage() {
             </div>
           </div>
 
-          {/* Seller Action Button */}
+          {/* tombol pembeli */}
           <button
             onClick={() => {
               setRole('buyer');
@@ -135,7 +135,7 @@ export default function SellerProfilePage() {
             <span>Switch to Buyer View</span>
           </button>
 
-          {/* Menu Items */}
+          {/* daftar menu */}
           <div className="card overflow-hidden">
             {menuItems.map((item, index) => (
               <button
@@ -157,7 +157,7 @@ export default function SellerProfilePage() {
             ))}
           </div>
 
-          {/* Logout */}
+          {/* tombol keluar */}
           <button
             onClick={handleLogout}
             className="w-full text-center text-sm font-semibold text-red-500 hover:text-red-600 py-3 transition-colors"
@@ -167,7 +167,7 @@ export default function SellerProfilePage() {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
+      {/* menu bawah */}
       <MerchantBottomNav />
     </div>
   );

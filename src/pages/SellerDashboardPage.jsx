@@ -8,7 +8,7 @@ import SellerLayout from '../layouts/SellerLayout';
 
 export default function SellerDashboardPage() {
   const navigate = useNavigate();
-  const { listings } = useApp(); // We'll display active listings soon
+  const { listings } = useApp(); // listing aktif
   
   const [isShopOpen, setIsShopOpen] = useState(true);
   const [showCloseModal, setShowCloseModal] = useState(false);
@@ -24,10 +24,10 @@ export default function SellerDashboardPage() {
   return (
     <SellerLayout>
       <div className="flex flex-col space-y-6 pb-24 bg-gray-50 min-h-screen relative page-transition">
-        {/* Header */}
+        {/* header */}
         <SellerHeader title="Dashboard" />
 
-        {/* Shop Status Toggle */}
+        {/* status toko */}
         <section className="px-5">
           <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -58,11 +58,11 @@ export default function SellerDashboardPage() {
           </div>
         </section>
 
-        {/* Stats Section */}
+        {/* statistik */}
         <section className="px-5">
           <h2 className="text-[15px] font-bold text-gray-900 mb-3">Today's Summary</h2>
           <div className="grid grid-cols-2 gap-3">
-            {/* Revenue Card */}
+            {/* kartu pendapatan */}
             <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm flex flex-col justify-between">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-5 h-5 rounded flex items-center justify-center text-gray-500 border border-gray-200 bg-gray-50">
@@ -87,7 +87,7 @@ export default function SellerDashboardPage() {
               </div>
             </div>
 
-            {/* Impact Card */}
+            {/* kartu dampak */}
             <div className="bg-[#0f6f3b] rounded-xl p-4 shadow-sm relative overflow-hidden flex flex-col justify-between">
               <svg className="absolute -right-2 -bottom-2 w-20 h-20 text-[#14894a] opacity-50" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 21.5c-1.5 0-4.5-1.5-6-4.5s0-7.5 3-10.5c1.5-1.5 3-4.5 3-4.5s1.5 3 3 4.5c3 3 4.5 7.5 3 10.5s-4.5 4.5-6 4.5z" />
@@ -108,7 +108,7 @@ export default function SellerDashboardPage() {
           </div>
         </section>
 
-        {/* Weekly Stats CSS Chart */}
+        {/* grafik mingguan */}
         <section className="px-5">
           <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
             <h2 className="text-[15px] font-bold text-gray-900 mb-4">This Week's Sales</h2>
@@ -130,7 +130,7 @@ export default function SellerDashboardPage() {
                       transition={{ duration: 0.8, delay: i * 0.1, type: "spring" }}
                       className={`w-full rounded-t-sm ${data.day === 'Jum' ? 'bg-[#0f6f3b]' : 'bg-primary-300'}`}
                     />
-                    {/* Tooltip on hover */}
+                    {/* tooltip */}
                     <div className="absolute -top-7 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-800 text-white text-[9px] px-1.5 py-0.5 rounded pointer-events-none">
                       {data.val}
                     </div>
@@ -142,7 +142,7 @@ export default function SellerDashboardPage() {
           </div>
         </section>
 
-        {/* Active Listings */}
+        {/* listing aktif */}
         <section className="px-5">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-[15px] font-bold text-gray-900">Active Listings</h2>
@@ -150,7 +150,7 @@ export default function SellerDashboardPage() {
           </div>
           
           <div className="space-y-3">
-            {/* Active Item */}
+            {/* item aktif */}
             <div className="bg-white border border-gray-100 rounded-xl p-3 shadow-sm relative overflow-hidden">
               <div className="flex gap-3">
                 <div className="w-[72px] h-[72px] rounded-lg bg-gray-100 flex-shrink-0 relative">
@@ -183,7 +183,7 @@ export default function SellerDashboardPage() {
               </div>
             </div>
 
-            {/* Draft Item */}
+            {/* item draf */}
             <div className="bg-white border border-gray-100 rounded-xl p-3 shadow-sm relative flex items-center gap-3">
               <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -208,7 +208,7 @@ export default function SellerDashboardPage() {
           </div>
         </section>
 
-        {/* Floating Action Button */}
+        {/* tombol tambah */}
         <div className="px-5 mt-auto pb-4 pt-6">
           <button
             onClick={() => isShopOpen && navigate('/create-listing')}
@@ -234,7 +234,7 @@ export default function SellerDashboardPage() {
         </div>
       </div>
 
-      {/* Close Shop Modal */}
+      {/* modal tutup toko */}
       <AnimatePresence>
         {showCloseModal && (
           <motion.div 

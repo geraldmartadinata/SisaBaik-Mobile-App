@@ -22,7 +22,7 @@ export default function CategoryFilter({ activeCategory, onCategoryChange }) {
           {cat.label}
         </button>
       ))}
-      {/* Spacer for right padding */}
+      {/* jarak kanan */}
       <div className="w-1 shrink-0"></div>
     </div>
   );

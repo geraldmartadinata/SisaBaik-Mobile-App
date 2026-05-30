@@ -54,7 +54,7 @@ export default function CreateListingPage() {
   return (
     <div className="page-wrapper bg-white page-transition">
       <div className="page-content flex flex-col">
-        {/* Header with Progress */}
+        {/* header dengan progres */}
         <header className="flex-none pt-5 pb-4 px-5 border-b border-gray-100 bg-white z-10 sticky top-0">
           <div className="flex items-center gap-3 mb-4">
             <button
@@ -70,7 +70,7 @@ export default function CreateListingPage() {
               <p className="text-xs text-gray-500 mt-1">Step {step} of {totalSteps}</p>
             </div>
           </div>
-          {/* Progress Bar */}
+          {/* bar progres */}
           <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
             <motion.div 
               className="h-full bg-primary-500"

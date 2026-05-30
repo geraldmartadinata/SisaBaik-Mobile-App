@@ -21,13 +21,13 @@ export default function HomePage() {
     return matchesCategory && matchesSearch;
   });
 
-  // Get first name for greeting
+  // nama depan
   const firstName = user?.name?.split(' ')[0] || 'User';
 
-  // Map center (Binus Alam Sutera)
+  // koordinat map
   const mapCenter = [-6.223608769133971, 106.64941394052858];
 
-  // Helper to create a custom HTML icon for Leaflet
+  // icon map kustom
   const createCustomIcon = (price, isOpen) => {
     const color = isOpen ? 'bg-primary-600' : 'bg-gray-400';
     const htmlString = `
@@ -51,10 +51,10 @@ export default function HomePage() {
   return (
     <div className="page-wrapper bg-gray-50 page-transition">
       
-      {/* Full-screen map + overlays container */}
+      {/* wadah peta dan overlay */}
       <div className="relative flex-1">
 
-        {/* Map Background Layer — spans entire screen */}
+        {/* layer peta */}
         <div className="absolute inset-0 w-full h-full z-0">
           <MapContainer 
             center={mapCenter} 
@@ -86,7 +86,7 @@ export default function HomePage() {
               );
             })}
 
-            {/* User Location */}
+            {/* lokasi user */}
             <Marker
               position={mapCenter}
               icon={L.divIcon({
@@ -104,10 +104,10 @@ export default function HomePage() {
           </MapContainer>
         </div>
 
-        {/* Floating Header overlay */}
+        {/* header melayang */}
         <div className="absolute top-0 left-0 right-0 z-[1000] pt-4 px-5 pointer-events-none">
           <div className="pointer-events-auto">
-            {/* Greeting bar */}
+            {/* sapaan pembuka */}
             <div className="flex items-center justify-between mb-3 drop-shadow-md">
               <div className="px-3 py-1.5 rounded-xl border border-white/20 shadow-sm" style={{ background: 'rgba(255, 255, 255, 0.35)', backdropFilter: 'blur(40px) saturate(190%)', WebkitBackdropFilter: 'blur(40px) saturate(190%)' }}>
                 <p className="text-xs text-gray-500 font-medium">Good morning,</p>
@@ -118,7 +118,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Search bar */}
+            {/* kolom pencarian */}
             <div className="relative mb-3 rounded-2xl overflow-hidden shadow-lg border border-white/20" style={{ background: 'rgba(255, 255, 255, 0.35)', backdropFilter: 'blur(40px) saturate(190%)', WebkitBackdropFilter: 'blur(40px) saturate(190%)' }}>
               <svg className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8" />
@@ -148,7 +148,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Bottom Sheet — glassmorphism overlay on top of map */}
+        {/* bagian bawah peta */}
         <div className="absolute bottom-0 w-full z-10 rounded-t-[28px] overflow-hidden border-t border-white/40 shadow-[0_-8px_32px_rgba(0,0,0,0.1)] pt-4 pb-5"
           style={{
             background: 'rgba(255, 255, 255, 0.35)',
@@ -157,12 +157,12 @@ export default function HomePage() {
           }}
         >
           
-          {/* Category Filter */}
+          {/* filter kategori */}
           <div className="mb-2">
             <CategoryFilter activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
           </div>
 
-          {/* Store Cards Carousel */}
+          {/* list toko */}
           <div ref={scrollRef} className="flex w-full gap-3 overflow-x-auto no-scrollbar px-5 pb-3 cursor-grab active:cursor-grabbing select-none flex-nowrap">
             {filteredStores.filter(s => s.isOpen).map(store => (
               <StoreCard key={store.id} store={store} />
@@ -172,13 +172,13 @@ export default function HomePage() {
                 No stores are open.
               </div>
             )}
-            {/* Spacer for right padding in flex row */}
+            {/* jarak kanan */}
             <div className="w-2 shrink-0"></div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Navigation */}
+      {/* menu bawah */}
       <BottomNavBar />
     </div>
   );

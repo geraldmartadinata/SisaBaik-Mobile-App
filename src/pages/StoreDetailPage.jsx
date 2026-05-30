@@ -17,13 +17,13 @@ export default function StoreDetailPage() {
 
   const store = storesData.find(s => s.id === id);
 
-  // ── Payment success modal state ──
+  // state modal bayar
   const [completedOrder, setCompletedOrder] = useState(null);
 
   useEffect(() => {
     if (location.state?.completedOrder) {
       setCompletedOrder(location.state.completedOrder);
-      // Clear the router state so a refresh won't re-show the modal
+      // hapus state modal
       navigate(location.pathname, { replace: true, state: {} });
     }
   }, [location.state]);
@@ -41,13 +41,13 @@ export default function StoreDetailPage() {
   return (
     <div className="page-wrapper bg-gray-50 page-transition">
       <div className="page-content">
-        {/* Hero Image */}
+        {/* gambar utama */}
         <div className="relative h-[250px] bg-gray-100 overflow-hidden">
           <img src={getStoreImage(store.name)} alt={store.name} className="w-full h-full object-cover" />
-          {/* Dark gradient overlay for top buttons */}
+          {/* gradien gelap */}
           <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/60 to-transparent pointer-events-none"></div>
 
-          {/* Top Actions */}
+          {/* tombol atas */}
           <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
             <button
               onClick={() => navigate(-1)}
@@ -74,7 +74,7 @@ export default function StoreDetailPage() {
             </div>
           </div>
 
-          {/* Open Status */}
+          {/* status buka */}
           {store.isOpen && (
             <div className="absolute bottom-4 left-4">
               <Badge variant="open">Open Now</Badge>
@@ -82,7 +82,7 @@ export default function StoreDetailPage() {
           )}
         </div>
 
-        {/* Store Info */}
+        {/* info toko */}
         <div className="px-5 pt-5 pb-4 bg-white">
           <div className="flex items-start justify-between">
             <h1 className="text-[22px] font-bold text-gray-900 leading-tight">{store.name}</h1>
@@ -105,7 +105,7 @@ export default function StoreDetailPage() {
             <span>Downtown</span>
           </div>
 
-          {/* Tags */}
+          {/* label tags */}
           <div className="flex gap-2 mt-3">
             {store.tags.map(tag => (
               <span key={tag} className="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-medium text-gray-600">
@@ -114,11 +114,11 @@ export default function StoreDetailPage() {
             ))}
           </div>
 
-          {/* Description */}
+          {/* deskripsi */}
           <p className="text-sm text-gray-500 mt-4 leading-relaxed">{store.description}</p>
         </div>
 
-        {/* Surprise Bags Section */}
+        {/* daftar produk surprise bag */}
         <div className="px-5 pt-4 pb-6">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-lg font-bold text-gray-900">Available Today</h2>
@@ -139,7 +139,7 @@ export default function StoreDetailPage() {
         </div>
       </div>
 
-      {/* Sticky Bottom Cart Bar */}
+      {/* bar keranjang bawah */}
       {showCartBar && (
         <div className="flex-none p-4 bg-white shadow-bottom-bar border-t border-gray-100 animate-slide-up">
           <button
@@ -156,7 +156,7 @@ export default function StoreDetailPage() {
         </div>
       )}
 
-      {/* Payment Success Modal — shown after checkout redirect */}
+      {/* modal sukses bayar */}
       <AnimatePresence>
         {completedOrder && (
           <PaymentSuccessModal

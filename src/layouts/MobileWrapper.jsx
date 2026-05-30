@@ -41,7 +41,7 @@ export default function MobileWrapper({ children }) {
   }, [location.pathname]);
 
   return (
-    {/* bg belakang */}
+    // bg belakang
     <div ref={outerRef} className="flex items-center justify-center w-full h-[100dvh] bg-gray-200 overflow-hidden">
       
       {/* layar hp */}

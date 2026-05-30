@@ -18,15 +18,15 @@ export default function SplashPage() {
   return (
     <div className={`page-wrapper bg-white flex flex-col items-center justify-center relative overflow-hidden transition-opacity duration-500 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
       
-      {/* Subtle leaf watermark in background */}
+      {/* watermark daun */}
       <svg 
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.04] pointer-events-none"
         width="500" height="500" viewBox="0 0 500 500" fill="none"
       >
-        {/* Large leaf shape */}
+        {/* daun besar */}
         <path d="M250 50 C 150 120, 80 250, 250 450 C 420 250, 350 120, 250 50Z" fill="#059669" />
         <path d="M250 120 C 200 180, 160 280, 250 400 C 340 280, 300 180, 250 120Z" fill="white" />
-        {/* Leaf vein */}
+        {/* tulang daun */}
         <line x1="250" y1="80" x2="250" y2="420" stroke="#059669" strokeWidth="4" />
         <path d="M250 180 C 220 200, 200 240, 180 260" stroke="#059669" strokeWidth="3" fill="none" />
         <path d="M250 220 C 280 240, 300 280, 320 300" stroke="#059669" strokeWidth="3" fill="none" />
@@ -34,7 +34,7 @@ export default function SplashPage() {
         <path d="M250 320 C 280 340, 300 370, 310 390" stroke="#059669" strokeWidth="3" fill="none" />
       </svg>
 
-      {/* Secondary smaller leaf, top-right */}
+      {/* daun kecil kanan */}
       <svg 
         className="absolute top-12 right-8 opacity-[0.05] pointer-events-none rotate-[-30deg]"
         width="180" height="180" viewBox="0 0 200 200" fill="none"
@@ -43,7 +43,7 @@ export default function SplashPage() {
         <line x1="100" y1="30" x2="100" y2="170" stroke="white" strokeWidth="2" />
       </svg>
 
-      {/* Bottom-left plant decoration */}
+      {/* hiasan kiri bawah */}
       <svg 
         className="absolute bottom-16 left-4 opacity-[0.06] pointer-events-none"
         width="120" height="160" viewBox="0 0 120 160" fill="none"
@@ -54,20 +54,20 @@ export default function SplashPage() {
         <path d="M60 120 C 35 105, 15 85, 25 60 C 40 70, 50 90, 60 105" fill="#059669" />
       </svg>
 
-      {/* Center content */}
+      {/* konten tengah */}
       <div className="relative z-10 text-center animate-bounce-in">
-        {/* Logo from PNG */}
+        {/* logo */}
         <img 
           src={logoImg} 
           alt="SisaBaik Logo" 
           className="w-24 h-24 mx-auto mb-5 object-contain drop-shadow-md"
         />
 
-        {/* Brand Name */}
+        {/* nama brand */}
         <h1 className="text-3xl font-extrabold text-primary-600 tracking-tight">SisaBaik</h1>
       </div>
 
-      {/* Bottom tagline */}
+      {/* teks bawah */}
       <div className="absolute bottom-12 left-0 right-0 text-center z-10">
         <p className="text-sm text-gray-400 font-medium tracking-wide">
           <span className="border-b-2 border-primary-400 pb-0.5">Ready to rescue?</span>

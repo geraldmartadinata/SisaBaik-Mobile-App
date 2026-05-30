@@ -20,7 +20,7 @@ export default function OrdersPage() {
       if (orderToReview && !orderToReview.isReviewed) {
         setReviewOrder(orderToReview);
       }
-      // Clear state so it doesn't pop up again on refresh or re-render
+      // hapus state modal
       navigate(location.pathname, { replace: true, state: {} });
     }
   }, [location.state, completedOrders, navigate, location.pathname]);
@@ -46,7 +46,7 @@ export default function OrdersPage() {
   };
 
   const renderOrderCard = (order, isCompleted = false) => {
-    // Determine the main item name (use the first item or default)
+    // nama item
     const itemName = order.items && order.items.length > 0 ? order.items[0].name : "Surprise Bag";
     const originalPrice = order.items && order.items.length > 0 ? (order.items[0].originalPrice || order.items[0].price * 3) : (order.total * 3);
 
@@ -55,7 +55,7 @@ export default function OrdersPage() {
         key={order.id}
         className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm text-left mb-4"
       >
-        {/* Card Header */}
+        {/* header kartu */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -76,12 +76,12 @@ export default function OrdersPage() {
           )}
         </div>
 
-        {/* Card Body */}
+        {/* isi kartu */}
         <div 
           className={`flex gap-3 ${!isCompleted ? 'mb-4' : 'mb-0'} cursor-pointer active:opacity-70 transition-opacity`}
           onClick={() => navigate(`/order/${order.id}`)}
         >
-          {/* Image Placeholder */}
+          {/* gambar produk */}
           <div className="w-20 h-20 rounded-xl bg-gray-100 flex-shrink-0 overflow-hidden relative">
             <img 
               src={order.items && order.items.length > 0 ? getMenuImage(order.items[0].bagId) : getStoreImage(order.storeName)} 
@@ -109,7 +109,7 @@ export default function OrdersPage() {
           </div>
         </div>
 
-        {/* Active Order Details */}
+        {/* info order aktif */}
         {!isCompleted && (
           <>
             <div className="bg-gray-50 rounded-xl p-3 flex items-center gap-3 mb-4">
@@ -143,7 +143,7 @@ export default function OrdersPage() {
           </>
         )}
 
-        {/* Completed Order Action */}
+        {/* aksi order selesai */}
         {isCompleted && (
           <div className="mt-4 border-t border-gray-100 pt-4">
             {order.isReviewed ? (
@@ -214,12 +214,12 @@ export default function OrdersPage() {
   return (
     <div className="page-wrapper bg-gray-50 page-transition">
       <div className="page-content">
-        {/* Header */}
+        {/* header */}
         <div className="px-5 pt-6 pb-0 bg-white">
           <h1 className="text-xl font-bold text-gray-900">My Orders</h1>
           <p className="text-sm text-gray-500 mt-1">Track your food rescue orders</p>
 
-          {/* Tab Navigation */}
+          {/* navigasi tab */}
           <div className="flex mt-4 border-b border-gray-100">
             <button
               onClick={() => setActiveTab('active')}
@@ -261,7 +261,7 @@ export default function OrdersPage() {
         </div>
 
         <div className="px-5 py-4">
-          {/* Active Orders Tab */}
+          {/* tab order aktif */}
           {activeTab === 'active' && (
             <div className="space-y-3 animate-fade-in">
               {activeOrders.length > 0 ? (
@@ -280,7 +280,7 @@ export default function OrdersPage() {
             </div>
           )}
 
-          {/* Completed Orders Tab */}
+          {/* tab order selesai */}
           {activeTab === 'completed' && (
             <div className="space-y-3 animate-fade-in">
               {completedOrders.length > 0 ? (
@@ -293,10 +293,10 @@ export default function OrdersPage() {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
+      {/* menu bawah */}
       <BottomNavBar />
 
-      {/* Review Modal */}
+      {/* modal ulasan */}
       {reviewOrder && (
         <ReviewModal
           order={reviewOrder}

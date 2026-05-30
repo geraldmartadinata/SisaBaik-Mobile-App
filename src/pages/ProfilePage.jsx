@@ -68,9 +68,9 @@ export default function ProfilePage() {
   return (
     <div className="page-wrapper bg-gray-50 page-transition">
       <div className="page-content">
-        {/* Profile Header */}
+        {/* header profil */}
         <div className="w-full bg-white px-5 pt-10 pb-6 text-center">
-          {/* Avatar */}
+          {/* avatar */}
           <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center shadow-md">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="#6B7280" stroke="none">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -78,7 +78,7 @@ export default function ProfilePage() {
             </svg>
           </div>
 
-          {/* Name & Tier */}
+          {/* nama dan level */}
           <h2 className="mt-4 text-lg font-bold text-gray-900">
             {user?.name || 'Gerald Martadinata'}
           </h2>
@@ -89,13 +89,13 @@ export default function ProfilePage() {
         </div>
 
         <div className="w-full px-5 py-4 space-y-4">
-          {/* Dashboard */}
+          {/* ringkasan */}
           <ImpactDashboard
             impact={user?.impact || { foodSavedKg: 12, totalOrders: 24, moneySaved: 450000 }}
             milestone={user?.milestone || { current: 'Gold', next: 'Platinum', progress: 85 }}
           />
 
-          {/* Seller Action Button */}
+          {/* tombol toko */}
           <div className="relative h-[52px]">
             <AnimatePresence mode="wait">
               {role === 'buyer' ? (
@@ -141,7 +141,7 @@ export default function ProfilePage() {
             </AnimatePresence>
           </div>
 
-          {/* Menu Items */}
+          {/* daftar menu */}
           <div className="card overflow-hidden">
             {menuItems.map((item, index) => (
               <button
@@ -163,7 +163,7 @@ export default function ProfilePage() {
             ))}
           </div>
 
-          {/* Logout */}
+          {/* tombol keluar */}
           <button
             onClick={handleLogout}
             className="w-full text-center text-sm font-semibold text-red-500 hover:text-red-600 py-3 transition-colors"
@@ -173,7 +173,7 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
+      {/* menu bawah */}
       {role === 'seller' ? <MerchantBottomNav /> : <BottomNavBar />}
     </div>
   );

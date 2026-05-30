@@ -8,9 +8,9 @@ export default function OrderTimeline({ timeline }) {
 
         return (
           <div key={step.step} className="flex gap-3.5">
-            {/* Timeline indicator */}
+            {/* indikator waktu */}
             <div className="flex flex-col items-center">
-              {/* Dot */}
+              {/* titik */}
               <div className={`
                 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300
                 ${isCompleted
@@ -30,13 +30,13 @@ export default function OrderTimeline({ timeline }) {
                   <div className="w-2 h-2 bg-gray-400 rounded-full" />
                 )}
               </div>
-              {/* Line connector */}
+               {/* garis hubung */}
               {!isLast && (
                 <div className={`w-0.5 h-14 ${isCompleted ? 'bg-primary-600' : 'bg-gray-200'}`} />
               )}
             </div>
 
-            {/* Content */}
+            {/* konten */}
             <div className="pb-6 -mt-0.5">
               <h4 className={`text-sm font-semibold ${isCompleted || isActive ? 'text-gray-900' : 'text-gray-400'}`}>
                 {step.label}

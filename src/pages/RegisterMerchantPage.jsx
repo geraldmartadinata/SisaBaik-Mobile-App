@@ -15,8 +15,7 @@ export default function RegisterMerchantPage() {
     e.preventDefault();
     if (!formData.storeName) return;
     
-    // In a real app, we'd send this to an API.
-    // Here we just upgrade the user role and redirect.
+    // simpan role seller
     setRole('seller');
     navigate('/seller-dashboard', { replace: true });
   };
@@ -24,7 +23,7 @@ export default function RegisterMerchantPage() {
   return (
     <div className="page-wrapper bg-white page-transition">
       <div className="page-content">
-        {/* Header */}
+        {/* header */}
         <header className="flex items-center gap-3 px-5 pt-5 pb-4 border-b border-gray-100">
           <button
             onClick={() => navigate(-1)}

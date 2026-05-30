@@ -17,22 +17,22 @@ export default function StoreCard({ store }) {
                  cursor-pointer active:scale-[0.97] transition-all duration-200
                  hover:shadow-[0_8px_25px_rgba(0,0,0,0.12)] hover:-translate-y-1"
     >
-      {/* Store Image */}
+      {/* gambar toko */}
       <div className="relative h-[130px] bg-gray-100 overflow-hidden">
         <img src={getStoreImage(store.name)} alt={store.name} className="w-full h-full object-cover" />
-        {/* Urgency Badge */}
+        {/* lencana mendesak */}
         {totalLeft <= 5 && (
           <div className="absolute top-3 left-3 bg-red-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-full animate-pulse-soft">
             {totalLeft} Left
           </div>
         )}
-        {/* Discount badge */}
+        {/* lencana diskon */}
         <div className="absolute top-3 right-3 bg-primary-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-full">
           {Math.round((1 - cheapestBag.discountedPrice / cheapestBag.originalPrice) * 100)}% OFF
         </div>
       </div>
 
-      {/* Store Info */}
+      {/* info toko */}
       <div className="p-3.5">
         <h3 className="font-semibold text-gray-900 text-[15px] truncate">{store.name}</h3>
         <div className="flex items-center gap-1 mt-1 text-xs text-gray-500">

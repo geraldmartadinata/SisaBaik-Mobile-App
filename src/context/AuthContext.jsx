@@ -8,7 +8,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(userData);
 
   const login = (email, password) => {
-    // Simulate login — accept any credentials
+    // simulasi login
     setUser(userData);
     setIsLoggedIn(true);
     return true;

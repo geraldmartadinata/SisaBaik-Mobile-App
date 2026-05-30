@@ -26,9 +26,9 @@ export default function useDraggableScroll() {
 
     const onMouseMove = (e) => {
       if (!isDragging) return;
-      e.preventDefault(); // Prevents text selection while dragging
+      e.preventDefault(); // cegah seleksi teks
       const x = e.pageX - slider.offsetLeft;
-      const walk = (x - startX) * 2; // Scroll-fast multiplier
+      const walk = (x - startX) * 2; // pengali kecepatan
       slider.scrollLeft = scrollLeft - walk;
     };
 

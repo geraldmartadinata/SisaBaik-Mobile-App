@@ -57,15 +57,15 @@ export default function CheckoutPage() {
       clearCart();
       setIsProcessing(false);
 
-      // Navigate back to the store detail page with the completed order in state
+      // kembali ke detail toko
       navigate(`/store/${cartStore.id}`, { state: { completedOrder: order }, replace: true });
-    }, 450); // 450ms constraint max
+    }, 450); // delay bayar
   };
 
   return (
     <div className="page-wrapper bg-gray-50 page-transition">
       
-      {/* 1. Header Area (Fixed) */}
+      {/* header */}
       <header className="flex-none z-10 bg-white">
         <div className="flex items-center gap-3 px-5 pt-5 pb-4">
           <button
@@ -80,10 +80,10 @@ export default function CheckoutPage() {
         </div>
       </header>
 
-      {/* 2. Scrollable App Content */}
+      {/* konten scroll */}
       <main className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden w-full relative no-scrollbar">
         <div className="px-5 py-4 space-y-4">
-          {/* Pickup Details */}
+          {/* detail ambil */}
           <div className="card p-4">
             <div className="flex items-center gap-2 mb-3">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -107,7 +107,7 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          {/* Order Summary */}
+          {/* ringkasan pesanan */}
           <div className="card p-4">
             <div className="flex items-center gap-2 mb-3">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -133,7 +133,7 @@ export default function CheckoutPage() {
               </div>
             ))}
 
-            {/* Totals */}
+            {/* total pembayaran */}
             <div className="mt-3 pt-3 border-t border-gray-100 space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Subtotal</span>
@@ -150,7 +150,7 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          {/* Payment Method */}
+          {/* metode bayar */}
           <div className="card p-4">
             <div className="flex items-center gap-2 mb-3">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -164,7 +164,7 @@ export default function CheckoutPage() {
         </div>
       </main>
 
-      {/* 3. Bottom Navigation (Fixed) */}
+      {/* tombol bawah */}
       <nav className="flex-none z-10 bg-white shadow-bottom-bar border-t border-gray-100 p-5">
         <button
           onClick={handlePayment}

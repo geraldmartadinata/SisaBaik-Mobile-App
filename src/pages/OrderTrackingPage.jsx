@@ -17,7 +17,7 @@ export default function OrderTrackingPage() {
   const [showQR, setShowQR] = useState(location.state?.showQR || false);
 
   const handleMagicCompleteClick = () => {
-    // Magic demo function to complete order
+    // simulasi selesai
     if (order && order.id) {
       completeOrder(order.id);
       setShowQR(false);
@@ -25,7 +25,7 @@ export default function OrderTrackingPage() {
     }
   };
 
-  // Try AppContext first, then legacy OrderContext, then dummy data
+  // dapatkan data order
   const order = getOrderById(id) || legacyOrder || ordersData.activeOrder;
 
   if (!order) {
@@ -44,7 +44,7 @@ export default function OrderTrackingPage() {
   return (
     <div className="page-wrapper bg-gray-50 page-transition">
       <div className="page-content">
-        {/* Header */}
+        {/* header */}
         <div className="flex items-center gap-3 px-5 pt-5 pb-4 bg-white">
           <button
             onClick={() => navigate('/orders')}
@@ -95,7 +95,7 @@ export default function OrderTrackingPage() {
           </div>
         ) : (
           <div className="px-5 py-4 space-y-4">
-          {/* Store Info Card */}
+          {/* info toko */}
           <div className="card p-4">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center flex-shrink-0">
@@ -112,7 +112,7 @@ export default function OrderTrackingPage() {
               </div>
             </div>
 
-            {/* Pickup Time */}
+            {/* waktu ambil */}
             <div className="flex items-center gap-2 mt-3 bg-primary-50 rounded-lg px-3 py-2.5">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.5">
                 <circle cx="12" cy="12" r="10" />
@@ -125,13 +125,13 @@ export default function OrderTrackingPage() {
             </div>
           </div>
 
-          {/* Order Timeline */}
+          {/* linimasa order */}
           <div className="card p-5">
             <h3 className="text-sm font-bold text-gray-900 mb-5">Track Order</h3>
             <OrderTimeline timeline={order.timeline} />
           </div>
 
-          {/* Map */}
+          {/* peta */}
           <div className="card overflow-hidden">
             <div className="h-64 relative">
               <MapContainer
@@ -150,7 +150,7 @@ export default function OrderTrackingPage() {
                   attribution='&copy; OpenStreetMap contributors'
                 />
 
-                {/* Polyline Route */}
+                {/* rute peta */}
                 {storesData.find(s => s.name === order.storeName) && (
                   <Polyline 
                     positions={[
@@ -161,7 +161,7 @@ export default function OrderTrackingPage() {
                   />
                 )}
 
-                {/* Merchant Pin */}
+                {/* pin toko */}
                 <Marker
                   position={(() => {
                     const store = storesData.find(s => s.name === order.storeName);
@@ -180,7 +180,7 @@ export default function OrderTrackingPage() {
                   })}
                 />
 
-                {/* User Location */}
+                {/* lokasi user */}
                 <Marker
                   position={[-6.223608769133971, 106.64941394052858]}
                   icon={L.divIcon({
@@ -199,7 +199,7 @@ export default function OrderTrackingPage() {
             </div>
           </div>
 
-          {/* Spacer for bottom buttons */}
+          {/* jarak tombol bawah */}
           <div className="h-4" />
           </div>
         )}
@@ -207,7 +207,7 @@ export default function OrderTrackingPage() {
 
       {order.status !== 'completed' && (
         <div className="flex-none p-4 bg-white shadow-bottom-bar border-t border-gray-100 space-y-3">
-          {/* Primary: Tampilkan QR */}
+          {/* tombol qr */}
           <button
             onClick={() => setShowQR(true)}
             className="btn-primary"
@@ -219,7 +219,7 @@ export default function OrderTrackingPage() {
             <span>Show QR</span>
           </button>
 
-          {/* Secondary outline: Chat Toko */}
+          {/* tombol chat */}
           <button
             onClick={() => navigate(`/chat?name=${encodeURIComponent(order.storeName)}`)}
             className="w-full py-3.5 rounded-xl border-2 border-gray-200 text-gray-700 text-sm font-semibold hover:bg-gray-50 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
@@ -232,7 +232,7 @@ export default function OrderTrackingPage() {
         </div>
       )}
 
-      {/* QR Code Overlay Modal */}
+      {/* modal qr */}
       <AnimatePresence>
         {showQR && (
           <motion.div 
@@ -250,7 +250,7 @@ export default function OrderTrackingPage() {
               className="bg-white rounded-3xl p-6 w-full max-w-[340px] shadow-2xl relative"
               onClick={e => e.stopPropagation()}
             >
-            {/* Close Button */}
+            {/* tombol tutup */}
             <button 
               onClick={() => setShowQR(false)}
               className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-500 rounded-full hover:bg-gray-200"
@@ -268,7 +268,7 @@ export default function OrderTrackingPage() {
               onClick={handleMagicCompleteClick}
             >
               <svg width="100%" height="100%" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* QR outer frame */}
+                {/* bingkai qr */}
                 <rect x="4" y="4" width="152" height="152" rx="4" fill="white" stroke="#111827" strokeWidth="2"/>
                 {/* Top-left finder pattern */}
                 <rect x="12" y="12" width="40" height="40" rx="2" fill="#111827"/>

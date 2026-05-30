@@ -4,7 +4,7 @@ import sisaBaikBakeryImg from '../assets/images/sisabaikbakery.png';
 import saladStopImg from '../assets/images/saladstop.png';
 import defaultImg from '../assets/images/hero.png';
 
-// Menu Images
+// gambar menu
 import familyMartBentoImg from '../assets/images/familymart_bento.png';
 import saladStopBowlImg from '../assets/images/saladstop_bowl.png';
 import sisaBaikBakeryBoxImg from '../assets/images/sisabaikbakery_box.png';

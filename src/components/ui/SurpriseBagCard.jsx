@@ -9,16 +9,16 @@ export default function SurpriseBagCard({ bag, storeData }) {
 
   return (
     <div className="flex gap-3.5 p-4 bg-white rounded-2xl border border-gray-100 shadow-card animate-fade-in">
-      {/* Bag Image */}
+      {/* gambar produk */}
       <div className="relative w-[90px] h-[90px] flex-shrink-0 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
         <img src={getMenuImage(bag.id)} alt={bag.name} className="w-full h-full object-cover" />
-        {/* Discount tag */}
+        {/* lencana diskon */}
         <div className="absolute top-1.5 left-1.5 bg-primary-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md">
           {discountPercent}%
         </div>
       </div>
 
-      {/* Bag Info */}
+      {/* info produk */}
       <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-2">
           <h4 className="font-semibold text-gray-900 text-sm leading-tight">{bag.name}</h4>
@@ -32,7 +32,7 @@ export default function SurpriseBagCard({ bag, storeData }) {
         <p className="text-xs text-gray-500 mt-1 line-clamp-2">{bag.description}</p>
 
         <div className="flex items-center justify-between mt-3">
-          {/* Price */}
+          {/* harga */}
           <div className="flex items-center gap-2">
             <span className="text-[15px] font-bold text-primary-600">
               {formatCurrency(bag.discountedPrice)}
@@ -42,7 +42,7 @@ export default function SurpriseBagCard({ bag, storeData }) {
             </span>
           </div>
 
-          {/* Quantity Controls */}
+          {/* tombol jumlah */}
           <div className="flex items-center gap-1.5">
             {quantity > 0 ? (
               <>

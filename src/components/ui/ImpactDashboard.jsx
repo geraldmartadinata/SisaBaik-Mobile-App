@@ -3,7 +3,7 @@ import { formatCurrency } from '../../utils/formatCurrency';
 export default function ImpactDashboard({ impact, milestone }) {
   return (
     <div className="animate-fade-in">
-      {/* Stats Grid */}
+      {/* grid statistik */}
       <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-card">
         <h3 className="text-xs font-semibold text-gray-400 tracking-wider uppercase mb-4">MY IMPACT</h3>
         
@@ -23,7 +23,7 @@ export default function ImpactDashboard({ impact, milestone }) {
           </div>
         </div>
 
-        {/* Milestone Progress */}
+        {/* progres target */}
         <div className="mt-5">
           <div className="flex items-center justify-between text-xs mb-2">
             <span className="text-gray-500">
