@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 
 const AppContext = createContext(null);
 
-// --------------- localStorage helpers ---------------
+// fungsi lokal storage
 const STORAGE_KEYS = {
   CART: 'sisabaik_cart',
   ACTIVE_ORDERS: 'sisabaik_active_orders',
@@ -24,13 +24,13 @@ function saveToStorage(key, value) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch {
-    // silently ignore quota errors
+    // abaikan error kuota
   }
 }
 
-// --------------- Provider ---------------
+// bungkus context
 export function AppProvider({ children }) {
-  // ── Initial Data ──
+  // data awal
   const DUMMY_ORDERS = [
     {
       id: "ORD-1234-A",
@@ -52,7 +52,7 @@ export function AppProvider({ children }) {
     }
   ];
 
-  // ── States ──
+  // state aplikasi
   const [cart, setCart] = useState(() => loadFromStorage(STORAGE_KEYS.CART, { items: [], store: null }));
   const [activeOrders, setActiveOrders] = useState(() => {
     const stored = loadFromStorage(STORAGE_KEYS.ACTIVE_ORDERS, []);
@@ -62,10 +62,10 @@ export function AppProvider({ children }) {
   const [role, setRole] = useState(() => loadFromStorage(STORAGE_KEYS.ROLE, 'buyer'));
   const [listings, setListings] = useState(() => loadFromStorage(STORAGE_KEYS.LISTINGS, []));
 
-  // ── Sync with localStorage across tabs (CRITICAL REQUIREMENT) ──
+  // sinkronisasi tab
   useEffect(() => {
     const handleStorageChange = (e) => {
-      if (!e.key) return; // Ignore if key is null
+      if (!e.key) return; // abaikan jika kosong
       
       try {
         const newValue = e.newValue ? JSON.parse(e.newValue) : null;
@@ -97,14 +97,14 @@ export function AppProvider({ children }) {
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
-  // ── Persist on every change ──
+  // simpan saat berubah
   useEffect(() => { saveToStorage(STORAGE_KEYS.CART, cart); }, [cart]);
   useEffect(() => { saveToStorage(STORAGE_KEYS.ACTIVE_ORDERS, activeOrders); }, [activeOrders]);
   useEffect(() => { saveToStorage(STORAGE_KEYS.COMPLETED_ORDERS, completedOrders); }, [completedOrders]);
   useEffect(() => { saveToStorage(STORAGE_KEYS.ROLE, role); }, [role]);
   useEffect(() => { saveToStorage(STORAGE_KEYS.LISTINGS, listings); }, [listings]);
 
-  // ────────────────────── Cart helpers ──────────────────────
+  // fungsi keranjang
   const addItemToCart = useCallback((bag, storeData) => {
     setCart(prev => {
       let currentItems = prev.items;
@@ -140,7 +140,7 @@ export function AppProvider({ children }) {
   const clearCart = useCallback(() => setCart({ items: [], store: null }), []);
   const getCartItemQuantity = useCallback((bagId) => cart.items.find(i => i.bagId === bagId)?.quantity || 0, [cart.items]);
 
-  // ────────────────────── Order helpers ──────────────────────
+  // fungsi pesanan
   const createOrder = useCallback((orderData) => {
     const orderId = `ORD-${Math.floor(1000 + Math.random() * 9000)}-A`;
     const orderCode = `#SB-${Math.floor(1000 + Math.random() * 9000)}A`;
@@ -163,7 +163,7 @@ export function AppProvider({ children }) {
     return newOrder;
   }, []);
 
-  // Sync update Order Status for Cross-role
+  // update status pesanan
   const updateOrderStatus = useCallback((orderId, newStatus) => {
       setActiveOrders(prev => prev.map(o => {
           if (o.id !== orderId) return o;
@@ -211,7 +211,7 @@ export function AppProvider({ children }) {
     return activeOrders.find(o => o.id === orderId) || completedOrders.find(o => o.id === orderId) || null;
   }, [activeOrders, completedOrders]);
 
-  // ────────────────────── Derived values ──────────────────────
+  // kalkulasi harga
   const PLATFORM_FEE = 2000;
   const cartTotalItems = cart.items.reduce((sum, item) => sum + item.quantity, 0);
   const cartSubtotal = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);

@@ -9,20 +9,19 @@ export default function MobileWrapper({ children }) {
 
   useEffect(() => {
     const calculateScale = () => {
-      // The physical dimensions of our "perfect" phone simulator
+      // ukuran hp asli
       const TARGET_WIDTH = 430;
       const TARGET_HEIGHT = 932;
       
-      // The available browser window space (with a little padding)
+      // sisa layar browser
       const availableWidth = window.innerWidth - 16;
       const availableHeight = window.innerHeight - 32;
       
-      // Calculate how much we need to scale down to fit
+      // hitung rasio zoom
       const scaleW = availableWidth / TARGET_WIDTH;
       const scaleH = availableHeight / TARGET_HEIGHT;
       
-      // We only scale DOWN (min 1). If the screen is huge, it stays at 1.
-      // We pick the smallest scale factor to ensure both width and height fit on screen.
+      // ambil rasio terkecil
       const finalScale = Math.min(1, scaleW, scaleH);
       
       setScale(finalScale);
@@ -33,29 +32,19 @@ export default function MobileWrapper({ children }) {
     return () => window.removeEventListener('resize', calculateScale);
   }, []);
 
-  // GLOBAL SCROLL RESET: On every route change, forcefully reset scroll position
-  // of both the phone container and the outer wrapper. This prevents any page
-  // (chat, modals, etc.) from permanently shifting the phone frame.
+  // reset scroll
   useEffect(() => {
     if (phoneRef.current) phoneRef.current.scrollTop = 0;
     if (outerRef.current) outerRef.current.scrollTop = 0;
-    // Also reset window scroll in case anything bubbled to document level
+    // reset scroll document
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
   return (
-    // The Global Desktop Background
+    {/* bg belakang */}
     <div ref={outerRef} className="flex items-center justify-center w-full h-[100dvh] bg-gray-200 overflow-hidden">
       
-      {/* 
-          The True Phone Simulator
-          Instead of relying on Tailwind flexbox to squish the layout (which causes the 
-          "zoomed in" broken layout), we render the app at EXACTLY 430x932 pixels so all 
-          the internal Tailwind sizes (p-4, text-sm, etc) match the Vercel design perfectly.
-          
-          Then, we use CSS transform: scale() to dynamically shrink the rendered output 
-          so it perfectly fits in the user's browser window without scrolling.
-      */}
+      {/* layar hp */}
       <div 
         ref={phoneRef}
         className="relative bg-gray-50 rounded-[40px] shadow-2xl overflow-hidden flex flex-col shrink-0"

@@ -17,15 +17,15 @@ export default function LoginPage() {
 
   return (
     <div className="page-wrapper bg-white page-transition flex flex-col overflow-hidden">
-      {/* Green Wave Header */}
+      {/* header hijau */}
       <div className="relative flex-none w-full">
         <div className="bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 px-5 pt-5 pb-14 relative overflow-hidden">
-          {/* Wave decoration */}
+          {/* dekorasi gelombang */}
           <svg className="absolute left-0 right-0 w-full" viewBox="0 0 430 40" preserveAspectRatio="none" style={{ height: '42px', bottom: '-2px' }}>
             <path d="M0 40 L0 15 Q107 0 215 15 Q322 30 430 15 L430 40 Z" fill="white" />
           </svg>
 
-          {/* Subtle pattern overlay */}
+          {/* pattern titik */}
           <div className="absolute inset-0 opacity-10">
             <svg className="w-full h-full">
               <defs>
@@ -37,7 +37,7 @@ export default function LoginPage() {
             </svg>
           </div>
 
-          {/* Header bar: logo + Lewati */}
+          {/* logo dan lewati */}
           <div className="relative flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img src={logoImg} alt="SisaBaik" className="w-8 h-8 object-contain brightness-0 invert" />
@@ -53,10 +53,10 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Scrollable Content */}
+      {/* konten scroll */}
       <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar -mt-[3px] bg-white relative z-[1]">
         <div className="px-7 pt-6 pb-8 flex flex-col min-h-full">
-          {/* Welcome Title */}
+          {/* judul welcome */}
           <div className="mb-6">
             <h1 className="text-[30px] font-extrabold text-gray-900 leading-[1.15]">
               Welcome<br />
@@ -67,10 +67,10 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* Form */}
+          {/* form login */}
           <form onSubmit={handleLogin} className="flex-1 flex flex-col">
             <div className="space-y-5">
-              {/* Email */}
+              {/* input email */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">Email</label>
                 <div className="relative">
@@ -90,7 +90,7 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              {/* Password */}
+              {/* input password */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <label className="block text-sm font-semibold text-gray-700">Password</label>
@@ -122,7 +122,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Login Button */}
+            {/* tombol masuk */}
             <div className="mt-8">
               <button
                 type="submit"
@@ -134,14 +134,14 @@ export default function LoginPage() {
               </button>
             </div>
 
-            {/* Divider */}
+            {/* garis pemisah */}
             <div className="flex items-center gap-4 my-6">
               <div className="flex-1 h-px bg-gray-200" />
               <span className="text-xs text-gray-400 font-medium">or log in with</span>
               <div className="flex-1 h-px bg-gray-200" />
             </div>
 
-            {/* Social Login */}
+            {/* login sosmed */}
             <div className="flex gap-3">
               <button
                 type="button"
@@ -170,7 +170,7 @@ export default function LoginPage() {
               </button>
             </div>
 
-            {/* Register Link */}
+            {/* link daftar */}
             <div className="mt-auto pt-6 pb-2">
               <p className="text-center text-sm text-gray-500">
                 Don't have an account?{' '}

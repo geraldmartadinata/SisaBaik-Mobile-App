@@ -10,10 +10,10 @@ export default function SellerOrdersPage() {
   return (
     <SellerLayout>
       <div className="flex flex-col min-h-screen bg-gray-50 pb-24">
-        {/* Header */}
+        {/* header */}
         <SellerHeader title="Orders" />
 
-        {/* Tabs */}
+        {/* tab menu */}
         <div className="px-5 pt-4 pb-2 bg-white">
           <div className="flex p-1 bg-gray-100 rounded-xl">
             <button 
@@ -31,7 +31,7 @@ export default function SellerOrdersPage() {
           </div>
         </div>
 
-        {/* Orders List */}
+        {/* daftar pesanan */}
         <div className="px-5 py-4 space-y-4">
           {activeTab === 'menunggu' ? (
             <>

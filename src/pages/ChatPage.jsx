@@ -14,7 +14,7 @@ export default function ChatPage() {
   const [newMessage, setNewMessage] = useState('');
   const chatContainerRef = useRef(null);
 
-  // Scoped scroll: only scrolls the chat container, NOT ancestors
+  // scroll ke bawah
   const scrollToBottom = () => {
     const el = chatContainerRef.current;
     if (el) {
@@ -44,7 +44,7 @@ export default function ChatPage() {
 
   return (
     <div className="page-wrapper bg-gray-50">
-      {/* Header */}
+      {/* header */}
       <div className="flex-none bg-white px-5 py-4 flex items-center gap-4 shadow-sm z-10">
         <button 
           onClick={() => navigate(-1)}
@@ -65,7 +65,7 @@ export default function ChatPage() {
         </div>
       </div>
 
-      {/* Chat Area — flex-1 + min-h-0 constrains height, ref for scoped scroll */}
+      {/* area chat */}
       <div ref={chatContainerRef} className="flex-1 min-h-0 overflow-y-auto px-5 py-6 space-y-4 no-scrollbar">
         {messages.map((msg) => (
           <div key={msg.id} className={`flex ${msg.sender === 'me' ? 'justify-end' : 'justify-start'}`}>
@@ -83,7 +83,7 @@ export default function ChatPage() {
         ))}
       </div>
 
-      {/* Input Area */}
+      {/* form input */}
       <div className="flex-none bg-white p-4 pb-8 border-t border-gray-100">
         <form onSubmit={handleSend} className="flex items-center gap-3">
           <div className="flex-1 relative">
