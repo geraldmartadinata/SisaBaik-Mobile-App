@@ -27,10 +27,10 @@ export default function OrdersPage() {
 
   const getStatusLabel = (status) => {
     const map = {
-      confirmed: 'Dikonfirmasi',
-      preparing: 'Sedang Disiapkan',
-      ready: 'Siap Diambil',
-      completed: 'Selesai',
+      confirmed: 'Confirmed',
+      preparing: 'Preparing',
+      ready: 'Ready for Pickup',
+      completed: 'Completed',
     };
     return map[status] || status;
   };
@@ -70,7 +70,7 @@ export default function OrdersPage() {
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-50 border border-gray-100">
               <div className="w-1.5 h-1.5 rounded-full bg-primary-500"></div>
               <span className="text-[10px] font-semibold text-gray-700">
-                {order.status === 'ready' ? 'Menunggu Diambil' : 'Sedang Disiapkan'}
+                {order.status === 'ready' ? 'Waiting for Pickup' : 'Preparing'}
               </span>
             </div>
           )}
@@ -103,7 +103,7 @@ export default function OrdersPage() {
             </div>
             {isCompleted && (
               <span className="inline-block px-2 py-0.5 bg-gray-100 text-gray-500 text-[10px] rounded-full w-fit">
-                Selesai
+                Completed
               </span>
             )}
           </div>
@@ -120,8 +120,8 @@ export default function OrdersPage() {
                 </svg>
               </div>
               <div>
-                <p className="text-[10px] text-gray-500">Waktu Pengambilan</p>
-                <p className="text-xs font-semibold text-primary-700">Hari ini, 19:00 - 20:00</p>
+                <p className="text-[10px] text-gray-500">Pickup Time</p>
+                <p className="text-xs font-semibold text-primary-700">Today, 19:00 - 20:00</p>
               </div>
             </div>
 
@@ -138,7 +138,7 @@ export default function OrdersPage() {
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                 <path d="M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01" />
               </svg>
-              Tampilkan QR
+              Show QR
             </button>
           </>
         )}
@@ -168,7 +168,7 @@ export default function OrdersPage() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="white" strokeWidth="2">
                   <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
                 </svg>
-                Beri Ulasan
+                Leave Review
               </button>
             )}
           </div>
@@ -195,7 +195,7 @@ export default function OrdersPage() {
         </svg>
       </div>
       <h3 className="font-semibold text-gray-700">
-        {isCompleted ? 'Belum ada riwayat' : 'Belum ada pesanan aktif'}
+        {isCompleted ? 'No history yet' : 'No active orders'}
       </h3>
       <p className="text-sm text-gray-400 mt-1">
         {isCompleted ? 'Completed orders will appear here' : 'Start rescuing food today!'}
@@ -216,7 +216,7 @@ export default function OrdersPage() {
       <div className="page-content">
         {/* Header */}
         <div className="px-5 pt-6 pb-0 bg-white">
-          <h1 className="text-xl font-bold text-gray-900">Pesanan Saya</h1>
+          <h1 className="text-xl font-bold text-gray-900">My Orders</h1>
           <p className="text-sm text-gray-500 mt-1">Track your food rescue orders</p>
 
           {/* Tab Navigation */}
@@ -229,7 +229,7 @@ export default function OrdersPage() {
                   : 'text-gray-400 hover:text-gray-600'
               }`}
             >
-              Berlangsung
+              Active
               {activeOrders.length > 0 && (
                 <span className="ml-1.5 inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary-100 text-primary-700 text-[10px] font-bold">
                   {activeOrders.length}
@@ -247,7 +247,7 @@ export default function OrdersPage() {
                   : 'text-gray-400 hover:text-gray-600'
               }`}
             >
-              Selesai
+              Completed
               {completedOrders.length > 0 && (
                 <span className="ml-1.5 inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-100 text-gray-600 text-[10px] font-bold">
                   {completedOrders.length}

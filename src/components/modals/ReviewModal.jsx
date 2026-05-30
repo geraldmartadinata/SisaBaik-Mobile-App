@@ -26,8 +26,8 @@ export default function ReviewModal({ order, onClose, onSubmit }) {
                 <polyline points="20,6 9,17 4,12" />
               </svg>
             </div>
-            <h2 className="text-lg font-bold text-gray-900">Terima Kasih!</h2>
-            <p className="text-sm text-gray-500 mt-1">Ulasan kamu sudah dikirim</p>
+            <h2 className="text-lg font-bold text-gray-900">Thank You!</h2>
+            <p className="text-sm text-gray-500 mt-1">Your review has been sent</p>
           </div>
         ) : (
           <>
@@ -39,7 +39,7 @@ export default function ReviewModal({ order, onClose, onSubmit }) {
                   <polyline points="9 22 9 12 15 12 15 22" />
                 </svg>
               </div>
-              <h2 className="text-lg font-bold text-gray-900">Beri Ulasan</h2>
+              <h2 className="text-lg font-bold text-gray-900">Leave a Review</h2>
               <p className="text-sm text-gray-500 mt-1">{order.storeName}</p>
             </div>
 
@@ -73,11 +73,11 @@ export default function ReviewModal({ order, onClose, onSubmit }) {
             {/* Rating label */}
             <div className="text-center mb-5">
               <p className="text-sm font-medium text-gray-700 h-5">
-                {rating === 1 && 'Sangat Buruk'}
-                {rating === 2 && 'Kurang Baik'}
-                {rating === 3 && 'Cukup Baik'}
-                {rating === 4 && 'Baik'}
-                {rating === 5 && 'Sangat Baik!'}
+                {rating === 1 && 'Very Bad'}
+                {rating === 2 && 'Poor'}
+                {rating === 3 && 'Fair'}
+                {rating === 4 && 'Good'}
+                {rating === 5 && 'Excellent!'}
               </p>
             </div>
 
@@ -88,13 +88,13 @@ export default function ReviewModal({ order, onClose, onSubmit }) {
                 disabled={rating === 0}
                 className={`btn-primary ${rating === 0 ? 'opacity-40 cursor-not-allowed' : ''}`}
               >
-                Kirim Ulasan
+                Submit Review
               </button>
               <button
                 onClick={onClose}
                 className="w-full text-center text-sm font-medium text-gray-500 hover:text-gray-700 py-2 transition-colors"
               >
-                Nanti Saja
+                Maybe Later
               </button>
             </div>
           </>

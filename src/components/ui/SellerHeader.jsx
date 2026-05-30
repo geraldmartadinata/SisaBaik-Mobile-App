@@ -5,8 +5,8 @@ export default function SellerHeader({ title }) {
 
   // Dummy notifications
   const notifications = [
-    { id: 1, text: "Pesanan #SB-9012 menunggu pengambilan", time: "10 mnt yang lalu", unread: true },
-    { id: 2, text: "Listing 'Surprise Bag - Roti' terjual habis", time: "1 jam yang lalu", unread: false }
+    { id: 1, text: "Order #SB-9012 waiting for pickup", time: "10 mins ago", unread: true },
+    { id: 2, text: "Listing 'Surprise Bag - Bakery' sold out", time: "1 hour ago", unread: false }
   ];
 
   const unreadCount = notifications.filter(n => n.unread).length;
@@ -33,10 +33,10 @@ export default function SellerHeader({ title }) {
             <div className="fixed inset-0 z-40" onClick={() => setShowNotifications(false)}></div>
             <div className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-lg border border-gray-100 z-50 overflow-hidden">
               <div className="p-3 border-b border-gray-50 bg-gray-50/50 flex justify-between items-center">
-                <h3 className="font-bold text-sm text-gray-800">Notifikasi</h3>
+                <h3 className="font-bold text-sm text-gray-800">Notifications</h3>
                 {unreadCount > 0 && (
                   <span className="text-[10px] font-semibold text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full">
-                    {unreadCount} Baru
+                    {unreadCount} New
                   </span>
                 )}
               </div>

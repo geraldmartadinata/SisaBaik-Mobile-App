@@ -13,7 +13,7 @@ const menuItems = [
         <circle cx="12" cy="7" r="4" />
       </svg>
     ),
-    label: 'Edit Profil Toko',
+    label: 'Edit Store Profile',
   },
   {
     icon: (
@@ -22,7 +22,7 @@ const menuItems = [
         <line x1="1" y1="10" x2="23" y2="10" />
       </svg>
     ),
-    label: 'Rekening Bank',
+    label: 'Bank Accounts',
   },
   {
     icon: (
@@ -31,7 +31,7 @@ const menuItems = [
         <path d="M13.73 21a2 2 0 0 1-3.46 0" />
       </svg>
     ),
-    label: 'Notifikasi Toko',
+    label: 'Store Notifications',
   },
   {
     icon: (
@@ -41,7 +41,7 @@ const menuItems = [
         <line x1="12" y1="17" x2="12.01" y2="17" />
       </svg>
     ),
-    label: 'Pusat Bantuan Mitra',
+    label: 'Partner Help Center',
   },
   {
     icon: (
@@ -50,7 +50,7 @@ const menuItems = [
         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
       </svg>
     ),
-    label: 'Pengaturan Aplikasi',
+    label: 'App Settings',
   },
 ];
 
@@ -68,7 +68,7 @@ export default function SellerProfilePage() {
     <div className="page-wrapper bg-gray-50 page-transition">
       <div className="page-content bg-gray-50 pb-24">
         {/* Header */}
-        <SellerHeader title="Profil" />
+        <SellerHeader title="Profile" />
 
         {/* Profile Info (Background Image) */}
         <div className="px-5 pt-6 pb-4">
@@ -93,7 +93,7 @@ export default function SellerProfilePage() {
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                   <polyline points="22 4 12 14.01 9 11.01" />
                 </svg>
-                Merchant Aktif
+                Active Merchant
               </span>
             </div>
           </div>
@@ -102,15 +102,15 @@ export default function SellerProfilePage() {
         <div className="w-full px-5 py-4 space-y-4">
           {/* Dashboard Switch */}
           <div className="bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl p-5 text-white shadow-lg shadow-primary-600/30">
-            <h2 className="text-sm font-medium text-primary-100 mb-4 opacity-90 tracking-wide uppercase">Kinerja Toko</h2>
+            <h2 className="text-sm font-medium text-primary-100 mb-4 opacity-90 tracking-wide uppercase">Store Performance</h2>
             <div className="grid grid-cols-3 gap-2">
               <div>
                 <p className="text-[17px] font-bold">1.25M</p>
-                <p className="text-[10px] text-primary-100 mt-1">Pendapatan</p>
+                <p className="text-[10px] text-primary-100 mt-1">Revenue</p>
               </div>
               <div className="border-l border-primary-500/50 pl-2">
                 <p className="text-[17px] font-bold">42 kg</p>
-                <p className="text-[10px] text-primary-100 mt-1">Diselamatkan</p>
+                <p className="text-[10px] text-primary-100 mt-1">Rescued</p>
               </div>
               <div className="border-l border-primary-500/50 pl-2">
                 <p className="text-[17px] font-bold">4.8 <span className="text-[10px] font-normal text-amber-300">★</span></p>
@@ -132,7 +132,7 @@ export default function SellerProfilePage() {
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
-            <span>Beralih ke Tampilan Pembeli</span>
+            <span>Switch to Buyer View</span>
           </button>
 
           {/* Menu Items */}

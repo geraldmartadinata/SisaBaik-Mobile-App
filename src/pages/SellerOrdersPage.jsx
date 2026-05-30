@@ -9,7 +9,7 @@ export default function SellerOrdersPage() {
     <SellerLayout>
       <div className="flex flex-col min-h-screen bg-gray-50 pb-24">
         {/* Header */}
-        <SellerHeader title="Pesanan" />
+        <SellerHeader title="Orders" />
 
         {/* Tabs */}
         <div className="px-5 pt-4 pb-2 bg-white">
@@ -18,13 +18,13 @@ export default function SellerOrdersPage() {
               className={`flex-1 py-2.5 text-xs font-bold rounded-lg text-center ${activeTab === 'menunggu' ? 'bg-white text-primary-600 shadow-sm' : 'text-gray-500 font-medium hover:text-gray-700'}`}
               onClick={() => setActiveTab('menunggu')}
             >
-              Menunggu<br/>Pengambilan
+              Waiting for<br/>Pickup
             </button>
             <button 
               className={`flex-1 py-2.5 text-xs rounded-lg text-center flex items-center justify-center ${activeTab === 'selesai' ? 'bg-white text-primary-600 shadow-sm font-bold' : 'text-gray-500 font-medium hover:text-gray-700'}`}
               onClick={() => setActiveTab('selesai')}
             >
-              Selesai
+              Completed
             </button>
           </div>
         </div>
@@ -40,11 +40,11 @@ export default function SellerOrdersPage() {
                     <p className="text-[11px] text-gray-500 font-medium mb-0.5">Order #SB-9012</p>
                     <h3 className="font-bold text-gray-900 text-sm">Budi Santoso</h3>
                     <p className="text-[11px] text-gray-500 font-medium mt-1 flex items-center gap-1">
-                      <span className="text-[12px]">🕒</span> Pengambilan: 19:00 - 20:30
+                      <span className="text-[12px]">🕒</span> Pickup: 19:00 - 20:30
                     </p>
                   </div>
                   <span className="px-2.5 py-1 bg-green-500 text-white text-[10px] font-bold rounded-full">
-                    Menunggu
+                    Waiting
                   </span>
                 </div>
                 
@@ -63,7 +63,7 @@ export default function SellerOrdersPage() {
                       <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                       <path d="M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01" />
                     </svg>
-                    Verifikasi QR / Tandai Diambil
+                    Verify QR / Mark Picked Up
                   </button>
                 </div>
               </div>
@@ -75,11 +75,11 @@ export default function SellerOrdersPage() {
                     <p className="text-[11px] text-gray-500 font-medium mb-0.5">Order #SB-9013</p>
                     <h3 className="font-bold text-gray-900 text-sm">Sarah Amelia</h3>
                     <p className="text-[11px] text-gray-500 font-medium mt-1 flex items-center gap-1">
-                      <span className="text-[12px]">🕒</span> Pengambilan: 19:00 - 20:30
+                      <span className="text-[12px]">🕒</span> Pickup: 19:00 - 20:30
                     </p>
                   </div>
                   <span className="px-2.5 py-1 bg-green-500 text-white text-[10px] font-bold rounded-full">
-                    Menunggu
+                    Waiting
                   </span>
                 </div>
                 
@@ -98,7 +98,7 @@ export default function SellerOrdersPage() {
                       <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                       <path d="M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01" />
                     </svg>
-                    Verifikasi QR / Tandai Diambil
+                    Verify QR / Mark Picked Up
                   </button>
                 </div>
               </div>
@@ -112,11 +112,11 @@ export default function SellerOrdersPage() {
                     <p className="text-[11px] text-gray-500 font-medium mb-0.5">Order #SB-9011</p>
                     <h3 className="font-bold text-gray-900 text-sm">Anita Kumala</h3>
                     <p className="text-[11px] text-gray-500 font-medium mt-1 flex items-center gap-1">
-                      <span className="text-[12px]">🕒</span> Diambil: 18:45
+                      <span className="text-[12px]">🕒</span> Picked Up: 18:45
                     </p>
                   </div>
                   <span className="px-2.5 py-1 bg-gray-200 text-gray-600 text-[10px] font-bold rounded-full">
-                    Selesai
+                    Completed
                   </span>
                 </div>
                 

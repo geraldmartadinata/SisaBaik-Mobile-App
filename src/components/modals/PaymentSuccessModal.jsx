@@ -31,9 +31,9 @@ export default function PaymentSuccessModal({ order, onClose }) {
         </div>
 
         {/* Title */}
-        <h2 className="text-xl font-bold text-gray-900 text-center">Pembayaran Berhasil!</h2>
+        <h2 className="text-xl font-bold text-gray-900 text-center">Payment Successful!</h2>
         <p className="text-sm text-gray-500 text-center mt-2 leading-relaxed">
-          Terima kasih telah menyelamatkan makanan hari ini, {order.userName || 'Friend'}!
+          Thank you for rescuing food today, {order.userName || 'Friend'}!
         </p>
 
         {/* Eco Impact Badge */}
@@ -75,7 +75,7 @@ export default function PaymentSuccessModal({ order, onClose }) {
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
               <polyline points="14,2 14,8 20,8" />
             </svg>
-            Lihat Pesanan
+            View Order
           </button>
           <button
             onClick={() => {
@@ -83,7 +83,7 @@ export default function PaymentSuccessModal({ order, onClose }) {
             }}
             className="w-full text-center text-sm font-medium text-gray-500 hover:text-gray-700 py-2 transition-colors"
           >
-            Kembali
+            Back
           </button>
         </div>
       </motion.div>

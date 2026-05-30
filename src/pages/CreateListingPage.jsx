@@ -41,7 +41,7 @@ export default function CreateListingPage() {
     };
 
     setListings(prev => [newListing, ...prev]);
-    addToast('Listing berhasil diterbitkan!', 'success');
+    addToast('Listing published successfully!', 'success');
     navigate('/seller-dashboard', { replace: true });
   };
 
@@ -65,9 +65,8 @@ export default function CreateListingPage() {
                 <path d="M19 12H5M12 19l-7-7 7-7" />
               </svg>
             </button>
-            <div className="flex-1">
-              <h1 className="text-lg font-bold text-gray-900 leading-none">Buat Listing</h1>
-              <p className="text-xs text-gray-500 mt-1">Langkah {step} dari {totalSteps}</p>
+              <h1 className="text-lg font-bold text-gray-900 leading-none">Create Listing</h1>
+              <p className="text-xs text-gray-500 mt-1">Step {step} of {totalSteps}</p>
             </div>
           </div>
           {/* Progress Bar */}
@@ -85,8 +84,8 @@ export default function CreateListingPage() {
           <AnimatePresence mode="wait">
             {step === 1 && (
               <motion.div key="step1" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-4">
-                <h2 className="text-2xl font-bold text-gray-900">Apa yang Anda jual hari ini?</h2>
-                <p className="text-gray-500 text-sm mb-6">Pilih kategori makanan yang paling sesuai.</p>
+                <h2 className="text-2xl font-bold text-gray-900">What are you selling today?</h2>
+                <p className="text-gray-500 text-sm mb-6">Choose the most appropriate food category.</p>
                 <div className="grid grid-cols-2 gap-3">
                   {['Bakery', 'Meals', 'Groceries', 'Desserts'].map(cat => (
                     <button
@@ -102,7 +101,7 @@ export default function CreateListingPage() {
                         {cat === 'Bakery' ? '🥐' : cat === 'Meals' ? '🍱' : cat === 'Groceries' ? '🥬' : '🍰'}
                       </div>
                       <h3 className={`font-semibold ${formData.category === cat ? 'text-primary-700' : 'text-gray-700'}`}>
-                        {cat === 'Bakery' ? 'Roti/Bakery' : cat === 'Meals' ? 'Makanan Berat' : cat === 'Groceries' ? 'Bahan Mentah' : 'Pencuci Mulut'}
+                        {cat === 'Bakery' ? 'Bakery' : cat === 'Meals' ? 'Heavy Meals' : cat === 'Groceries' ? 'Raw Ingredients' : 'Desserts'}
                       </h3>
                     </button>
                   ))}
@@ -112,8 +111,8 @@ export default function CreateListingPage() {
 
             {step === 2 && (
               <motion.div key="step2" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-4">
-                <h2 className="text-2xl font-bold text-gray-900">Berapa banyak porsi?</h2>
-                <p className="text-gray-500 text-sm mb-6">Tentukan jumlah porsi Surprise Bag yang tersedia.</p>
+                <h2 className="text-2xl font-bold text-gray-900">How many portions?</h2>
+                <p className="text-gray-500 text-sm mb-6">Determine the number of Surprise Bag portions available.</p>
                 <div className="flex items-center justify-center py-10">
                   <div className="flex items-center gap-6">
                     <button 
@@ -132,8 +131,8 @@ export default function CreateListingPage() {
 
             {step === 3 && (
               <motion.div key="step3" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-4">
-                <h2 className="text-2xl font-bold text-gray-900">Berapa harga diskonnya?</h2>
-                <p className="text-gray-500 text-sm mb-6">Kami menyarankan diskon 50-70% dari harga asli.</p>
+                <h2 className="text-2xl font-bold text-gray-900">What is the discounted price?</h2>
+                <p className="text-gray-500 text-sm mb-6">We recommend a 50-70% discount off the original price.</p>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-xl">Rp</span>
                   <input
@@ -150,11 +149,11 @@ export default function CreateListingPage() {
 
             {step === 4 && (
               <motion.div key="step4" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-4">
-                <h2 className="text-2xl font-bold text-gray-900">Kapan pembeli bisa mengambil?</h2>
-                <p className="text-gray-500 text-sm mb-6">Tentukan batas waktu (window) pengambilan pesanan di toko Anda.</p>
+                <h2 className="text-2xl font-bold text-gray-900">When can buyers pick up?</h2>
+                <p className="text-gray-500 text-sm mb-6">Determine the pickup time window for orders at your store.</p>
                 
                 <div className="grid grid-cols-1 gap-3">
-                  {['17:00 - 18:00', '19:00 - 20:30', '20:00 - 21:00', 'Tutup Toko (21:00+)'].map(time => (
+                  {['17:00 - 18:00', '19:00 - 20:30', '20:00 - 21:00', 'Store Closed (21:00+)'].map(time => (
                     <button
                       key={time}
                       onClick={() => setFormData({...formData, pickupTime: time})}
@@ -185,14 +184,14 @@ export default function CreateListingPage() {
               disabled={step === 3 && !formData.price}
               className="btn-primary disabled:opacity-50 disabled:active:scale-100"
             >
-              Lanjutkan
+              Continue
             </button>
           ) : (
             <button 
               onClick={handleSubmit}
               className="btn-primary shadow-lg shadow-primary-500/30"
             >
-              Terbitkan Listing
+              Publish Listing
             </button>
           )}
         </footer>

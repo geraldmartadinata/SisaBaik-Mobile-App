@@ -54,7 +54,7 @@ export default function OrderTrackingPage() {
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
           </button>
-          <h1 className="text-lg font-bold text-gray-900">{order.status === 'completed' ? 'Detail Pesanan' : 'Status Pesanan'}</h1>
+          <h1 className="text-lg font-bold text-gray-900">{order.status === 'completed' ? 'Order Details' : 'Order Status'}</h1>
         </div>
 
         {order.status === 'completed' ? (
@@ -66,28 +66,28 @@ export default function OrderTrackingPage() {
                   <polyline points="22 4 12 14.01 9 11.01" />
                 </svg>
               </div>
-              <h2 className="text-xl font-bold text-gray-900 mb-1">Pesanan Selesai</h2>
-              <p className="text-sm text-gray-500">Terima kasih telah menyelamatkan makanan ini!</p>
+              <h2 className="text-xl font-bold text-gray-900 mb-1">Order Completed</h2>
+              <p className="text-sm text-gray-500">Thank you for rescuing this food!</p>
             </div>
             <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 animate-fade-in">
-              <h3 className="font-bold text-gray-900 mb-3 border-b border-gray-100 pb-3">Ringkasan Pesanan</h3>
+              <h3 className="font-bold text-gray-900 mb-3 border-b border-gray-100 pb-3">Order Summary</h3>
               <div className="flex justify-between items-center mb-2">
-                <span className="text-sm text-gray-500">Toko</span>
+                <span className="text-sm text-gray-500">Store</span>
                 <span className="text-sm font-semibold text-gray-900">{order.storeName}</span>
               </div>
               <div className="flex justify-between items-center mb-2">
-                <span className="text-sm text-gray-500">Waktu Pengambilan</span>
+                <span className="text-sm text-gray-500">Pickup Time</span>
                 <span className="text-sm font-semibold text-gray-900">
-                  {order.completedAt ? new Date(order.completedAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) : 'Selesai'}
+                  {order.completedAt ? new Date(order.completedAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) : 'Completed'}
                 </span>
               </div>
               <div className="flex justify-between items-center mb-4">
-                <span className="text-sm text-gray-500">ID Pesanan</span>
+                <span className="text-sm text-gray-500">Order ID</span>
                 <span className="text-sm font-semibold text-gray-900">{order.orderCode || `#${order.id}`}</span>
               </div>
               <div className="border-t border-dashed border-gray-200 pt-4 mt-2">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm text-gray-900 font-bold">Total Pembayaran</span>
+                  <span className="text-sm text-gray-900 font-bold">Total Payment</span>
                   <span className="text-sm font-bold text-primary-600">Rp {(order.total || 0).toLocaleString('id-ID')}</span>
                 </div>
               </div>
@@ -119,15 +119,15 @@ export default function OrderTrackingPage() {
                 <polyline points="12,6 12,12 16,14" />
               </svg>
               <div>
-                <p className="text-xs font-semibold text-primary-700">Waktu Pengambilan</p>
-                <p className="text-xs text-primary-600">Hari ini, {order.pickupWindow}</p>
+                <p className="text-xs font-semibold text-primary-700">Pickup Time</p>
+                <p className="text-xs text-primary-600">Today, {order.pickupWindow}</p>
               </div>
             </div>
           </div>
 
           {/* Order Timeline */}
           <div className="card p-5">
-            <h3 className="text-sm font-bold text-gray-900 mb-5">Lacak Pesanan</h3>
+            <h3 className="text-sm font-bold text-gray-900 mb-5">Track Order</h3>
             <OrderTimeline timeline={order.timeline} />
           </div>
 
@@ -216,7 +216,7 @@ export default function OrderTrackingPage() {
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
               <path d="M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01" />
             </svg>
-            <span>Tampilkan QR</span>
+            <span>Show QR</span>
           </button>
 
           {/* Secondary outline: Chat Toko */}
@@ -227,7 +227,7 @@ export default function OrderTrackingPage() {
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
             </svg>
-            Chat Toko
+            Store Chat
           </button>
         </div>
       )}
@@ -261,7 +261,7 @@ export default function OrderTrackingPage() {
               </svg>
             </button>
 
-            <h3 className="text-xl font-bold text-center text-gray-900 mb-6">Tunjukkan QR</h3>
+            <h3 className="text-xl font-bold text-center text-gray-900 mb-6">Show QR</h3>
 
             <div 
               className="w-56 h-56 mx-auto bg-white border-2 border-gray-100 rounded-2xl p-4 flex items-center justify-center shadow-inner cursor-pointer hover:border-primary-300 transition-colors"
@@ -331,7 +331,7 @@ export default function OrderTrackingPage() {
             </div>
             
             <div className="mt-4 text-center">
-              <p className="text-gray-500 text-sm">Ketuk QR untuk simulasi penyelesaian pesanan (Demo)</p>
+              <p className="text-gray-500 text-sm">Tap QR to simulate order completion (Demo)</p>
             </div>
             </motion.div>
           </motion.div>

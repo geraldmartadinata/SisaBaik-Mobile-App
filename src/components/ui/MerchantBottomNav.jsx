@@ -15,7 +15,7 @@ const navItems = [
   },
   {
     to: '/seller-orders',
-    label: 'Pesanan',
+    label: 'Orders',
     icon: (active) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={active ? '#16A34A' : '#9CA3AF'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -28,7 +28,7 @@ const navItems = [
   },
   {
     to: '/seller-profile',
-    label: 'Profil',
+    label: 'Profile',
     icon: (active) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill={active ? '#16A34A' : 'none'} stroke={active ? '#16A34A' : '#9CA3AF'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />

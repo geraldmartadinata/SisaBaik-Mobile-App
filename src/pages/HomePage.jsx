@@ -169,7 +169,7 @@ export default function HomePage() {
             ))}
             {filteredStores.filter(s => s.isOpen).length === 0 && (
               <div className="w-full text-center py-8 text-gray-400 text-sm">
-                Tidak ada toko yang buka.
+                No stores are open.
               </div>
             )}
             {/* Spacer for right padding in flex row */}
